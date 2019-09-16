@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using stravaVisualizer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication;
 
 namespace stravaVisualizer
 {
@@ -38,9 +39,38 @@ namespace stravaVisualizer
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<StravaUserActivitiesDbContext>(options => 
+            {
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("StravaUserActivities"));
+            });
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            
+            #region Strava Authentication
+            services.AddAuthentication().AddStrava(options =>
+            {
+                options.ClientId = "38534";
+                options.ClientSecret = "a8b4dfea996be5734e6c68882f1928167c12e535";
+                options.Scope.Clear();
+                options.Scope.Add("activity:read_all");
+                options.SaveTokens = true;
+                options.Events.OnCreatingTicket = ctx =>
+                {
+                    List<AuthenticationToken> tokens = ctx.Properties.GetTokens().ToList();
+
+                    tokens.Add(new AuthenticationToken()
+                    {
+                        Name = "TicketCreated",
+                        Value = DateTime.UtcNow.ToString()
+                    });
+                    ctx.Properties.StoreTokens(tokens);
+                    return Task.CompletedTask;
+                };
+            });
+            #endregion
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -63,7 +93,6 @@ namespace stravaVisualizer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
 
             app.UseMvc(routes =>

@@ -8,8 +8,22 @@
 
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.Strava" Version="2.1.0" />
+    <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\stravaSwaggerCodeGen\src\IO.Swagger.Test\IO.Swagger.Test.csproj" />
+    <ProjectReference Include="..\..\stravaSwaggerCodeGen\src\IO.Swagger\IO.Swagger.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\mapbox\" />
   </ItemGroup>
 
 </Project>

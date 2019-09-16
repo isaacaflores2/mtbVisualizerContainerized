@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+<script src="~/js/mapbox.js">asp - append - version="true"</script>
+
+
+<h1>mtbMaps!</h1>
+
+
+<div id='map' style='width: 400px; height: 300px;'>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNmYWxvcmVzMiIsImEiOiJjazAzMTB5YnYyb293M21wZmh1NnRtdjNqIn0.iUw2jdHRohldI12Lxm-u6Q'
+        function renderMapWithMarker(center, marker) {
+            //centerLongLat = convertLatLongStrToLongLatFloat(center)
+            //markerLongLat = convertLatLongStrToLongLatFloat(marker)
+
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [-122.97, 47.04],
+                zoom: 13
+            })
+            //addMarkerToMap([-122.97, 47.04])
+        }
+
+        function convertLatLongStrToLongLatFloat(latlong) {
+            latlongStrArray = latlong.split(",")
+            longlatFloatArray = [parseFloat(latlongStrArray[1]), parseFloat(latlongStrArray[0])]
+            return longlatFloatArray;
+        }
+        var latlongString = '@ViewBag.latlong'
+        renderMapWithMarker([-122.97, 47.04], [-122.97, 47.04])
+    </script>
+</div>
+

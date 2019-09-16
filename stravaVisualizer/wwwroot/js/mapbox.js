@@ -1,8 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNmYWxvcmVzMiIsImEiOiJjazAzMTB5YnYyb293M21wZmh1NnRtdjNqIn0.iUw2jdHRohldI12Lxm-u6Q'
+﻿mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNmYWxvcmVzMiIsImEiOiJjazAzMTB5YnYyb293M21wZmh1NnRtdjNqIn0.iUw2jdHRohldI12Lxm-u6Q'
 
 function addMarkerToMap(map) {
     var marker = new mapboxgl.Marker()
@@ -18,7 +14,7 @@ function renderMap(center) {
         zoom: 13
 
     })
-
+    
 }
 
 function renderMapWithMarker(center, marker) {
@@ -39,3 +35,4 @@ function convertLatLongStrToLongLatFloat(latlong) {
     longlatFloatArray = [parseFloat(latlongStrArray[1]), parseFloat(latlongStrArray[0])]
     return longlatFloatArray;
 }
+
