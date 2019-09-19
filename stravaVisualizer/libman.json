@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "filesystem",
+  "libraries": [
+    {
+      "library": "node_modules/mapbox-gl/dist/",
+      "destination": "wwwroot/lib/dist/mapbox-gl"
+    }
+  ]
+}

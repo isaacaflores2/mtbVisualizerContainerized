@@ -21,9 +21,4 @@
     <ProjectReference Include="..\..\stravaSwaggerCodeGen\src\IO.Swagger\IO.Swagger.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\mapbox\" />
-  </ItemGroup>
-
 </Project>
