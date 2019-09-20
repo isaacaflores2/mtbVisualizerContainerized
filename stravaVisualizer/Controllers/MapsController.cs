@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using stravaVisualizer.Data;
 using stravaVisualizer.Models;
@@ -10,12 +11,13 @@ using stravaVisualizer.Models;
 namespace stravaVisualizer.Controllers
 {
     [Route("maps")]
-    public class StravaUserActivitiesController : Controller
+    [Authorize]
+    public class MapsController : Controller
     {
         private readonly StravaUserActivitiesDbContext _db;
         public IDictionary<string, string> AuthProperties { get; set; }
 
-        public StravaUserActivitiesController(StravaUserActivitiesDbContext db)
+        public MapsController(StravaUserActivitiesDbContext db)
         {
             _db = db;
         }
@@ -35,6 +37,14 @@ namespace stravaVisualizer.Controllers
             ViewBag.latlong = latlongString;
             return View();
         }
-        
-    }
+
+        [Route("/Bing")]
+        public async Task<IActionResult> Bing()
+        {
+            return View();
+        }
+
+
+
+        }
 }

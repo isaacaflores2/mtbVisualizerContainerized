@@ -2,40 +2,38 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNmYWxvcmVzMiIsImEiOiJjazAzMTB5YnYyb293M21wZmh1NnRtdjNqIn0.iUw2jdHRohldI12Lxm-u6Q'
+var BingMapKey = "AiazNxpO30PT7UwaV6w3yi9yxxYHIJ1CclFCdwHLt68WRhLpgGLMyij33FXz_psx";
 
-function addMarkerToMap(map) {
-    var marker = new mapboxgl.Marker()
-        .setLngLat([-122.6952182, 47.1002495])
-        .addTo(map)
+
+var renderRequestsMap = function (divIdForMap) {    
+    var bingMap = createBingMap(divIdForMap);
+    bingMap.setView()
 }
 
-function renderMap(center) {
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: center,
-        zoom: 13
 
-    })
+//var renderRequestsMap = function (divIdForMap, requestData) {
+//    if (requestData) {
+//        var bingMap = createBingMap(divIdForMap);
+//        addRequestPins(bingMap, requestData);
+//    }
+//}
 
+function createBingMap(divIdForMap) {
+    return new Microsoft.Maps.Map(
+        document.getElementById(divIdForMap), {
+            credentials: BingMapKey
+        });
 }
 
-function renderMapWithMarker(center, marker) {
-    centerLongLat = convertLatLongStrToLongLatFloat(center)
-    markerLongLat = convertLatLongStrToLongLatFloat(marker)
-
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-122.97, 47.04], //centerLongLat
-        zoom: 13
-    })
-    addMarkerToMap([-122.97, 47.04])
-}
-
-function convertLatLongStrToLongLatFloat(latlong) {
-    latlongStrArray = latlong.split(",")
-    longlatFloatArray = [parseFloat(latlongStrArray[1]), parseFloat(latlongStrArray[0])]
-    return longlatFloatArray;
+function addRequestPins(bingMap, requestData) {
+    var locations = [];
+    $.each(requestData, function (index, data) {
+        var location = new Microsoft.Maps.Location(data.lat, data.long);
+        locations.push(location);
+        var order = index + 1;
+        var pin = new Microsoft.Maps.Pushpin(location, { title: data.name, color: data.color, text: order.toString() });
+        bingMap.entities.push(pin);
+    });
+    var rect = Microsoft.Maps.LocationRect.fromLocations(locations);
+    bingMap.setView({ bounds: rect, padding: 80 });
 }
