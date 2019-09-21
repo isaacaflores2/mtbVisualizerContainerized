@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using stravaVisualizer.Data;
 using stravaVisualizer.Models;
 using GeoCoordinatePortable;
+using StravaVisualizer.Models;
 
 namespace stravaVisualizer.Controllers
 {
@@ -15,13 +16,13 @@ namespace stravaVisualizer.Controllers
     [Authorize]
     public class MapController : Controller
     {
-        private readonly StravaUserActivitiesDbContext _db;
+       // private readonly StravaUserActivitiesDbContext _db;
         public IDictionary<string, string> AuthProperties { get; set; }
 
-        public MapController(StravaUserActivitiesDbContext db)
-        {
-            _db = db;
-        }
+        //public MapController(StravaUserActivitiesDbContext db)
+        //{
+        //    //_db = db;
+        //}
         
         //[Route("")]
         //public async Task<IActionResult> Index()
@@ -42,16 +43,26 @@ namespace stravaVisualizer.Controllers
         [Route("")]
         public async Task<IActionResult> Index()
         {
-            IList<GeoCoordinate> coordinates = new List<GeoCoordinate>();
-            
+            IList<GeoCoordinate> coordinates = new List<GeoCoordinate>();            
             coordinates.Add(new GeoCoordinate(47.04, -122.97 ));
             coordinates.Add(new GeoCoordinate(47.24, -122.97 ));
             coordinates.Add(new GeoCoordinate(47.34, -123.00 ));
 
-            return View("Bing", coordinates);
+            var accessToken = getAccessToken().Result;
+            Map map = new Map();
+            map.Activities = StravaClient.requestUserActivities(accessToken);
+            map.extractCoordinates();
+
+            return View("Bing", map.Coordinates);
+        }
+
+        private async Task<string> getAccessToken()
+        {
+            var authResult = await HttpContext.AuthenticateAsync();            
+            AuthProperties = authResult.Properties.Items;
+            return AuthProperties.FirstOrDefault(p => p.Key == ".Token.access_token").Value;
         }
 
 
-
-        }
+    }
 }

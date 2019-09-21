@@ -17,7 +17,6 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\stravaSwaggerCodeGen\src\IO.Swagger.Test\IO.Swagger.Test.csproj" />
     <ProjectReference Include="..\..\stravaSwaggerCodeGen\src\IO.Swagger\IO.Swagger.csproj" />
   </ItemGroup>
 

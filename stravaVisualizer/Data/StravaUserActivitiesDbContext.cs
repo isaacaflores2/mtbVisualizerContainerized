@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using stravaVisualizer.Models;
+using StravaVisualizer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace stravaVisualizer.Data
 {   
     public class StravaUserActivitiesDbContext : DbContext
     {
-        public DbSet<StravaUserActivities> Activities { get; set; }
+        public DbSet<StravaClient> Activities { get; set; }
 
         public StravaUserActivitiesDbContext()
         {
@@ -17,7 +17,7 @@ namespace stravaVisualizer.Data
 
         public StravaUserActivitiesDbContext(DbContextOptions<StravaUserActivitiesDbContext> options):base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
     }
 }

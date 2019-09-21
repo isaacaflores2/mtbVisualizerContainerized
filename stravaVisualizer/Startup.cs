@@ -39,11 +39,11 @@ namespace stravaVisualizer
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<StravaUserActivitiesDbContext>(options => 
-            {
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("StravaUserActivities"));
-            });
+            //services.AddDbContext<StravaUserActivitiesDbContext>(options => 
+            //{
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("StravaUserActivities"));
+            //});
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
