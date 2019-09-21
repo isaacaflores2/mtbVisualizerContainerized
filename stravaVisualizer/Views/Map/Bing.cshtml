@@ -1,6 +1,6 @@
 ﻿
-@using GeoCoordinatePortable
-@model IEnumerable<GeoCoordinate>
+@using StravaVisualizer.Models
+@model IEnumerable<ActivityCoordinates>
 <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AiazNxpO30PT7UwaV6w3yi9yxxYHIJ1CclFCdwHLt68WRhLpgGLMyij33FXz_psx'></script>
 <script type='text/javascript'>
     var map;
@@ -8,8 +8,8 @@
     function loadMapScenario() {
         map = new Microsoft.Maps.Map(document.getElementById('bingMap'), {});
         var locations =[]
-        @foreach (GeoCoordinate c in Model) {
-            @: var location = new Microsoft.Maps.Location(@c.Latitude, @c.Longitude)
+        @foreach (ActivityCoordinates c in Model) {
+            @: var location = new Microsoft.Maps.Location(@c.Start.Latitude, @c.Start.Longitude)
             @: locations.push(location)
             @: var pin = new Microsoft.Maps.Pushpin(location, null);
             @: map.entities.push(pin);
