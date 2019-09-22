@@ -10,7 +10,7 @@ namespace StravaVisualizer.Models
     {
         public GeoCoordinate Start { get; set; }
         public GeoCoordinate End { get; set; }
-        public IEnumerable<GeoCoordinate> Route { get; set; }
+        public ICollection<GeoCoordinate> Route { get; set; }
 
         public ActivityCoordinates(GeoCoordinate start, GeoCoordinate end)
         {

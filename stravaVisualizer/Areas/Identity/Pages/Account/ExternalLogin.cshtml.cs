@@ -153,6 +153,11 @@ namespace stravaVisualizer.Areas.Identity.Pages.Account
                         {
                             await _userManager.AddClaimAsync(user,
                                 info.Principal.FindFirst(ClaimTypes.Country));
+                        }
+                        if (info.ProviderKey != null )
+                        {
+                            await _userManager.AddClaimAsync(user,
+                                new Claim("stravaId", info.ProviderKey));
                         }                        
 
                         // Include the access token in the properties

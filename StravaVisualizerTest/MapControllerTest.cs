@@ -8,6 +8,7 @@ namespace StravaVisualizerTest
         [TestMethod]
         public void Index_Action_Test()
         {
+
             //MapController controller = new MapController();
             Assert.Fail();
         }

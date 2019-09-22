@@ -9,6 +9,7 @@ using stravaVisualizer.Data;
 using stravaVisualizer.Models;
 using GeoCoordinatePortable;
 using StravaVisualizer.Models;
+using IO.Swagger.Model;
 
 namespace stravaVisualizer.Controllers
 {
@@ -42,18 +43,15 @@ namespace stravaVisualizer.Controllers
 
         [Route("")]
         public async Task<IActionResult> Index()
-        {
-            IList<GeoCoordinate> coordinates = new List<GeoCoordinate>();            
-            coordinates.Add(new GeoCoordinate(47.04, -122.97 ));
-            coordinates.Add(new GeoCoordinate(47.24, -122.97 ));
-            coordinates.Add(new GeoCoordinate(47.34, -123.00 ));
+        {          
+            string accessToken = getAccessToken().Result;
+            int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
 
-            var accessToken = getAccessToken().Result;
             Map map = new Map();
-            map.Activities = StravaClient.requestUserActivities(accessToken);
-            map.extractCoordinates();
+            map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
+            map.generatePinsByype(ActivityType.Ride);
 
-            return View("Bing", map.Coordinates);
+            return View("Bing", map.Pins);
         }
 
         private async Task<string> getAccessToken()
