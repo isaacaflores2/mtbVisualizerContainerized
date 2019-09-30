@@ -13,7 +13,7 @@ using IO.Swagger.Model;
 
 namespace stravaVisualizer.Controllers
 {
-    [Route("Map")]
+   
     [Authorize]
     public class MapController : Controller
     {
@@ -41,17 +41,30 @@ namespace stravaVisualizer.Controllers
         //    return View();
         //}
 
-        [Route("")]
+     
         public async Task<IActionResult> Index()
-        {          
+        {
+            //string accessToken = getAccessToken().Result;
+            //int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
+
+            //Map map = new Map();
+            //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
+            //map.generatePinsByype(ActivityType.Ride);
+
+            return View("Map");
+        }
+
+    
+        public  ActionResult LoadMap()
+        {
             string accessToken = getAccessToken().Result;
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
 
             Map map = new Map();
-            map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
-            map.generatePinsByype(ActivityType.Ride);
+            //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
+            //map.generatePinsByype(ActivityType.Ride);
 
-            return View("Bing", map.Pins);
+            return PartialView("_BingMapPartial", map.Pins);
         }
 
         private async Task<string> getAccessToken()
@@ -61,6 +74,6 @@ namespace stravaVisualizer.Controllers
             return AuthProperties.FirstOrDefault(p => p.Key == ".Token.access_token").Value;
         }
 
-
+      
     }
 }
