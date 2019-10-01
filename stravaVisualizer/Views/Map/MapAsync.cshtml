@@ -1,0 +1,27 @@
+﻿
+@using StravaVisualizer.Models
+@model ICollection<Pin>
+
+<h2>Your rides</h2>
+
+
+
+<div id="mapDiv" ></div>
+
+
+    @section Scripts
+    {
+        <script>
+            $.ajax({
+                url: '@Url.Action("LoadMap")',
+                type: 'GET',
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+                },
+                success: function (result) {
+                    $('#mapDiv').html(result);
+                    console.log(result);
+                }
+            });
+        </script>
+    }
