@@ -10,6 +10,7 @@ using stravaVisualizer.Models;
 using GeoCoordinatePortable;
 using StravaVisualizer.Models;
 using IO.Swagger.Model;
+using System.Diagnostics;
 
 namespace stravaVisualizer.Controllers
 {
@@ -51,7 +52,8 @@ namespace stravaVisualizer.Controllers
             //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
             //map.generatePinsByype(ActivityType.Ride);
 
-            return View("Map");
+            return View("MapAsync");
+            //return View("Map", map.Pins);
         }
 
     
@@ -59,12 +61,17 @@ namespace stravaVisualizer.Controllers
         {
             string accessToken = getAccessToken().Result;
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
-
+            Debug.WriteLine("Load Map called!");
             Map map = new Map();
-            //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
-            //map.generatePinsByype(ActivityType.Ride);
+            map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
+            map.generatePinsByype(ActivityType.Ride);
 
             return PartialView("_BingMapPartial", map.Pins);
+        }
+
+        public PartialViewResult Partial()
+        {
+            return PartialView("_Partial");
         }
 
         private async Task<string> getAccessToken()
