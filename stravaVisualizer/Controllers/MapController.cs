@@ -10,10 +10,11 @@ using stravaVisualizer.Models;
 using GeoCoordinatePortable;
 using StravaVisualizer.Models;
 using IO.Swagger.Model;
+using System.Diagnostics;
 
 namespace stravaVisualizer.Controllers
 {
-    [Route("Map")]
+   
     [Authorize]
     public class MapController : Controller
     {
@@ -41,17 +42,28 @@ namespace stravaVisualizer.Controllers
         //    return View();
         //}
 
-        [Route("")]
+     
         public async Task<IActionResult> Index()
-        {          
+        {                
+            return View("MapAsync");
+        }
+
+    
+        public  ActionResult LoadMap()
+        {
             string accessToken = getAccessToken().Result;
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
-
+            Debug.WriteLine("Load Map called!");
             Map map = new Map();
             map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
-            map.generatePinsByype(ActivityType.Ride);
+            map.generatePinsByType(ActivityType.Ride);
 
-            return View("Bing", map.Pins);
+            return PartialView("_BingMapPartial", map.Coordinates);
+        }
+
+        public PartialViewResult Partial()
+        {
+            return PartialView("_Partial");
         }
 
         private async Task<string> getAccessToken()
@@ -61,6 +73,6 @@ namespace stravaVisualizer.Controllers
             return AuthProperties.FirstOrDefault(p => p.Key == ".Token.access_token").Value;
         }
 
-
+      
     }
 }
