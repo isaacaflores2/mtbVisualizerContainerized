@@ -7,6 +7,12 @@
     var map, clusterLayer;
     var locations = []
     var pins = []
+    var pinRadius = 10
+    var pinColor = 'rgba(20, 180, 20, 0.5)'
+    var pinSvg = ['<svg xmlns="http://www.w3.org/2000/svg" width="', (pinRadius * 2), '" height="', (pinRadius * 2), '">',
+        '<circle cx="', pinRadius, '" cy="', pinRadius, '" r="', pinRadius, '" fill="', pinColor, '"/>',
+        '<circle cx="', pinRadius, '" cy="', pinRadius, '" r="', pinRadius - 7, '" fill="', pinColor, '"/>',
+        '</svg>'];
     function loadMapScenario() {
         map = new Microsoft.Maps.Map(document.getElementById('myMap'), {});
 
@@ -14,7 +20,7 @@
             @: var location = new Microsoft.Maps.Location(@pin.Start.Latitude, @pin.Start.Longitude)
             @: locations.push(location)
             @*@: var pin = new Microsoft.Maps.Pushpin(location, { text: "@pin.Text" });*@
-            @: var pin = new Microsoft.Maps.Pushpin(location, {});
+            @: var pin = new Microsoft.Maps.Pushpin(location, { icon: pinSvg.join(''),  text: '1' });
             @: pins.push(pin)
             @*@: map.entities.push(pin);*@
         }
@@ -23,20 +29,24 @@
         map.setView({ bounds: rect, padding: 0 })
 
         Microsoft.Maps.loadModule('Microsoft.Maps.Clustering', function () {
-            var clusterLayer = new Microsoft.Maps.ClusterLayer(pins, {clusteredPinCallback: createCustomClusteredPin});
+            var clusterLayer = new Microsoft.Maps.ClusterLayer(pins,
+                {
+                    clusteredPinCallback: createCustomClusteredPin,                    
+                    gridSize: 80
+                });
             map.layers.insert(clusterLayer);
         });
 
         function createCustomClusteredPin(cluster) {
             //Define variables for minimum cluster radius, and how wide the outline area of the circle should be.
-            var minRadius = 12;
+            var minRadius = 10;
             var outlineWidth = 7;
 
             //Get the number of pushpins in the cluster
             var clusterSize = cluster.containedPushpins.length;
 
             //Calculate the radius of the cluster based on the number of pushpins in the cluster, using a logarithmic scale.
-            var radius = Math.log(clusterSize) / Math.log(10) * 5 + minRadius;
+            var radius = Math.log(clusterSize) / Math.log(10) * 3 + minRadius;
 
             //Default cluster color is red.
             var fillColor = 'rgba(255, 40, 40, 0.5)';
