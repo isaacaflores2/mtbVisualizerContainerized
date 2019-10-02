@@ -2,38 +2,46 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-var BingMapKey = "AiazNxpO30PT7UwaV6w3yi9yxxYHIJ1CclFCdwHLt68WRhLpgGLMyij33FXz_psx";
 
+var pinRadius = 10
+var pinColor = 'rgba(20, 180, 20, 0.5)'
+var pinSvg = ['<svg xmlns="http://www.w3.org/2000/svg" width="', (pinRadius * 2), '" height="', (pinRadius * 2), '">',
+    '<circle cx="', pinRadius, '" cy="', pinRadius, '" r="', pinRadius, '" fill="', pinColor, '"/>',
+    '<circle cx="', pinRadius, '" cy="', pinRadius, '" r="', pinRadius - 7, '" fill="', pinColor, '"/>',
+    '</svg>'];
 
-var renderRequestsMap = function (divIdForMap) {    
-    var bingMap = createBingMap(divIdForMap);
-    bingMap.setView()
-}
+function createCustomClusteredPin(cluster) {
+    //Define variables for minimum cluster radius, and how wide the outline area of the circle should be.
+    var minRadius = 10;
+    var outlineWidth = 7;
 
+    //Get the number of pushpins in the cluster
+    var clusterSize = cluster.containedPushpins.length;
 
-//var renderRequestsMap = function (divIdForMap, requestData) {
-//    if (requestData) {
-//        var bingMap = createBingMap(divIdForMap);
-//        addRequestPins(bingMap, requestData);
-//    }
-//}
+    //Calculate the radius of the cluster based on the number of pushpins in the cluster, using a logarithmic scale.
+    var radius = Math.log(clusterSize) / Math.log(10) * 3 + minRadius;
 
-function createBingMap(divIdForMap) {
-    return new Microsoft.Maps.Map(
-        document.getElementById(divIdForMap), {
-            credentials: BingMapKey
-        });
-}
+    //Default cluster color is red.
+    var fillColor = 'rgba(255, 40, 40, 0.5)';
 
-function addRequestPins(bingMap, requestData) {
-    var locations = [];
-    $.each(requestData, function (index, data) {
-        var location = new Microsoft.Maps.Location(data.lat, data.long);
-        locations.push(location);
-        var order = index + 1;
-        var pin = new Microsoft.Maps.Pushpin(location, { title: data.name, color: data.color, text: order.toString() });
-        bingMap.entities.push(pin);
+    if (clusterSize < 10) {
+        //Make the cluster green if there are less than 10 pushpins in it.
+        fillColor = 'rgba(20, 180, 20, 0.5)';
+    } else if (clusterSize < 100) {
+        //Make the cluster yellow if there are 10 to 99 pushpins in it.
+        fillColor = 'rgba(255, 210, 40, 0.5)';
+    }
+
+    //Create an SVG string of two circles, one on top of the other, with the specified radius and color.
+    var svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="', (radius * 2), '" height="', (radius * 2), '">',
+        '<circle cx="', radius, '" cy="', radius, '" r="', radius, '" fill="', fillColor, '"/>',
+        '<circle cx="', radius, '" cy="', radius, '" r="', radius - outlineWidth, '" fill="', fillColor, '"/>',
+        '</svg>'];
+
+    //Customize the clustered pushpin using the generated SVG and anchor on its center.
+    cluster.setOptions({
+        icon: svg.join(''),
+        anchor: new Microsoft.Maps.Point(radius, radius),
+        textOffset: new Microsoft.Maps.Point(0, radius - 8) //Subtract 8 to compensate for height of text.
     });
-    var rect = Microsoft.Maps.LocationRect.fromLocations(locations);
-    bingMap.setView({ bounds: rect, padding: 80 });
 }
