@@ -44,16 +44,8 @@ namespace stravaVisualizer.Controllers
 
      
         public async Task<IActionResult> Index()
-        {
-            //string accessToken = getAccessToken().Result;
-            //int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
-
-            //Map map = new Map();
-            //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
-            //map.generatePinsByype(ActivityType.Ride);
-
+        {                
             return View("MapAsync");
-            //return View("Map", map.Pins);
         }
 
     
@@ -64,9 +56,9 @@ namespace stravaVisualizer.Controllers
             Debug.WriteLine("Load Map called!");
             Map map = new Map();
             map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
-            map.generatePinsByype(ActivityType.Ride);
+            map.generatePinsByType(ActivityType.Ride);
 
-            return PartialView("_BingMapPartial", map.Pins);
+            return PartialView("_BingMapPartial", map.Coordinates);
         }
 
         public PartialViewResult Partial()
