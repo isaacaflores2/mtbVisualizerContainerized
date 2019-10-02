@@ -46,7 +46,7 @@ namespace StravaVisualizer.Models
         }
 
 
-        public void generatePinsByype(ActivityType type)
+        public void generatePinsByType(ActivityType type)
         {
             var ActivitiesByType = from activity in Activities
                                    where activity.Type == type
