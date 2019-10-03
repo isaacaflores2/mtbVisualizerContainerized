@@ -14,6 +14,8 @@ using stravaVisualizer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
+using StravaVisualizer.Models;
+using StravaVisualizer.Models.Map;
 
 namespace stravaVisualizer
 {
@@ -38,12 +40,7 @@ namespace stravaVisualizer
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<StravaUserActivitiesDbContext>(options => 
-            //{
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("StravaUserActivities"));
-            //});
+                    Configuration.GetConnectionString("DefaultConnection")));      
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
@@ -73,6 +70,10 @@ namespace stravaVisualizer
             #endregion
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddTransient<IHttpContextHelper, HttpContextHelper>();
+            services.AddTransient<IStravaClient, StravaClient>();
+            services.AddTransient<IMap, Map>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

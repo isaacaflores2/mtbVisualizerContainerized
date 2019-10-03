@@ -13,9 +13,9 @@ using IO.Swagger.Model;
 
 namespace StravaVisualizer.Models
 {
-    public class StravaClient
+    public class StravaClient: IStravaClient
     {                   
-        public async Task<IEnumerable<SummaryActivity>> requesAllUserActivities(string accessToken, int id)
+        public async Task<IEnumerable<SummaryActivity>> allUserActivities(string accessToken, int id)
         {
             // Configure OAuth2 access token for authorization: strava_oauth
             Configuration.Default.AccessToken = accessToken;
@@ -28,9 +28,7 @@ namespace StravaVisualizer.Models
                 int totalRides = athleteStats.AllRideTotals.Count.Value;
                 totalRides += athleteStats.AllRunTotals.Count.Value;
                 totalRides += athleteStats.AllSwimTotals.Count.Value;
-                List<SummaryActivity> result = getActivities(activitiesApiInstance, totalRides).Result;
-                //List<SummaryActivity> result = await activitiesApiInstance.GetLoggedInAthleteActivitiesAsync(page:1);
-                return result;
+                return await getActivities(activitiesApiInstance, totalRides);                             
             }
             catch (Exception e)
             {
@@ -72,6 +70,16 @@ namespace StravaVisualizer.Models
                 Debug.Print("Exception when calling ActivitiesApi.getLoggedInAthleteActivities: " + e.Message);
             }
             return null;
+        }
+
+        IEnumerable<SummaryActivity> IStravaClient.requesAllUserActivities(string accessToken, int id)
+        {
+            return allUserActivities(accessToken, id).Result;
+        }
+
+        public IEnumerable<SummaryActivity> requesUserActivitiesAfter(string accessToken, int id, DateTime afterDate)
+        {
+            throw new NotImplementedException();
         }
     }
 }

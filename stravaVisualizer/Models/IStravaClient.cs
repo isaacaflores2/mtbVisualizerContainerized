@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StravaVisualizer.Models
 {
-    interface IStravaClient
+    public interface IStravaClient
     {
         IEnumerable<SummaryActivity> requesAllUserActivities(string accessToken, int id);
         IEnumerable<SummaryActivity> requesUserActivitiesAfter(string accessToken, int id, DateTime afterDate);

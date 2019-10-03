@@ -12,6 +12,7 @@ using StravaVisualizer.Models;
 using IO.Swagger.Model;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using StravaVisualizer.Models.Map;
 
 namespace stravaVisualizer.Controllers
 {   
@@ -19,13 +20,17 @@ namespace stravaVisualizer.Controllers
     public class MapController : Controller
     {
         private readonly IHttpContextHelper _httpContextHelper;
+        private readonly IStravaClient _stravaClient;
+        private readonly IMap _map;
 
         // private readonly StravaUserActivitiesDbContext _db;        
         public IDictionary<string, string> AuthProperties { get; set; }
 
-        public MapController(IHttpContextHelper httpContextHelper)
+        public MapController(IHttpContextHelper httpContextHelper, IStravaClient stravaClient, IMap map) 
         {
             this._httpContextHelper = httpContextHelper;
+            this._stravaClient = stravaClient;
+            this._map = map; 
         }
 
         public IActionResult Index()
@@ -35,14 +40,16 @@ namespace stravaVisualizer.Controllers
     
         public  PartialViewResult LoadMap()
         {
+            _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
-            
-            Map map = new Map();
-            //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
-            //map.generatePinsByType(ActivityType.Ride);
+            var coordinates = _map.getCoordinates(_stravaClient.requesAllUserActivities(accessToken, stravaId));
 
-            return PartialView("_BingMapPartial", map.Coordinates);
+            //_map.Activities = _stravaClient.requesAllUserActivities(accessToken, stravaId);
+            //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
+            //_map.generatePinsByType(ActivityType.Ride);
+
+            return PartialView("_BingMapPartial", coordinates);
         }
    
         private async Task<string> getAccessToken()
