@@ -9,21 +9,19 @@ namespace StravaVisualizer.Models
 {
     public class HttpContextHelper : IHttpContextHelper
     {
-        private readonly HttpContext _context;
-
-        public HttpContextHelper(HttpContext context)
-        {
-            this._context = context;
-        }
-
+        public HttpContext Context { get; set; }
+ 
         public string getAccessToken()
         {
-            return geToken("access_token").Result;
+            return getToken("access_token").Result;
         }
 
-        private async Task<string> geToken(string token)
+        private async Task<string> getToken(string token)
         {
-            return await _context.GetTokenAsync(token);
+            if (Context != null)
+                return await Context.GetTokenAsync(token);
+            else
+                throw new NullReferenceException("Context for HttpContextHelper is null. Assing helper a context.");
         }
     }
 }

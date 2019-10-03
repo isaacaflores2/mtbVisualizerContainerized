@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
+using StravaVisualizer.Models.Map;
 
-namespace StravaVisualizer.Models
+namespace StravaVisualizer.Models.Map
 {
-    public class Map
+    public class Map : IMap
     {
         public IEnumerable<SummaryActivity> Activities { get; set; }
         public ICollection<ActivityCoordinates> Coordinates { get; set;}
@@ -20,6 +21,13 @@ namespace StravaVisualizer.Models
             Coordinates = new List<ActivityCoordinates>();
             Pins = new List<Pin>();
             LocationsCount = new Dictionary<GeoCoordinate, int>();
+        }
+
+        public ICollection<ActivityCoordinates> getCoordinates(IEnumerable<SummaryActivity> activities)
+        {
+            Activities = activities;
+            extractCoordinates();
+            return Coordinates;
         }
 
         public void extractCoordinates()
@@ -88,5 +96,7 @@ namespace StravaVisualizer.Models
                 LocationsCount.Add(coordinate, 1);
             }
         }
+
+      
     }
 }
