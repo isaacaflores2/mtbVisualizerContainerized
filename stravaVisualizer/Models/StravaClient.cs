@@ -14,9 +14,8 @@ using IO.Swagger.Model;
 namespace StravaVisualizer.Models
 {
     public class StravaClient
-    {
-                   
-        public static async Task<IEnumerable<SummaryActivity>> requesAllUserActivities(string accessToken, int id)
+    {                   
+        public async Task<IEnumerable<SummaryActivity>> requesAllUserActivities(string accessToken, int id)
         {
             // Configure OAuth2 access token for authorization: strava_oauth
             Configuration.Default.AccessToken = accessToken;
@@ -40,7 +39,7 @@ namespace StravaVisualizer.Models
             return null;
         }
 
-        public static async Task<List<SummaryActivity>> getActivities(ActivitiesApi api, int total)
+        public async Task<List<SummaryActivity>> getActivities(ActivitiesApi api, int total)
         {
             List<SummaryActivity> activities = new List<SummaryActivity>();
             int requiredPages = (int) Math.Ceiling(total /30.0);
@@ -54,7 +53,7 @@ namespace StravaVisualizer.Models
         }
 
 
-        public static IEnumerable<SummaryActivity> requestUserActivities_After(string accessToken, DateTime afterDate)
+        public  IEnumerable<SummaryActivity> requestUserActivities_After(string accessToken, DateTime afterDate)
         {
             // Configure OAuth2 access token for authorization: strava_oauth
             Configuration.Default.AccessToken = accessToken;
