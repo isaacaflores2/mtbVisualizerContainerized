@@ -1,23 +1,131 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using IO.Swagger.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StravaVisualizer.Models;
+using NSubstitute;
+using IO.Swagger.Model;
+using System.Threading.Tasks;
 
 namespace StravaVisualizerTest
 {
     [TestClass]
     public class StravaClientTest
     {
-        [TestMethod]
-        public void GetUserActivites_Test()
+        private IAthletesApi athleteApi;
+        private IActivitiesApi activitiesApi;
+        private int totalRides = 50;
+        private int totalRuns = 100;
+        private int totalSwims = 1;
+        
+
+        [TestInitialize]
+        public void Setup()
         {
-            Assert.Fail();
+   
+            athleteApi = Substitute.For<IAthletesApi>();
+            ActivityStats stats = new ActivityStats(
+                allRideTotals: new ActivityTotal(count: totalRides),
+                allRunTotals: new ActivityTotal(count: totalRuns),
+                allSwimTotals: new ActivityTotal(count: totalSwims)
+                );
+            athleteApi.GetStatsAsync(Arg.Any<int>()).Returns(stats);
+
+            activitiesApi = Substitute.For<IActivitiesApi>();
+            List<SummaryActivity> activities = new List<SummaryActivity>
+            {
+                new SummaryActivity(movingTime:60),
+                new SummaryActivity(type:ActivityType.Ride)
+            };          
+            activitiesApi.GetLoggedInAthleteActivitiesAsync(page:Arg.Any<int>()).Returns(Task.FromResult(activities));
+
+            List<SummaryActivity> activitiesAfter = new List<SummaryActivity>
+            {
+                new SummaryActivity(movingTime:100),
+                new SummaryActivity(type:ActivityType.Run)
+            };
+            activitiesApi.GetLoggedInAthleteActivitiesAsync(page:Arg.Any<int>(), after: Arg.Any<int>()).Returns(Task.FromResult(activitiesAfter));
         }
 
         [TestMethod]
-        public void GetUserActivitesAfter_Test()
+        public void Test_RequestAllUserActivities()
+        {            
+            StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
+
+            List<SummaryActivity> result = (List<SummaryActivity>) stravaClient.getAllUserActivities("access_token", 123);
+
+
+            Assert.AreEqual(12, result.Count);
+            Assert.AreEqual(60, result.ToArray()[0].MovingTime);
+            Assert.AreEqual(ActivityType.Ride, result.ToArray()[1].Type);
+        }
+
+        [TestMethod]
+        public async Task Test_requestAllUserActivitiesAsync()
         {
-            Assert.Fail();
+            StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
+
+            var result = (List<SummaryActivity>) await stravaClient.requestAllUserActivitiesAsync("access_token", 123);
+            
+            Assert.AreEqual(12, result.Count);
+            Assert.AreEqual(60, result.ToArray()[0].MovingTime);
+            Assert.AreEqual(ActivityType.Ride, result.ToArray()[1].Type);
+        }
+
+        [TestMethod]
+        public async Task Test_requestActivities()
+        {
+            StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
+
+            var result = (List<SummaryActivity>)await stravaClient.requestActivities(totalRides+totalRuns+totalSwims);
+
+            Assert.AreEqual(12, result.Count);
+            Assert.AreEqual(60, result.ToArray()[0].MovingTime);
+            Assert.AreEqual(ActivityType.Ride, result.ToArray()[1].Type);
+        }
+
+        [TestMethod]
+        public void Test_RequesUserActivitiesAfter()
+        {
+            StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
+
+            DateTime dateTime = DateTime.Now;
+
+            List<SummaryActivity> result = (List<SummaryActivity>)stravaClient.getUserActivitiesAfter("access_token", 123, dateTime);
+
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(100, result.ToArray()[0].MovingTime);
+            Assert.AreEqual(ActivityType.Run, result.ToArray()[1].Type);
+        }
+
+        [TestMethod]
+        public async Task requestActivitiesAfterAsync()
+        {
+            StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
+
+            DateTime dateTime = DateTime.Now;
+
+            List<SummaryActivity> result = (List<SummaryActivity>) await stravaClient.requestActivitiesAfterAsync("access_token", 123, dateTime);
+
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(100, result.ToArray()[0].MovingTime);
+            Assert.AreEqual(ActivityType.Run, result.ToArray()[1].Type);
+        }
+
+
+        [TestMethod]
+        public async Task Test_requestActivitiesAfter()
+        {
+            StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
+
+            DateTime dateTime = DateTime.Now;
+
+            List<SummaryActivity> result = (List<SummaryActivity>) await stravaClient.requestActivitiesAfter(totalRides + totalRuns + totalSwims, dateTime);
+
+            Assert.AreEqual(12, result.Count);
+            Assert.AreEqual(100, result.ToArray()[0].MovingTime);
+            Assert.AreEqual(ActivityType.Run, result.ToArray()[1].Type);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace StravaVisualizer.Models.Map
 {
     public interface IMap
     {        
-        ICollection<ActivityCoordinates> getCoordinates(IEnumerable<SummaryActivity> activities);
+        ICollection<Coordinate> getCoordinates(IEnumerable<SummaryActivity> activities);
+        ICollection<Coordinate> getCoordinatesByType(IEnumerable<SummaryActivity> activities, ActivityType type);
     }
 }

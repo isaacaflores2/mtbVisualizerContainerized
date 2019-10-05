@@ -11,21 +11,21 @@ namespace StravaVisualizer.Models.Map
     public class Map : IMap
     {
         public IEnumerable<SummaryActivity> Activities { get; set; }
-        public ICollection<ActivityCoordinates> Coordinates { get; set;}
+        public ICollection<Coordinate> Coordinates { get; set;}
         public ICollection<Pin> Pins { get; set; }
         IDictionary<GeoCoordinate, int> LocationsCount { get; set; }
 
         public Map()
         {
             Activities = null;
-            Coordinates = new List<ActivityCoordinates>();
+            Coordinates = new List<Coordinate>();
             Pins = new List<Pin>();
             LocationsCount = new Dictionary<GeoCoordinate, int>();
         }
 
-        public ICollection<ActivityCoordinates> getCoordinates(IEnumerable<SummaryActivity> activities)
+        public ICollection<Coordinate> getCoordinates(IEnumerable<SummaryActivity> activities)
         {
-            Activities = activities;
+            Activities = activities ?? throw new ArgumentNullException("Activities is null");
             extractCoordinates();
             return Coordinates;
         }
@@ -43,16 +43,25 @@ namespace StravaVisualizer.Models.Map
 
         public void addCoordinate(SummaryActivity summary)
         {
-            float?[] latlongArray = summary.StartLatlng.ToArray();
-            double latitude = Convert.ToDouble(latlongArray[0]);
-            double longitude = Convert.ToDouble(latlongArray[1]);
+           
 
-            GeoCoordinate start = new GeoCoordinate(latitude, longitude);
-            GeoCoordinate end = null;
-            ActivityCoordinates activity = new ActivityCoordinates(start, end);
-            Coordinates.Add(activity);
+            float?[] latlongArray = summary.StartLatlng.ToArray();
+            Coordinates.Add(new Coordinate(latlongArray[0], latlongArray[1]));
         }
 
+        public ICollection<Coordinate> getCoordinatesByType(IEnumerable<SummaryActivity> activities, ActivityType type)
+        {
+            if (activities == null)
+                throw new ArgumentNullException("Activities is null");
+
+            var activitiesForType = from activity in activities
+                                    where activity.Type == type
+                                    select activity;
+
+            Activities = activitiesForType;
+            extractCoordinates();
+            return Coordinates;
+        }
 
         public void generatePinsByType(ActivityType type)
         {
@@ -97,6 +106,6 @@ namespace StravaVisualizer.Models.Map
             }
         }
 
-      
+       
     }
 }

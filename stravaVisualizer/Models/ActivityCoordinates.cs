@@ -8,11 +8,11 @@ namespace StravaVisualizer.Models
 {
     public struct ActivityCoordinates
     {
-        public GeoCoordinate Start { get; set; }
-        public GeoCoordinate End { get; set; }
-        public ICollection<GeoCoordinate> Route { get; set; }
+        public Coordinate Start { get; set; }
+        public Coordinate End { get; set; }
+        public ICollection<Coordinate> Route { get; set; }
 
-        public ActivityCoordinates(GeoCoordinate start, GeoCoordinate end)
+        public ActivityCoordinates(Coordinate start, Coordinate end)
         {
             Start = start;
             End = end;

@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
 using StravaVisualizer.Models;
 using StravaVisualizer.Models.Map;
+using IO.Swagger.Api;
 
 namespace stravaVisualizer
 {
@@ -73,7 +74,9 @@ namespace stravaVisualizer
 
             services.AddTransient<IHttpContextHelper, HttpContextHelper>();
             services.AddTransient<IStravaClient, StravaClient>();
-            services.AddTransient<IMap, Map>(); 
+            services.AddTransient<IMap, Map>();
+            services.AddTransient<IActivitiesApi, ActivitiesApi>();
+            services.AddTransient<IAthletesApi, AthletesApi>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
