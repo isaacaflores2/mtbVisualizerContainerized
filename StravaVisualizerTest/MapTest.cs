@@ -23,10 +23,10 @@ namespace StravaVisualizerTest
                 new SummaryActivity(type:ActivityType.Ride, startLatlng: new LatLng()), 
             };
 
-            activities[0].StartLatlng.Add((float?)30.0);
-            activities[0].StartLatlng.Add((float?)40.0);
-            activities[1].StartLatlng.Add((float?)30.6);
-            activities[1].StartLatlng.Add((float?)40.6);                        
+            activities[0].StartLatlng.Add(30.0F);
+            activities[0].StartLatlng.Add(40.0F);
+            activities[1].StartLatlng.Add(30.6F);
+            activities[1].StartLatlng.Add(40.6F);                        
         }
         
 
@@ -45,10 +45,10 @@ namespace StravaVisualizerTest
 
             var result = (List<Coordinate>) map.getCoordinates(activities);
 
-            Assert.AreEqual((float?)30.0, result[0].Latitude);
-            Assert.AreEqual((float?)40.0, result[0].Longitude);
-            Assert.AreEqual((float?)30.6, result[1].Latitude);
-            Assert.AreEqual((float?)40.6, result[1].Longitude);
+            Assert.AreEqual(30.0F, result[0].Latitude);
+            Assert.AreEqual(40.0F, result[0].Longitude);
+            Assert.AreEqual(30.6F, result[1].Latitude);
+            Assert.AreEqual(40.6F, result[1].Longitude);
         }
 
         [TestMethod]
@@ -60,10 +60,10 @@ namespace StravaVisualizerTest
             map.extractCoordinates();
             var result = (List<Coordinate>)map.Coordinates;
 
-            Assert.AreEqual((float?)30.0, result[0].Latitude);
-            Assert.AreEqual((float?)40.0, result[0].Longitude);
-            Assert.AreEqual((float?)30.6, result[1].Latitude);
-            Assert.AreEqual((float?)40.6, result[1].Longitude);            
+            Assert.AreEqual(30.0F, result[0].Latitude);
+            Assert.AreEqual(40.0F, result[0].Longitude);
+            Assert.AreEqual(30.6F, result[1].Latitude);
+            Assert.AreEqual(40.6F, result[1].Longitude);            
         }
 
         [TestMethod]
@@ -94,10 +94,46 @@ namespace StravaVisualizerTest
             var result = (List<Coordinate>)map.getCoordinatesByType(activities, ActivityType.Ride);
 
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual((float?)30.6, result[0].Latitude);
-            Assert.AreEqual((float?)40.6, result[0].Longitude);
-           
+            Assert.AreEqual(30.6F, result[0].Latitude);
+            Assert.AreEqual(40.6F, result[0].Longitude);           
         }
 
+        [TestMethod]
+        public void Test_getUniqueCoordinatesByType()
+        {
+            Map map = new Map();
+            activities.Add(new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), movingTime: 60));
+            activities[2].StartLatlng.Add(30.0F);
+            activities[2].StartLatlng.Add(40.0F);
+
+            map.getUniqueCoordinatesByType(activities, ActivityType.Ride);
+            var result = (List<Coordinate>) map.Coordinates;
+
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(30.6F, result[0].Latitude);
+            Assert.AreEqual(40.6F, result[0].Longitude);
+            Assert.AreEqual(30.0F, result[1].Latitude);
+            Assert.AreEqual(40.0F, result[1].Longitude);
+          
+        }
+
+        [TestMethod]
+        public void Test_updateNumVisits()
+        {
+            Map map = new Map();
+            activities.Add(new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), movingTime: 60));
+            activities[2].StartLatlng.Add((float?)30.0);
+            activities[2].StartLatlng.Add((float?)40.0);
+
+            foreach ( var activity in activities)
+            {
+                map.updateNumVisits(activity);
+            }            
+            var result = map.NumVisits;
+
+            Assert.AreEqual(2, result.Count);
+            result.TryGetValue(new Coordinate(30.0F, 40.0F), out var visits);
+            Assert.AreEqual(2, visits);
+        }
     }
 }
