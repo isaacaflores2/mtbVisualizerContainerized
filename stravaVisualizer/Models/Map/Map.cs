@@ -13,14 +13,14 @@ namespace StravaVisualizer.Models.Map
         public IEnumerable<SummaryActivity> Activities { get; set; }
         public ICollection<Coordinate> Coordinates { get; set;}
         public ICollection<Pin> Pins { get; set; }
-        IDictionary<GeoCoordinate, int> LocationsCount { get; set; }
+        public IDictionary<Coordinate, int> NumVisits { get; set; }
 
         public Map()
         {
             Activities = null;
             Coordinates = new List<Coordinate>();
             Pins = new List<Pin>();
-            LocationsCount = new Dictionary<GeoCoordinate, int>();
+            NumVisits = new Dictionary<Coordinate, int>();
         }
 
         public ICollection<Coordinate> getCoordinates(IEnumerable<SummaryActivity> activities)
@@ -42,9 +42,7 @@ namespace StravaVisualizer.Models.Map
         }
 
         public void addCoordinate(SummaryActivity summary)
-        {
-           
-
+        {          
             float?[] latlongArray = summary.StartLatlng.ToArray();
             Coordinates.Add(new Coordinate(latlongArray[0], latlongArray[1]));
         }
@@ -63,46 +61,48 @@ namespace StravaVisualizer.Models.Map
             return Coordinates;
         }
 
-        public void generatePinsByType(ActivityType type)
+        public void getUniqueCoordinatesByType(IEnumerable<SummaryActivity> activities, ActivityType type)
         {
-            var ActivitiesByType = from activity in Activities
+            if (activities == null)
+                throw new ArgumentNullException("Activities is null");
+
+            var activitiesForType = from activity in activities
                                    where activity.Type == type
                                    select activity;
-            
-            foreach (SummaryActivity summary in ActivitiesByType)
+            Activities = activitiesForType;
+
+            foreach (SummaryActivity summary in Activities)
             {
                 if (summary == null || summary.StartLatlng == null)
                     continue;
 
-                addCoordinateLocationsCount(summary);
+                updateNumVisits(summary);
                 addCoordinate(summary);
             }
 
-            foreach(var coordinate in LocationsCount.Keys)
+            foreach(var coordinate in NumVisits.Keys)
             {
                 Pin pin = new Pin();
                 pin.Location = coordinate;
-                pin.Text = Convert.ToString(LocationsCount[coordinate]);
+                pin.Text = Convert.ToString(NumVisits[coordinate]);
                 Pins.Add(pin);
             }
         }
 
-        public void addCoordinateLocationsCount(SummaryActivity summary)
+        public void updateNumVisits(SummaryActivity summary)
         {
-            float?[] latlongArray = summary.StartLatlng.ToArray();
-            double latitute = Convert.ToDouble(latlongArray[0]);
-            double longitude = Convert.ToDouble(latlongArray[1]);
-
-            GeoCoordinate coordinate = new GeoCoordinate(latitute, longitude);
-            if (LocationsCount.ContainsKey(coordinate))
+            float?[] latlongArray = summary.StartLatlng.ToArray();                        
+            var coordinate = new Coordinate(latlongArray[0], latlongArray[1]);
+            
+            if (NumVisits.ContainsKey(coordinate))
             {
-                LocationsCount.TryGetValue(coordinate, out var count);
+                NumVisits.TryGetValue(coordinate, out var count);
                 count++;
-                LocationsCount[coordinate] = count;
+                NumVisits[coordinate] = count;
             }
             else
             {
-                LocationsCount.Add(coordinate, 1);
+                NumVisits.Add(coordinate, 1);
             }
         }
 
