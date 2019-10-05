@@ -14,21 +14,33 @@ using IO.Swagger.Model;
 namespace StravaVisualizer.Models
 {
     public class StravaClient: IStravaClient
-    {                   
-        public async Task<IEnumerable<SummaryActivity>> allUserActivities(string accessToken, int id)
+    {
+        private readonly IActivitiesApi _activitiesApi;
+
+        private readonly IAthletesApi _athletesApi;
+
+        public StravaClient(IActivitiesApi activitiesApi, IAthletesApi athletesApi)
         {
-            // Configure OAuth2 access token for authorization: strava_oauth
+            this._activitiesApi = activitiesApi;
+            this._athletesApi = athletesApi;
+        }
+
+        public IEnumerable<SummaryActivity> getAllUserActivities(string accessToken, int id)
+        {
+            return requestAllUserActivitiesAsync(accessToken, id).Result;
+        }
+
+        public async Task<IEnumerable<SummaryActivity>> requestAllUserActivitiesAsync(string accessToken, int id)
+        {           
             Configuration.Default.AccessToken = accessToken;
-            var activitiesApiInstance = new ActivitiesApi();
-            var athleteApiInstance = new AthletesApi();
 
             try
             {
-                ActivityStats athleteStats = athleteApiInstance.GetStats(id);
+                ActivityStats athleteStats = await _athletesApi.GetStatsAsync(id);                
                 int totalRides = athleteStats.AllRideTotals.Count.Value;
                 totalRides += athleteStats.AllRunTotals.Count.Value;
                 totalRides += athleteStats.AllSwimTotals.Count.Value;
-                return await getActivities(activitiesApiInstance, totalRides);                             
+                return  await requestActivities(totalRides);                             
             }
             catch (Exception e)
             {
@@ -37,33 +49,32 @@ namespace StravaVisualizer.Models
             return null;
         }
 
-        public async Task<List<SummaryActivity>> getActivities(ActivitiesApi api, int total)
+        public async Task<IEnumerable<SummaryActivity>> requestActivities( int total)
         {
             List<SummaryActivity> activities = new List<SummaryActivity>();
             int requiredPages = (int) Math.Ceiling(total /30.0);
                            
             for(int i = 1; i <= requiredPages; i++)
             {
-                var activitesPage =  await api.GetLoggedInAthleteActivitiesAsync(page: i);                
+                var activitesPage =  await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: i);                
                 activities.AddRange(activitesPage);
             }
             return activities;
         }
-
-
-        public  IEnumerable<SummaryActivity> requestUserActivities_After(string accessToken, DateTime afterDate)
+       
+        public IEnumerable<SummaryActivity> getUserActivitiesAfter(string accessToken, int id, DateTime afterDate)
         {
-            // Configure OAuth2 access token for authorization: strava_oauth
-            Configuration.Default.AccessToken = accessToken;
-            var apiInstance = new ActivitiesApi();
-            DateTimeOffset dto = new DateTimeOffset(afterDate);
-            var after = dto.ToUnixTimeSeconds();  // Integer | An epoch timestamp to use for filtering activities that have taken place after a certain time. (optional) 
-            
+            return requestActivitiesAfterAsync(accessToken, id, afterDate).Result;
+        }
+
+        public async Task<IEnumerable<SummaryActivity>> requestActivitiesAfterAsync(string accessToken, int id, DateTime afterDate)
+        {
+            Configuration.Default.AccessToken = accessToken;                       
+            int requirePages = 60;
+
             try
             {
-                // List Athlete Activities
-                List<SummaryActivity> result = apiInstance.GetLoggedInAthleteActivities(page: 100);
-                return result;
+                return await requestActivitiesAfter(requirePages, afterDate);
             }
             catch (Exception e)
             {
@@ -72,14 +83,20 @@ namespace StravaVisualizer.Models
             return null;
         }
 
-        IEnumerable<SummaryActivity> IStravaClient.requesAllUserActivities(string accessToken, int id)
+        public async Task<IEnumerable<SummaryActivity>> requestActivitiesAfter(int total, DateTime afterDate)
         {
-            return allUserActivities(accessToken, id).Result;
+            List<SummaryActivity> activities = new List<SummaryActivity>();
+            DateTimeOffset dto = new DateTimeOffset(afterDate);
+            var afterDateEpoch = (int)dto.ToUnixTimeSeconds();
+            int requiredPages = (int)Math.Ceiling(total / 30.0);
+
+            for (int i = 1; i <= requiredPages; i++)
+            {
+                var activitesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: i, after: afterDateEpoch);
+                activities.AddRange(activitesPage);
+            }
+            return activities;
         }
 
-        public IEnumerable<SummaryActivity> requesUserActivitiesAfter(string accessToken, int id, DateTime afterDate)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

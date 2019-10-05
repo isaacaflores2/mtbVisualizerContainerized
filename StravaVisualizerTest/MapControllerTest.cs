@@ -30,13 +30,13 @@ namespace StravaVisualizerTest
                 new SummaryActivity(),
                 new SummaryActivity()
             };
-            stravaClient.requesAllUserActivities("access_token", 123).Returns(activities);
+            stravaClient.getAllUserActivities("access_token", 123).Returns(activities);
 
             map = Substitute.For<IMap>();
-            ICollection<ActivityCoordinates> coordinates = new List<ActivityCoordinates>()
+            ICollection<Coordinate> coordinates = new List<Coordinate>()
             {
-                new ActivityCoordinates(),
-                new ActivityCoordinates()
+                new Coordinate(),
+                new Coordinate()
             };
             map.getCoordinates(activities).Returns(coordinates);
         }

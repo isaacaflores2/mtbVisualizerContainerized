@@ -8,7 +8,7 @@ namespace StravaVisualizer.Models
 {
     public interface IStravaClient
     {
-        IEnumerable<SummaryActivity> requesAllUserActivities(string accessToken, int id);
-        IEnumerable<SummaryActivity> requesUserActivitiesAfter(string accessToken, int id, DateTime afterDate);
+        IEnumerable<SummaryActivity> getAllUserActivities(string accessToken, int id);
+        IEnumerable<SummaryActivity> getUserActivitiesAfter(string accessToken, int id, DateTime afterDate);
     }
 }

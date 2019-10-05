@@ -43,7 +43,7 @@ namespace stravaVisualizer.Controllers
             _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
-            var coordinates = _map.getCoordinates(_stravaClient.requesAllUserActivities(accessToken, stravaId));
+            var coordinates = _map.getCoordinatesByType(_stravaClient.getAllUserActivities(accessToken, stravaId), ActivityType.Ride);
 
             //_map.Activities = _stravaClient.requesAllUserActivities(accessToken, stravaId);
             //map.Activities = StravaClient.requesAllUserActivities(accessToken, stravaId).Result;
