@@ -17,15 +17,29 @@ namespace StravaVisualizer.Models.Activities
             this.userActivityDbContext = userActivityDbContext;
         }
 
+        
         public IQueryable<UserActivity> GetUserActivities()
         {
-            throw new NotImplementedException();
+            return userActivityDbContext.UserActivities;
 
         }
 
-        public IQueryable<UserActivity> GetUserActivitiesById(int id)
+        public UserActivity GetUserActivitiesById(int id)
         {
-            throw new NotImplementedException();
+            var userActivityForId = (from userActivity in userActivityDbContext.UserActivities
+                                    where userActivity.UserId == id
+                                    select userActivity).First();
+
+            return userActivityForId;
+        }
+
+        public void Add(UserActivity userActivity)
+        {
+            if (userActivity == null)
+                throw new ArgumentNullException(nameof(userActivity) + ": Cannot be null ");
+
+            userActivityDbContext.UserActivities.Add(userActivity);
+            userActivityDbContext.
         }
     }
 }

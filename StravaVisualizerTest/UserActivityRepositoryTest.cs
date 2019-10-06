@@ -13,70 +13,77 @@ namespace StravaVisualizerTest
     [TestClass]
     public class UserActivityRepositoryTest
     {
-        List<SummaryActivity> activities;
+        List<SummaryActivity> summaries;
+        IQueryable<UserActivity> userActivities;
         IUserActivityDbContext userActivityDbContext;
         IUserActivityRepository userActivityRepository;
 
         [TestInitialize]
         public void Setup()
         {
-            activities = new List<SummaryActivity>
+            summaries = new List<SummaryActivity>
             {
                 new SummaryActivity(type:ActivityType.Crossfit, startLatlng: new LatLng(), movingTime:60) ,
                 new SummaryActivity(type:ActivityType.Ride, startLatlng: new LatLng()),
             };
 
-            activities[0].StartLatlng.Add(30.0F);
-            activities[0].StartLatlng.Add(40.0F);
-            activities[1].StartLatlng.Add(30.6F);
-            activities[1].StartLatlng.Add(40.6F);
+            userActivities = new List<UserActivity>
+            {
+                new UserActivity {Activities = summaries, UserId = 1, LastDownload = DateTime.Now},
+                new UserActivity {Activities = summaries, UserId = 2, LastDownload = DateTime.Now},
+                new UserActivity {Activities = summaries, UserId = 3, LastDownload = DateTime.Now},                
+
+            }.AsQueryable();
+
+            summaries[0].StartLatlng.Add(30.0F);
+            summaries[0].StartLatlng.Add(40.0F);
+            summaries[1].StartLatlng.Add(30.6F);
+            summaries[1].StartLatlng.Add(40.6F);
+
+
 
             var mockSet = Substitute.For<DbSet<UserActivity>, IQueryable<UserActivity>>();
-            
+            ((IQueryable<UserActivity>)mockSet).Provider.Returns(userActivities.Provider);
+            ((IQueryable<UserActivity>)mockSet).Expression.Returns(userActivities.Expression);
+            ((IQueryable<UserActivity>)mockSet).ElementType.Returns(userActivities.ElementType);
+            ((IQueryable<UserActivity>)mockSet).GetEnumerator().Returns(userActivities.GetEnumerator());            
             userActivityDbContext = Substitute.For<IUserActivityDbContext>();
             userActivityDbContext.UserActivities.Returns(mockSet);
 
             userActivityRepository = new UserActivityRepository(userActivityDbContext);
         }
 
-    //    [TestMethod]
-    //    public void Test_getActivities()
-    //    {
-    //        var result = (List<SummaryActivity>)userActivityRepository.Summaries;
+        [TestMethod]
+        public void Test_GetUserActivities()
+        {
+            var result = userActivityRepository.GetUserActivities();
 
-    //        CollectionAssert.AreEqual(activities, result);
-    //    }
+            Assert.AreEqual(1, result.ElementAt(0).UserId);
+        }
 
-    //    [TestMethod]
-    //    public void Test_addActivities()
-    //    {
-    //        List<SummaryActivity> newActivities = new List<SummaryActivity>
-    //        {
-    //            new SummaryActivity(type:ActivityType.Crossfit, startLatlng: new LatLng(), movingTime:60) ,
-    //            new SummaryActivity(type:ActivityType.Ride, startLatlng: new LatLng()),
-    //        };
-    //        newActivities[0].StartLatlng.Add(30.0F);
-    //        newActivities[0].StartLatlng.Add(40.0F);
-    //        newActivities[1].StartLatlng.Add(30.6F);
-    //        newActivities[1].StartLatlng.Add(40.6F);
-    //        List<SummaryActivity> joinedActivities = new List<SummaryActivity>(activities);
-    //        joinedActivities.AddRange(newActivities);
+        [TestMethod]
+        public void Test_GetUserActivitiesById()
+        {
+            var result = userActivityRepository.GetUserActivitiesById(2);
 
-    //        userActivityRepository.AddActivities((IList<SummaryActivity>)activities);
+            Assert.AreEqual(2, result.UserId);
+        }
+        
+        [TestMethod]
+        public void Test_AddNewUserActivity()
+        {
+            //var newUserActivity = new UserActivity()
+            //{
+            //    Activities = new List<SummaryActivity>(),
+            //    UserId = 1,
+            //    LastDownload = DateTime.Now.Date
+            //};
 
-    //        var result = (List<SummaryActivity>)userActivityRepository.Summaries;
+            //userActivityRepository.Add(newUserActivity);
+            //var dbSet = userActivityRepository.GetUserActivities();
 
-
-    //        CollectionAssert.AreEqual(joinedActivities, result);
-    //    }
-
-    //    [TestMethod]
-    //    public void Test_findActivitiesByType()
-    //    {
-    //        userActivityRepository.Summaries = (IQueryable<SummaryActivity>)activities;
-    //        var result = (List<SummaryActivity>)userActivityRepository.FindActivitiesByType(ActivityType.Ride);
-
-    //        CollectionAssert.AreEqual(activities, result);
-    //    }
+            //Assert.AreEqual(4, dbSet.Count());
+            Assert.ThrowsException<ArgumentNullException>(() => userActivityRepository.Add(null));
+        }
     }
 }
