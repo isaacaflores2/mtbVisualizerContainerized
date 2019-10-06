@@ -8,7 +8,7 @@ using System.Text;
 namespace StravaVisualizerTest
 {
     [TestClass]
-    public class ActivitiesTest
+    public class UserActivitiesTest
     {
         List<SummaryActivity> summaries;
 
@@ -28,15 +28,15 @@ namespace StravaVisualizerTest
         }
 
         [TestMethod]
-        public void Test_Activities()
+        public void Test_UserActivities()
         {
-            Activities activities = new Activities();
+            UserActivity activities = new UserActivity();
 
-            activities.Summaries =  summaries;
+            activities.Activities =  summaries;
             activities.LastDownload = DateTime.Now.Date;
             activities.UserId = 123;
 
-            CollectionAssert.AreEqual(summaries, activities.Summaries);
+            CollectionAssert.AreEqual(summaries, activities.Activities);
             Assert.AreEqual(DateTime.Now.Date, activities.LastDownload);
             Assert.AreEqual(123, activities.UserId);
         }
