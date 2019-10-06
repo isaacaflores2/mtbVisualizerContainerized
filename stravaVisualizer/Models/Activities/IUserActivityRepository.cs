@@ -9,7 +9,8 @@ namespace StravaVisualizer.Models.Activities
     public interface IUserActivityRepository
     {
         IQueryable<UserActivity> GetUserActivities();
-        IQueryable<UserActivity> GetUserActivitiesById(int id);
+        UserActivity GetUserActivitiesById(int id);
+        void Add(UserActivity userActivity);
 
     }
 }
