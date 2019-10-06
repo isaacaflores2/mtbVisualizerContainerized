@@ -6,9 +6,9 @@ using IO.Swagger.Model;
 
 namespace StravaVisualizer.Models.Activities
 {
-    public class Activities
+    public class UserActivity
     {        
-        public List<SummaryActivity> Summaries { get; set; }
+        public List<SummaryActivity> Activities { get; set; }
         public DateTime LastDownload { get; set; }
         public int UserId { get; set; }
     }

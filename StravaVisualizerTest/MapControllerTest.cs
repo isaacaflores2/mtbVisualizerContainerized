@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using IO.Swagger.Model;
 using StravaVisualizer.Models.Map;
+using StravaVisualizer.Models.Activities;
 
 namespace StravaVisualizerTest
 {
@@ -16,7 +17,8 @@ namespace StravaVisualizerTest
     {
         private IHttpContextHelper httpContextHelper;
         private IStravaClient stravaClient;
-        private IMap map; 
+        private IMap map;
+        private IUserActivityRepository activitiesDbContext;
 
         [TestInitialize]
         public void Setup()
