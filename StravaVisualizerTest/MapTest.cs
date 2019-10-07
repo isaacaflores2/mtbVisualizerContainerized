@@ -22,7 +22,7 @@ namespace StravaVisualizerTest
                 new SummaryActivity(type:ActivityType.Crossfit, startLatlng: new LatLng(), movingTime:60) ,
                 new SummaryActivity(type:ActivityType.Ride, startLatlng: new LatLng()), 
             };
-
+           
             activities[0].StartLatlng.Add(30.0F);
             activities[0].StartLatlng.Add(40.0F);
             activities[1].StartLatlng.Add(30.6F);

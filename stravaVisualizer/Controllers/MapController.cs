@@ -48,6 +48,7 @@ namespace stravaVisualizer.Controllers
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
             var userActivity = _userActivityRepository.GetUserActivitiesById(stravaId);
             ICollection<Coordinate> coordinates;
+            
             if (userActivity == null || userActivity.Activities == null || userActivity.Activities.Count == 0)
             {
                 var activities = _stravaClient.getAllUserActivities(accessToken, stravaId);
