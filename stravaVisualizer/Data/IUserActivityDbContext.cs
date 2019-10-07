@@ -10,6 +10,7 @@ namespace StravaVisualizer.Data
     public interface IUserActivityDbContext
     {
         DbSet<UserActivity> UserActivities { get; set; }
+        void SaveChanges();
 
     }
 }

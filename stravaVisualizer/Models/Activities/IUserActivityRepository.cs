@@ -11,6 +11,7 @@ namespace StravaVisualizer.Models.Activities
         IQueryable<UserActivity> GetUserActivities();
         UserActivity GetUserActivitiesById(int id);
         void Add(UserActivity userActivity);
+        void SaveChanges();
 
     }
 }

@@ -39,7 +39,12 @@ namespace StravaVisualizer.Models.Activities
                 throw new ArgumentNullException(nameof(userActivity) + ": Cannot be null ");
 
             userActivityDbContext.UserActivities.Add(userActivity);
-            userActivityDbContext.
+            userActivityDbContext.SaveChanges();
+        }
+
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 }

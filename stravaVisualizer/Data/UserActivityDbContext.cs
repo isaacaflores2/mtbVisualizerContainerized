@@ -11,6 +11,11 @@ namespace stravaVisualizer.Data
 {   
     public class UserActivityDbContext : DbContext, IUserActivityDbContext
     {        
-        public DbSet<UserActivity> UserActivities { get; set; }                
+        public DbSet<UserActivity> UserActivities { get; set; }      
+       
+        public void SaveChanges()
+        {
+            this.SaveChanges();
+        }
     }
 }
