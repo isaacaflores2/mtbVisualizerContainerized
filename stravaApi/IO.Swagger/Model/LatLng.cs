@@ -37,7 +37,12 @@ namespace IO.Swagger.Model
         public LatLng() : base()
         {
         }
-        
+
+        public LatLng(float?[] newLatLong)
+        {
+            this.AddRange(newLatLong);
+        }
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>

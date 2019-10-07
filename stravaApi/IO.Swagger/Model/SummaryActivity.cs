@@ -73,6 +73,12 @@ namespace IO.Swagger.Model
         /// <param name="deviceWatts">Whether the watts are from a power meter, false if estimated.</param>
         /// <param name="maxWatts">Rides with power meter data only.</param>
         /// <param name="weightedAverageWatts">Similar to Normalized Power. Rides with power meter data only.</param>
+        
+        public SummaryActivity()
+        {
+
+        }
+
         public SummaryActivity(long? id = default(long?), string externalId = default(string), long? uploadId = default(long?), MetaAthlete athlete = default(MetaAthlete), string name = default(string), float? distance = default(float?), int? movingTime = default(int?), int? elapsedTime = default(int?), float? totalElevationGain = default(float?), float? elevHigh = default(float?), float? elevLow = default(float?), ActivityType type = default(ActivityType), DateTime? startDate = default(DateTime?), DateTime? startDateLocal = default(DateTime?), string timezone = default(string), LatLng startLatlng = default(LatLng), LatLng endLatlng = default(LatLng), int? achievementCount = default(int?), int? kudosCount = default(int?), int? commentCount = default(int?), int? athleteCount = default(int?), int? photoCount = default(int?), int? totalPhotoCount = default(int?), PolylineMap map = default(PolylineMap), bool? trainer = default(bool?), bool? commute = default(bool?), bool? manual = default(bool?), bool? _private = default(bool?), bool? flagged = default(bool?), int? workoutType = default(int?), string uploadIdStr = default(string), float? averageSpeed = default(float?), float? maxSpeed = default(float?), bool? hasKudoed = default(bool?), string gearId = default(string), float? kilojoules = default(float?), float? averageWatts = default(float?), bool? deviceWatts = default(bool?), int? maxWatts = default(int?), int? weightedAverageWatts = default(int?))
         {
             this.Id = id;
