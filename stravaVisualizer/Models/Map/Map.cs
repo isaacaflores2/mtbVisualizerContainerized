@@ -10,8 +10,10 @@ namespace StravaVisualizer.Models.Map
 {
     public class Map : IMap
     {
+        
         public IEnumerable<SummaryActivity> Activities { get; set; }
         public ICollection<Coordinate> Coordinates { get; set;}
+
         public ICollection<Pin> Pins { get; set; }
         public IDictionary<Coordinate, int> NumVisits { get; set; }
 

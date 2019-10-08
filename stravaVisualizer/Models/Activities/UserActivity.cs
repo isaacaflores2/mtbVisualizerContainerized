@@ -8,7 +8,7 @@ namespace StravaVisualizer.Models.Activities
 {
     public class UserActivity
     {        
-        public List<SummaryActivity> Activities { get; set; }
+        public List<SummaryActivity> Activities { get; set;}
         public DateTime LastDownload { get; set; }
         public int UserId { get; set; }
     }

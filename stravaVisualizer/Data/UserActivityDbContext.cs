@@ -12,28 +12,25 @@ namespace stravaVisualizer.Data
 {   
     public class UserActivityDbContext : DbContext, IUserActivityDbContext
     {        
-        public DbSet<UserActivity> UserActivities { get; set; }      
+        public DbSet<UserActivity> UserActivities { get; set; }
+
+        public DbSet<SummaryActivity> Summaries { get; set; }
+
+        DbSet<UserActivity> IUserActivityDbContext.UserActivities {
+            get => UserActivities;
+        }
+
+        DbSet<SummaryActivity> IUserActivityDbContext.Summaries {
+            get => Summaries;
+        }
 
         public UserActivityDbContext(DbContextOptions<UserActivityDbContext> options)
             : base(options)
         {
             Database.EnsureCreated();
         }
-
-        protected override  void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder
-                .Entity<SummaryActivity>()
-                .Property(s => s.StartLatlng)
-                .HasColumnName("start_lat_lng")
-                .HasConversion(
-                    myProperty => myProperty.ToArray(),
-                    myColumnName => new LatLng(myColumnName)
-                   );
-                
-        }
-
-        public void SaveChanges()
+      
+        void IUserActivityDbContext.SaveChanges()
         {
             this.SaveChanges();
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IO.Swagger.Model;
+using Microsoft.EntityFrameworkCore;
 using StravaVisualizer.Models.Activities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,8 @@ namespace StravaVisualizer.Data
 {
     public interface IUserActivityDbContext
     {
-        DbSet<UserActivity> UserActivities { get; set; }
+        DbSet<UserActivity> UserActivities { get; }
+        DbSet<SummaryActivity> Summaries { get; }
         void SaveChanges();
 
     }
