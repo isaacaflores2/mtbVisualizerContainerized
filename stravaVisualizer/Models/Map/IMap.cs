@@ -10,5 +10,6 @@ namespace StravaVisualizer.Models.Map
     {        
         ICollection<Coordinate> getCoordinates(IEnumerable<SummaryActivity> activities);
         ICollection<Coordinate> getCoordinatesByType(IEnumerable<SummaryActivity> activities, ActivityType type);
+        ICollection<
     }
 }
