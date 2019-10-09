@@ -26,10 +26,7 @@ namespace stravaVisualizer.Data
         {                     
             modelBuilder.Entity<SummaryActivity>()
                 .Ignore(s => s.StartLatlng);
-
-            modelBuilder.Entity<SummaryActivity>()
-                .Ignore(s => s.Athlete);
-
+            
             modelBuilder.Entity<SummaryActivity>()
                 .Ignore(s => s.EndLatlng);
          
@@ -37,23 +34,16 @@ namespace stravaVisualizer.Data
             {
                 v.OwnsOne(p => p.Summary);
             });
-
-            
         }
 
         public void SaveChanges()
         {
-            base.SaveChanges();
+            this.SaveChanges();
         }
 
         void IStravaVisualizerDbContext.Add<T>(T entity)
         {
             Add<T>(entity);
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await base.SaveChangesAsync();
         }
     }
 }
