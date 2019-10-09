@@ -26,9 +26,9 @@ namespace StravaVisualizerTest
 
             userActivities = new List<StravaUser>
             {
-                new StravaUser {VisualActivities = visualActivities, UserId = 1, LastDownload = DateTime.Now},
-                new StravaUser {VisualActivities = visualActivities, UserId = 2, LastDownload = DateTime.Now},
-                new StravaUser {VisualActivities = visualActivities, UserId = 3, LastDownload = DateTime.Now},                
+                new StravaUser {VisualActivities = visualActivities, Id = 1, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = visualActivities, Id = 2, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = visualActivities, Id = 3, LastDownload = DateTime.Now},                
 
             }.AsQueryable();
 
@@ -55,7 +55,7 @@ namespace StravaVisualizerTest
         {
             var result = userActivityRepository.GetUserActivities();
 
-            Assert.AreEqual(1, result.ElementAt(0).UserId);
+            Assert.AreEqual(1, result.ElementAt(0).Id);
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace StravaVisualizerTest
         {
             var result = userActivityRepository.GetStravaUserById(2);
 
-            Assert.AreEqual(2, result.UserId);
+            Assert.AreEqual(2, result.Id);
         }
         
         [TestMethod]

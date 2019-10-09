@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using stravaVisualizer.Data;
 
 namespace StravaVisualizer.Migrations
 {
     [DbContext(typeof(StravaVisualizerDbContext))]
-    partial class StravaVisualizerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191009202921_AddedStravaID")]
+    partial class AddedStravaID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

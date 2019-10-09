@@ -27,7 +27,7 @@ namespace StravaVisualizer.Models.Activities
         public StravaUser GetStravaUserById(int id)
         {
             var userActivityForId = (from user in stravaVisualizerDbContext.StravaUsers
-                                    where user.UserId == id
+                                    where user.Id == id
                                     select user).FirstOrDefault();
 
             return userActivityForId;
