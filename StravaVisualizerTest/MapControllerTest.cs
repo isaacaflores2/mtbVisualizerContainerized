@@ -11,6 +11,7 @@ using StravaVisualizer.Models.Map;
 using StravaVisualizer.Models.Activities;
 using System;
 using System.Linq;
+using StravaVisualizerTest.Doubles;
 
 namespace StravaVisualizerTest
 {
@@ -20,7 +21,7 @@ namespace StravaVisualizerTest
         private IHttpContextHelper httpContextHelper;
         private IStravaClient stravaClient;
         private IMap map;
-        private IEnumerable<UserActivity> userActivities;
+        private IEnumerable<StravaUser> userActivities;
         private IUserActivityRepository userActivityRepository;
 
         [TestInitialize]
@@ -30,17 +31,16 @@ namespace StravaVisualizerTest
             httpContextHelper.getAccessToken().Returns("1");
 
             stravaClient = Substitute.For<IStravaClient>();
-            IEnumerable<SummaryActivity> activities = new List<SummaryActivity>
-            {
-                new SummaryActivity(),
-                new SummaryActivity()
-            };
 
-            IEnumerable<SummaryActivity> newUserActivities = new List<SummaryActivity>()
-            {
-                new SummaryActivity(),
-                new SummaryActivity()
-            };
+            var summary1 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng());
+            var summary2 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng());
+
+
+            IEnumerable<VisualActivity> activities = TestData.VisualActivitiesList(); 
+
+            IEnumerable<VisualActivity> newUserActivities = TestData.VisualActivitiesList();
+
+
 
             stravaClient.getAllUserActivities("access_token", 123).Returns(activities);
             stravaClient.getAllUserActivities("access_token", 2222).Returns(newUserActivities);
@@ -53,20 +53,20 @@ namespace StravaVisualizerTest
                 rideCoordinate,
             };
             
-            map.getCoordinatesByType(Arg.Any<IEnumerable<SummaryActivity>>(), ActivityType.Ride).Returns(coordinates);
+            map.getCoordinatesByType(Arg.Any<IEnumerable<VisualActivity>>(), ActivityType.Ride).Returns(coordinates);
 
-            var userActivity = new UserActivity { Activities = (List<SummaryActivity>) activities, UserId = 2, LastDownload = DateTime.Now };
-            userActivities = new List<UserActivity>
+            var userActivity = new StravaUser { VisualActivities = (List<VisualActivity>) activities, UserId = 2, LastDownload = DateTime.Now };
+            userActivities = new List<StravaUser>
             {
-                new UserActivity {Activities = (List<SummaryActivity>)activities, UserId = 1, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = (List<VisualActivity>)activities, UserId = 1, LastDownload = DateTime.Now},
                 userActivity,
-                new UserActivity {Activities = (List<SummaryActivity>)activities, UserId = 3, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = (List<VisualActivity>)activities, UserId = 3, LastDownload = DateTime.Now},
 
             }.AsQueryable();
             userActivityRepository = Substitute.For<IUserActivityRepository>();
             userActivityRepository.GetUserActivities().Returns(userActivities);            
             userActivityRepository.GetUserActivitiesById(123).Returns(userActivity);
-            userActivityRepository.GetUserActivitiesById(2222).Returns(new UserActivity());
+            userActivityRepository.GetUserActivitiesById(2222).Returns(new StravaUser());
         }
 
         [TestMethod]

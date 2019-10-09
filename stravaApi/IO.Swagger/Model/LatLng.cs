@@ -38,7 +38,7 @@ namespace IO.Swagger.Model
         {
         }
 
-        public LatLng(float?[] newLatLong)
+        public LatLng(float?[] newLatLong, LatLng endLatlng)
         {
             this.AddRange(newLatLong);
         }

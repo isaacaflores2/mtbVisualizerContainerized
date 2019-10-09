@@ -6,29 +6,20 @@ using IO.Swagger.Model;
 using StravaVisualizer.Models;
 using Microsoft.AspNetCore.Http;
 using StravaVisualizer.Models.Map;
-
+using StravaVisualizer.Models.Activities;
+using StravaVisualizerTest.Doubles;
 namespace StravaVisualizerTest
 {
     [TestClass]
     public class MapTest
     {
-        List<SummaryActivity> activities;
+        List<VisualActivity> visualActivities;
 
         [TestInitialize]
         public void Setup()
         {
-            activities = new List<SummaryActivity>
-            {
-                new SummaryActivity(type:ActivityType.Crossfit, startLatlng: new LatLng(), movingTime:60) ,
-                new SummaryActivity(type:ActivityType.Ride, startLatlng: new LatLng()), 
-            };
-           
-            activities[0].StartLatlng.Add(30.0F);
-            activities[0].StartLatlng.Add(40.0F);
-            activities[1].StartLatlng.Add(30.6F);
-            activities[1].StartLatlng.Add(40.6F);                        
+            visualActivities = TestData.VisualActivitiesList();
         }
-        
 
         [TestMethod]
         public void Test_getCoordinates_withNull_Input()
@@ -43,7 +34,7 @@ namespace StravaVisualizerTest
         {
             Map map = new Map();
 
-            var result = (List<Coordinate>) map.getCoordinates(activities);
+            var result = (List<Coordinate>) map.getCoordinates(visualActivities);
 
             Assert.AreEqual(30.0F, result[0].Latitude);
             Assert.AreEqual(40.0F, result[0].Longitude);
@@ -55,7 +46,7 @@ namespace StravaVisualizerTest
         public void Test_extractCoordinates()
         {
             Map map = new Map();
-            map.Activities = activities;
+            map.VisualActivities = visualActivities;
 
             map.extractCoordinates();
             var result = (List<Coordinate>)map.Coordinates;
@@ -70,9 +61,9 @@ namespace StravaVisualizerTest
         public void Test_addCoordinate()
         {
             Map map = new Map();
-            map.Activities = activities;
+            map.VisualActivities = visualActivities;
 
-            map.addCoordinate(activities[0]);
+            map.addCoordinate(visualActivities[0]);
             var result = (List<Coordinate>)map.Coordinates;
 
             Assert.AreEqual(1, result.Count);                
@@ -91,7 +82,7 @@ namespace StravaVisualizerTest
         {
             Map map = new Map();
 
-            var result = (List<Coordinate>)map.getCoordinatesByType(activities, ActivityType.Ride);
+            var result = (List<Coordinate>)map.getCoordinatesByType(visualActivities, ActivityType.Ride);
 
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(30.6F, result[0].Latitude);
@@ -102,11 +93,15 @@ namespace StravaVisualizerTest
         public void Test_getUniqueCoordinatesByType()
         {
             Map map = new Map();
-            activities.Add(new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), movingTime: 60));
-            activities[2].StartLatlng.Add(30.0F);
-            activities[2].StartLatlng.Add(40.0F);
+            var summary = new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), endLatlng: new LatLng(), movingTime: 60);
+            summary.StartLatlng.Add(30.0F);
+            summary.StartLatlng.Add(40.0F);
+            summary.EndLatlng.Add(30.0F);
+            summary.EndLatlng.Add(40.0F);
+            visualActivities.Add(new VisualActivity(summary));
+            
 
-            map.getUniqueCoordinatesByType(activities, ActivityType.Ride);
+            map.getUniqueCoordinatesByType(visualActivities, ActivityType.Ride);
             var result = (List<Coordinate>) map.Coordinates;
 
             Assert.AreEqual(2, result.Count);
@@ -121,11 +116,14 @@ namespace StravaVisualizerTest
         public void Test_updateNumVisits()
         {
             Map map = new Map();
-            activities.Add(new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), movingTime: 60));
-            activities[2].StartLatlng.Add((float?)30.0);
-            activities[2].StartLatlng.Add((float?)40.0);
+            var summary = new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), endLatlng: new LatLng(), movingTime: 60);
+            summary.StartLatlng.Add(30.0F);
+            summary.StartLatlng.Add(40.0F);
+            summary.EndLatlng.Add(30.0F);
+            summary.EndLatlng.Add(40.0F);
+            visualActivities.Add(new VisualActivity(summary));
 
-            foreach ( var activity in activities)
+            foreach ( var activity in visualActivities)
             {
                 map.updateNumVisits(activity);
             }            

@@ -45,7 +45,7 @@ namespace stravaVisualizer
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<UserActivityDbContext>(options =>
+            services.AddDbContext<StravaVisualizerDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("UserActivityContext")));
 
@@ -84,7 +84,7 @@ namespace stravaVisualizer
             services.AddTransient<IActivitiesApi, ActivitiesApi>();
             services.AddTransient<IAthletesApi, AthletesApi>();
             services.AddTransient<IUserActivityRepository, UserActivityRepository>();
-            services.AddScoped<IUserActivityDbContext, UserActivityDbContext>();
+            services.AddScoped<IStravaVisualizerDbContext, StravaVisualizerDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

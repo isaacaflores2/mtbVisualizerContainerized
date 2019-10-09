@@ -7,48 +7,45 @@ using System.Linq;
 using NSubstitute;
 using StravaVisualizer.Data;
 using Microsoft.EntityFrameworkCore;
+using StravaVisualizerTest.Doubles;
 
 namespace StravaVisualizerTest
 {   
     [TestClass]
     public class UserActivityRepositoryTest
     {
-        List<SummaryActivity> summaries;
-        IQueryable<UserActivity> userActivities;
-        IUserActivityDbContext userActivityDbContext;
+        List<VisualActivity> visualActivities;
+        IQueryable<StravaUser> userActivities;
+        IStravaVisualizerDbContext userActivityDbContext;
         IUserActivityRepository userActivityRepository;
 
         [TestInitialize]
         public void Setup()
         {
-            summaries = new List<SummaryActivity>
-            {
-                new SummaryActivity(type:ActivityType.Crossfit, startLatlng: new LatLng(), movingTime:60) ,
-                new SummaryActivity(type:ActivityType.Ride, startLatlng: new LatLng()),
-            };
+            visualActivities = (List<VisualActivity>) TestData.VisualActivitiesList();
 
-            userActivities = new List<UserActivity>
+            userActivities = new List<StravaUser>
             {
-                new UserActivity {Activities = summaries, UserId = 1, LastDownload = DateTime.Now},
-                new UserActivity {Activities = summaries, UserId = 2, LastDownload = DateTime.Now},
-                new UserActivity {Activities = summaries, UserId = 3, LastDownload = DateTime.Now},                
+                new StravaUser {VisualActivities = visualActivities, UserId = 1, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = visualActivities, UserId = 2, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = visualActivities, UserId = 3, LastDownload = DateTime.Now},                
 
             }.AsQueryable();
 
-            summaries[0].StartLatlng.Add(30.0F);
-            summaries[0].StartLatlng.Add(40.0F);
-            summaries[1].StartLatlng.Add(30.6F);
-            summaries[1].StartLatlng.Add(40.6F);
+            visualActivities[0].Summary.StartLatlng.Add(30.0F);
+            visualActivities[0].Summary.StartLatlng.Add(40.0F);
+            visualActivities[1].Summary.StartLatlng.Add(30.6F);
+            visualActivities[1].Summary.StartLatlng.Add(40.6F);
 
 
 
-            var mockSet = Substitute.For<DbSet<UserActivity>, IQueryable<UserActivity>>();
-            ((IQueryable<UserActivity>)mockSet).Provider.Returns(userActivities.Provider);
-            ((IQueryable<UserActivity>)mockSet).Expression.Returns(userActivities.Expression);
-            ((IQueryable<UserActivity>)mockSet).ElementType.Returns(userActivities.ElementType);
-            ((IQueryable<UserActivity>)mockSet).GetEnumerator().Returns(userActivities.GetEnumerator());            
-            userActivityDbContext = Substitute.For<IUserActivityDbContext>();
-            userActivityDbContext.UserActivities.Returns(mockSet);
+            var mockSet = Substitute.For<DbSet<StravaUser>, IQueryable<StravaUser>>();
+            ((IQueryable<StravaUser>)mockSet).Provider.Returns(userActivities.Provider);
+            ((IQueryable<StravaUser>)mockSet).Expression.Returns(userActivities.Expression);
+            ((IQueryable<StravaUser>)mockSet).ElementType.Returns(userActivities.ElementType);
+            ((IQueryable<StravaUser>)mockSet).GetEnumerator().Returns(userActivities.GetEnumerator());            
+            userActivityDbContext = Substitute.For<IStravaVisualizerDbContext>();
+            userActivityDbContext.StravaUsers.Returns(mockSet);
 
             userActivityRepository = new UserActivityRepository(userActivityDbContext);
         }
