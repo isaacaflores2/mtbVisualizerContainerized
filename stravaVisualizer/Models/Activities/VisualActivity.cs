@@ -25,10 +25,17 @@ namespace StravaVisualizer.Models.Activities
         public VisualActivity(SummaryActivity summaryActivity) : this()
         {
             Summary = summaryActivity;
-            StartLat = Summary.StartLatlng[0];
-            StartLong = Summary.StartLatlng[1];
-            EndLat = Summary.EndLatlng[0];
-            EndLong = Summary.EndLatlng[1];
+            if(Summary.StartLatlng != null)
+            {
+                StartLat = Summary.StartLatlng[0];
+                StartLong = Summary.StartLatlng[1];
+            }
+            if(Summary.EndLatlng != null)
+            {
+                EndLat = Summary.EndLatlng[0];
+                EndLong = Summary.EndLatlng[1];
+            }
+            
             Id = Summary.Id;
         }
 

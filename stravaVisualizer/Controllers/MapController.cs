@@ -23,17 +23,16 @@ namespace stravaVisualizer.Controllers
         private readonly IHttpContextHelper _httpContextHelper;
         private readonly IStravaClient _stravaClient;
         private readonly IMap _map;
-        private readonly IUserActivityRepository _userActivityRepository;
-
-        // private readonly StravaUserActivitiesDbContext _db;        
+        private readonly IStravaVisualizerRepository _stravaVisualizerRepository;
+         
         public IDictionary<string, string> AuthProperties { get; set; }
 
-        public MapController(IHttpContextHelper httpContextHelper, IStravaClient stravaClient, IMap map, IUserActivityRepository userActivityRepository) 
+        public MapController(IHttpContextHelper httpContextHelper, IStravaClient stravaClient, IMap map, IStravaVisualizerRepository userActivityRepository) 
         {
             this._httpContextHelper = httpContextHelper;
             this._stravaClient = stravaClient;
             this._map = map;
-            this._userActivityRepository = userActivityRepository;
+            this._stravaVisualizerRepository = userActivityRepository;
         }
 
         public IActionResult Index()
@@ -46,23 +45,27 @@ namespace stravaVisualizer.Controllers
             _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
-            var userActivity = _userActivityRepository.GetUserActivitiesById(stravaId);
+            var stravaUser = _stravaVisualizerRepository.GetStravaUserById(stravaId);
             ICollection<Coordinate> coordinates;
             
-            if (userActivity == null || userActivity.VisualActivities == null || userActivity.VisualActivities.Count == 0)
+            if (stravaUser == null || stravaUser.VisualActivities == null || stravaUser.VisualActivities.Count == 0)
             {
                 var activities = _stravaClient.getAllUserActivities(accessToken, stravaId);
-                userActivity = new StravaUser()
+                stravaUser = new StravaUser()
                 {
                     VisualActivities = activities.ToList(),
                     UserId = stravaId,
                     LastDownload = DateTime.Now.Date
                 };
-                _userActivityRepository.Add(userActivity);
+                _stravaVisualizerRepository.Add(stravaUser);
+                foreach (var visualActivity in stravaUser.VisualActivities)
+                    _stravaVisualizerRepository.Add(visualActivity);
+
+                _stravaVisualizerRepository.SaveChanges();
             }
             //var coordinates = _map.getCoordinatesByType(_stravaClient.getAllUserActivities(accessToken, stravaId), ActivityType.Ride);
             
-            coordinates = _map.getCoordinatesByType(userActivity.VisualActivities, ActivityType.Ride);
+            coordinates = _map.getCoordinatesByType(stravaUser.VisualActivities, ActivityType.Ride);
             
             return PartialView("_BingMapPartial", coordinates);
         }

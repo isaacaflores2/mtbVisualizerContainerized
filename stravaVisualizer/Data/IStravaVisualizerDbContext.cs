@@ -11,7 +11,7 @@ namespace StravaVisualizer.Data
     {
         DbSet<StravaUser> StravaUsers { get; set; }
         DbSet<VisualActivity> VisualActivities { get; set; }
+        void Add<T>(T entity) where T : class;
         void SaveChanges();
-
     }
 }

@@ -13,6 +13,7 @@ namespace stravaVisualizer.Data
     public class StravaVisualizerDbContext : DbContext, IStravaVisualizerDbContext
     {        
         public DbSet<StravaUser> StravaUsers { get; set; }
+
         public DbSet<VisualActivity> VisualActivities { get; set; }
 
         public StravaVisualizerDbContext(DbContextOptions<StravaVisualizerDbContext> options)
@@ -38,6 +39,11 @@ namespace stravaVisualizer.Data
         public void SaveChanges()
         {
             this.SaveChanges();
+        }
+
+        void IStravaVisualizerDbContext.Add<T>(T entity)
+        {
+            Add<T>(entity);
         }
     }
 }
