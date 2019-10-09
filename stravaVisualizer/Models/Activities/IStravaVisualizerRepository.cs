@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace StravaVisualizer.Models.Activities
 {
-    public interface IUserActivityRepository
+    public interface IStravaVisualizerRepository
     {
         IQueryable<StravaUser> GetUserActivities();
-        StravaUser GetUserActivitiesById(int id);
-        void Add(StravaUser userActivity);
+        StravaUser GetStravaUserById(int id);
+        void Add<T>(T entity) where T : class;
         void SaveChanges();
 
     }

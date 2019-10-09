@@ -83,7 +83,7 @@ namespace stravaVisualizer
             services.AddTransient<IMap, Map>();
             services.AddTransient<IActivitiesApi, ActivitiesApi>();
             services.AddTransient<IAthletesApi, AthletesApi>();
-            services.AddTransient<IUserActivityRepository, UserActivityRepository>();
+            services.AddTransient<IStravaVisualizerRepository, StravaVisualizerRepository>();
             services.AddScoped<IStravaVisualizerDbContext, StravaVisualizerDbContext>();
         }
 

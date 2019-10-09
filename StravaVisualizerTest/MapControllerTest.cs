@@ -22,7 +22,7 @@ namespace StravaVisualizerTest
         private IStravaClient stravaClient;
         private IMap map;
         private IEnumerable<StravaUser> userActivities;
-        private IUserActivityRepository userActivityRepository;
+        private IStravaVisualizerRepository userActivityRepository;
 
         [TestInitialize]
         public void Setup()
@@ -63,10 +63,10 @@ namespace StravaVisualizerTest
                 new StravaUser {VisualActivities = (List<VisualActivity>)activities, UserId = 3, LastDownload = DateTime.Now},
 
             }.AsQueryable();
-            userActivityRepository = Substitute.For<IUserActivityRepository>();
+            userActivityRepository = Substitute.For<IStravaVisualizerRepository>();
             userActivityRepository.GetUserActivities().Returns(userActivities);            
-            userActivityRepository.GetUserActivitiesById(123).Returns(userActivity);
-            userActivityRepository.GetUserActivitiesById(2222).Returns(new StravaUser());
+            userActivityRepository.GetStravaUserById(123).Returns(userActivity);
+            userActivityRepository.GetStravaUserById(2222).Returns(new StravaUser());
         }
 
         [TestMethod]
