@@ -40,7 +40,7 @@ namespace stravaVisualizer.Controllers
             return View("MapAsync");
         }
     
-        public  async Task<PartialViewResult> LoadMap()
+        public  PartialViewResult LoadMap()
         {
             _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
@@ -58,15 +58,10 @@ namespace stravaVisualizer.Controllers
                     LastDownload = DateTime.Now.Date
                 };
                 _stravaVisualizerRepository.Add(stravaUser);
-                await _stravaVisualizerRepository.SaveChangesAsync();
-
                 foreach (var visualActivity in stravaUser.VisualActivities)
-                {
                     _stravaVisualizerRepository.Add(visualActivity);
-                   // _stravaVisualizerRepository.SaveChanges();
-                }
 
-               
+                _stravaVisualizerRepository.SaveChanges();
             }
             //var coordinates = _map.getCoordinatesByType(_stravaClient.getAllUserActivities(accessToken, stravaId), ActivityType.Ride);
             

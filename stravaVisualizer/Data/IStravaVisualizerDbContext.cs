@@ -13,6 +13,5 @@ namespace StravaVisualizer.Data
         DbSet<VisualActivity> VisualActivities { get; set; }
         void Add<T>(T entity) where T : class;
         void SaveChanges();
-        Task SaveChangesAsync();
     }
 }
