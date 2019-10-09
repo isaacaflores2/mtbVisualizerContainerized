@@ -26,11 +26,11 @@ namespace StravaVisualizerTest
 
             activities.VisualActivities =  visualActivities;
             activities.LastDownload = DateTime.Now.Date;
-            activities.UserId = 123;
+            activities.Id = 123;
 
             CollectionAssert.AreEqual(visualActivities, activities.VisualActivities);
             Assert.AreEqual(DateTime.Now.Date, activities.LastDownload);
-            Assert.AreEqual(123, activities.UserId);
+            Assert.AreEqual(123, activities.Id);
         }
     }
 }
