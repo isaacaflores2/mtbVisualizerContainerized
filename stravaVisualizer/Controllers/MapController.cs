@@ -49,12 +49,12 @@ namespace stravaVisualizer.Controllers
             var userActivity = _userActivityRepository.GetUserActivitiesById(stravaId);
             ICollection<Coordinate> coordinates;
             
-            if (userActivity == null || userActivity.Activities == null || userActivity.Activities.Count == 0)
+            if (userActivity == null || userActivity.VisualActivities == null || userActivity.VisualActivities.Count == 0)
             {
                 var activities = _stravaClient.getAllUserActivities(accessToken, stravaId);
-                userActivity = new UserActivity()
+                userActivity = new StravaUser()
                 {
-                    Activities = activities.ToList(),
+                    VisualActivities = activities.ToList(),
                     UserId = stravaId,
                     LastDownload = DateTime.Now.Date
                 };
@@ -62,7 +62,7 @@ namespace stravaVisualizer.Controllers
             }
             //var coordinates = _map.getCoordinatesByType(_stravaClient.getAllUserActivities(accessToken, stravaId), ActivityType.Ride);
             
-            coordinates = _map.getCoordinatesByType(userActivity.Activities, ActivityType.Ride);
+            coordinates = _map.getCoordinatesByType(userActivity.VisualActivities, ActivityType.Ride);
             
             return PartialView("_BingMapPartial", coordinates);
         }

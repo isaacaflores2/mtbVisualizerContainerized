@@ -10,6 +10,7 @@ using System.Diagnostics;
 using IO.Swagger.Client;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
+using StravaVisualizer.Models.Activities;
 
 namespace StravaVisualizer.Models
 {
@@ -25,9 +26,15 @@ namespace StravaVisualizer.Models
             this._athletesApi = athletesApi;
         }
 
-        public IEnumerable<SummaryActivity> getAllUserActivities(string accessToken, int id)
+        public IEnumerable<VisualActivity> getAllUserActivities(string accessToken, int id)
         {
-            return requestAllUserActivitiesAsync(accessToken, id).Result;
+            var summaryActivities =  requestAllUserActivitiesAsync(accessToken, id).Result;
+            List<VisualActivity> visualActivites = new List<VisualActivity>();
+            foreach(var summary in summaryActivities)
+            {
+                visualActivites.Add(new VisualActivity(summary));
+            }
+            return visualActivites.AsEnumerable(); 
         }
 
         public async Task<IEnumerable<SummaryActivity>> requestAllUserActivitiesAsync(string accessToken, int id)
@@ -62,11 +69,17 @@ namespace StravaVisualizer.Models
             return activities;
         }
        
-        public IEnumerable<SummaryActivity> getUserActivitiesAfter(string accessToken, int id, DateTime afterDate)
+        public IEnumerable<VisualActivity> getUserActivitiesAfter(string accessToken, int id, DateTime afterDate)
         {
-            return requestActivitiesAfterAsync(accessToken, id, afterDate).Result;
+            var summaryActivities =  requestActivitiesAfterAsync(accessToken, id, afterDate).Result;
+            List<VisualActivity> visualActivites = new List<VisualActivity>();
+            foreach (var summary in summaryActivities)
+            {
+                visualActivites.Add(new VisualActivity(summary));
+            }
+            return visualActivites.AsEnumerable();
         }
-
+    
         public async Task<IEnumerable<SummaryActivity>> requestActivitiesAfterAsync(string accessToken, int id, DateTime afterDate)
         {
             Configuration.Default.AccessToken = accessToken;                       
@@ -97,6 +110,6 @@ namespace StravaVisualizer.Models
             }
             return activities;
         }
-
+              
     }
 }

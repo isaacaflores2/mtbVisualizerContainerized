@@ -10,35 +10,35 @@ namespace StravaVisualizer.Models.Activities
 {
     public class UserActivityRepository: IUserActivityRepository
     {
-        private readonly IUserActivityDbContext userActivityDbContext;
+        private readonly IStravaVisualizerDbContext userActivityDbContext;
 
-        public UserActivityRepository(IUserActivityDbContext userActivityDbContext)
+        public UserActivityRepository(IStravaVisualizerDbContext userActivityDbContext)
         {
             this.userActivityDbContext = userActivityDbContext;
         }
 
         
-        public IQueryable<UserActivity> GetUserActivities()
+        public IQueryable<StravaUser> GetUserActivities()
         {
-            return userActivityDbContext.UserActivities;
+            return userActivityDbContext.StravaUsers;
 
         }
 
-        public UserActivity GetUserActivitiesById(int id)
+        public StravaUser GetUserActivitiesById(int id)
         {
-            var userActivityForId = (from userActivity in userActivityDbContext.UserActivities
+            var userActivityForId = (from userActivity in userActivityDbContext.StravaUsers
                                     where userActivity.UserId == id
                                     select userActivity).First();
 
             return userActivityForId;
         }
 
-        public void Add(UserActivity userActivity)
+        public void Add(StravaUser userActivity)
         {
             if (userActivity == null)
                 throw new ArgumentNullException(nameof(userActivity) + ": Cannot be null ");
 
-            userActivityDbContext.UserActivities.Add(userActivity);
+            userActivityDbContext.StravaUsers.Add(userActivity);
             userActivityDbContext.SaveChanges();
         }
 

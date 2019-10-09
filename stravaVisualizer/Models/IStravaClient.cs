@@ -1,4 +1,5 @@
 ﻿using IO.Swagger.Model;
+using StravaVisualizer.Models.Activities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace StravaVisualizer.Models
 {
     public interface IStravaClient
     {
-        IEnumerable<SummaryActivity> getAllUserActivities(string accessToken, int id);
-        IEnumerable<SummaryActivity> getUserActivitiesAfter(string accessToken, int id, DateTime afterDate);
+        IEnumerable<VisualActivity> getAllUserActivities(string accessToken, int id);
+        IEnumerable<VisualActivity> getUserActivitiesAfter(string accessToken, int id, DateTime afterDate);
     }
 }

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace StravaVisualizer.Data
 {
-    public interface IUserActivityDbContext
+    public interface IStravaVisualizerDbContext
     {
-        DbSet<UserActivity> UserActivities { get; set; }
+        DbSet<StravaUser> StravaUsers { get; set; }
+        DbSet<VisualActivity> VisualActivities { get; set; }
         void SaveChanges();
 
     }

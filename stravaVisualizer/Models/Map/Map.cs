@@ -5,79 +5,80 @@ using System.Linq;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
 using StravaVisualizer.Models.Map;
+using StravaVisualizer.Models.Activities;
 
 namespace StravaVisualizer.Models.Map
 {
     public class Map : IMap
     {
-        public IEnumerable<SummaryActivity> Activities { get; set; }
+        public IEnumerable<VisualActivity> VisualActivities { get; set; }
         public ICollection<Coordinate> Coordinates { get; set;}
         public ICollection<Pin> Pins { get; set; }
         public IDictionary<Coordinate, int> NumVisits { get; set; }
 
         public Map()
         {
-            Activities = null;
+            VisualActivities = null;
             Coordinates = new List<Coordinate>();
             Pins = new List<Pin>();
             NumVisits = new Dictionary<Coordinate, int>();
         }
 
-        public ICollection<Coordinate> getCoordinates(IEnumerable<SummaryActivity> activities)
+        public ICollection<Coordinate> getCoordinates(IEnumerable<VisualActivity> activities)
         {
-            Activities = activities ?? throw new ArgumentNullException("Activities is null");
+            VisualActivities = activities ?? throw new ArgumentNullException("Activities is null");
             extractCoordinates();
             return Coordinates;
         }
 
         public void extractCoordinates()
         {            
-            foreach(SummaryActivity summary in Activities)
+            foreach(var visualActivity in VisualActivities)
             {
-                if (summary == null || summary.StartLatlng == null)
+                if (visualActivity == null || visualActivity.Summary.StartLatlng == null)
                     continue;          
                 
-                addCoordinate(summary);                
+                addCoordinate(visualActivity);                
             }
         }
 
-        public void addCoordinate(SummaryActivity summary)
+        public void addCoordinate(VisualActivity summary)
         {          
-            float?[] latlongArray = summary.StartLatlng.ToArray();
+            float?[] latlongArray = summary.Summary.StartLatlng.ToArray();
             Coordinates.Add(new Coordinate(latlongArray[0], latlongArray[1]));
         }
 
-        public ICollection<Coordinate> getCoordinatesByType(IEnumerable<SummaryActivity> activities, ActivityType type)
+        public ICollection<Coordinate> getCoordinatesByType(IEnumerable<VisualActivity> activities, ActivityType type)
         {
             if (activities == null)
                 throw new ArgumentNullException("Activities is null");
 
             var activitiesForType = from activity in activities
-                                    where activity.Type == type
+                                    where activity.Summary.Type == type
                                     select activity;
 
-            Activities = activitiesForType;
+            VisualActivities = activitiesForType;
             extractCoordinates();
             return Coordinates;
         }
 
-        public void getUniqueCoordinatesByType(IEnumerable<SummaryActivity> activities, ActivityType type)
+        public void getUniqueCoordinatesByType(IEnumerable<VisualActivity> activities, ActivityType type)
         {
             if (activities == null)
                 throw new ArgumentNullException("Activities is null");
 
             var activitiesForType = from activity in activities
-                                   where activity.Type == type
+                                   where activity.Summary.Type == type
                                    select activity;
-            Activities = activitiesForType;
+            VisualActivities = activitiesForType;
 
-            foreach (SummaryActivity summary in Activities)
+            foreach (var visualActivity in VisualActivities)
             {
-                if (summary == null || summary.StartLatlng == null)
+                if (visualActivity == null || visualActivity.Summary.StartLatlng == null)
                     continue;
 
-                updateNumVisits(summary);
-                addCoordinate(summary);
+                updateNumVisits(visualActivity);
+                addCoordinate(visualActivity);
             }
 
             foreach(var coordinate in NumVisits.Keys)
@@ -89,9 +90,9 @@ namespace StravaVisualizer.Models.Map
             }
         }
 
-        public void updateNumVisits(SummaryActivity summary)
+        public void updateNumVisits(VisualActivity visualActivity)
         {
-            float?[] latlongArray = summary.StartLatlng.ToArray();                        
+            float?[] latlongArray = visualActivity.Summary.StartLatlng.ToArray();                        
             var coordinate = new Coordinate(latlongArray[0], latlongArray[1]);
             
             if (NumVisits.ContainsKey(coordinate))
