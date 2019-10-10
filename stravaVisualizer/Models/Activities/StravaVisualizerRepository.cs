@@ -39,6 +39,11 @@ namespace StravaVisualizer.Models.Activities
             stravaVisualizerDbContext.SaveChanges();
         }
 
+        public async Task SaveChangesAsync()
+        {
+            await stravaVisualizerDbContext.SaveChangesAsync();
+        }
+
         public void Add<T>(T entity) where T : class
         {
             stravaVisualizerDbContext.Add<T>(entity);

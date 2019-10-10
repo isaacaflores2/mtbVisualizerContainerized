@@ -43,9 +43,14 @@ namespace stravaVisualizer.Data
                 .ValueGeneratedNever();
         }
 
-        public void SaveChanges()
+        void IStravaVisualizerDbContext.SaveChanges()
         {
             SaveChanges();
+        }
+
+        async Task IStravaVisualizerDbContext.SaveChangesAsync()
+        {
+            await SaveChangesAsync();
         }
 
         void IStravaVisualizerDbContext.Add<T>(T entity)
