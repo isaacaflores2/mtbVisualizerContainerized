@@ -29,16 +29,23 @@ namespace stravaVisualizer.Data
             
             modelBuilder.Entity<SummaryActivity>()
                 .Ignore(s => s.EndLatlng);
-         
+
+            modelBuilder.Entity<SummaryActivity>()
+                .Ignore(s => s.Athlete);
+
             modelBuilder.Entity<VisualActivity>(v =>
             {
                 v.OwnsOne(p => p.Summary);
             });
+
+            modelBuilder.Entity<StravaUser>()
+                .Property(s => s.UserId)
+                .ValueGeneratedNever();
         }
 
         public void SaveChanges()
         {
-            this.SaveChanges();
+            SaveChanges();
         }
 
         void IStravaVisualizerDbContext.Add<T>(T entity)

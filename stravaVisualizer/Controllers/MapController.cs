@@ -58,14 +58,19 @@ namespace stravaVisualizer.Controllers
                     LastDownload = DateTime.Now.Date
                 };
                 _stravaVisualizerRepository.Add(stravaUser);
-                foreach (var visualActivity in stravaUser.VisualActivities)
-                    _stravaVisualizerRepository.Add(visualActivity);
-
                 _stravaVisualizerRepository.SaveChanges();
-            }
-            //var coordinates = _map.getCoordinatesByType(_stravaClient.getAllUserActivities(accessToken, stravaId), ActivityType.Ride);
-            
-            coordinates = _map.getCoordinatesByType(stravaUser.VisualActivities, ActivityType.Ride);
+
+                foreach (var visualActivity in stravaUser.VisualActivities)
+                {
+                    _stravaVisualizerRepository.Add(visualActivity);
+                    //_stravaVisualizerRepository.SaveChanges();
+                }
+
+
+                }
+                //var coordinates = _map.getCoordinatesByType(_stravaClient.getAllUserActivities(accessToken, stravaId), ActivityType.Ride);
+
+                coordinates = _map.getCoordinatesByType(stravaUser.VisualActivities, ActivityType.Ride);
             
             return PartialView("_BingMapPartial", coordinates);
         }

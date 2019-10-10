@@ -10,9 +10,8 @@ namespace StravaVisualizer.Models.Activities
     public class StravaUser
     {
         [Key]
-        public int UserId { get; set; }
-        public List<VisualActivity> VisualActivities { get; set; }
+        public int UserId { get; set; }        
         public DateTime LastDownload { get; set; }
-        
+        public ICollection<VisualActivity> VisualActivities { get; set; }
     }
 }

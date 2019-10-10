@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Http;
 using StravaVisualizer.Models.Map;
 using StravaVisualizer.Models.Activities;
 using StravaVisualizerTest.Doubles;
+using System.Linq;
+
 namespace StravaVisualizerTest
 {
     [TestClass]
     public class MapTest
     {
-        List<VisualActivity> visualActivities;
+        ICollection<VisualActivity> visualActivities;
 
         [TestInitialize]
         public void Setup()
@@ -63,7 +65,10 @@ namespace StravaVisualizerTest
             Map map = new Map();
             map.VisualActivities = visualActivities;
 
-            map.addCoordinate(visualActivities[0]);
+            var coordinate = (from activity in visualActivities
+                             select activity).FirstOrDefault();
+
+            map.addCoordinate(coordinate);
             var result = (List<Coordinate>)map.Coordinates;
 
             Assert.AreEqual(1, result.Count);                
