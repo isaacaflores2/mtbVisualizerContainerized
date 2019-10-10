@@ -35,9 +35,7 @@ namespace StravaVisualizer.Migrations
 
             modelBuilder.Entity("StravaVisualizer.Models.Activities.StravaUser", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("UserId");
 
                     b.Property<DateTime>("LastDownload");
 
@@ -48,9 +46,7 @@ namespace StravaVisualizer.Migrations
 
             modelBuilder.Entity("StravaVisualizer.Models.Activities.VisualActivity", b =>
                 {
-                    b.Property<long?>("ActivityId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<long?>("ActivityId");
 
                     b.Property<float?>("EndLat");
 
@@ -79,9 +75,7 @@ namespace StravaVisualizer.Migrations
 
                     b.OwnsOne("IO.Swagger.Model.SummaryActivity", "Summary", b1 =>
                         {
-                            b1.Property<long?>("VisualActivityActivityId")
-                                .ValueGeneratedOnAdd()
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                            b1.Property<long?>("VisualActivityActivityId");
 
                             b1.Property<int?>("AchievementCount");
 
