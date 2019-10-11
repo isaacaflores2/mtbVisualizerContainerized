@@ -10,8 +10,10 @@ namespace StravaVisualizerTest.Doubles
     {
         public static ICollection<VisualActivity> VisualActivitiesList()
         {
-            var summary1 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), type:ActivityType.Crossfit, movingTime:60);
-            var summary2 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), type: ActivityType.Ride, movingTime: 60);
+            var summary1 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), 
+                type:ActivityType.Crossfit, movingTime:60, athlete: new MetaAthlete(123));
+            var summary2 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), 
+                type: ActivityType.Ride, movingTime: 60, athlete: new MetaAthlete(123));
             summary1.StartLatlng.Add(30.0F);
             summary1.StartLatlng.Add(40.0F);
             summary2.StartLatlng.Add(30.6F);
@@ -32,7 +34,8 @@ namespace StravaVisualizerTest.Doubles
 
         public static SummaryActivity SummaryActivity1()
         {
-            var summary1 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), type: ActivityType.Crossfit, movingTime: 60);
+            var summary1 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), 
+                type: ActivityType.Crossfit, movingTime: 60, athlete: new MetaAthlete(123));
             
             summary1.StartLatlng.Add(30.0F);
             summary1.StartLatlng.Add(40.0F);
@@ -47,7 +50,8 @@ namespace StravaVisualizerTest.Doubles
         public static SummaryActivity SummaryActivity2()
         {
             
-            var summary2 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), type: ActivityType.Ride, movingTime: 60);
+            var summary2 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), 
+                type: ActivityType.Ride, movingTime: 60, athlete: new MetaAthlete(123));
             
             summary2.StartLatlng.Add(30.6F);
             summary2.StartLatlng.Add(40.6F);
@@ -61,7 +65,8 @@ namespace StravaVisualizerTest.Doubles
         public static SummaryActivity SummaryActivity3()
         {
 
-            var summary2 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(), type: ActivityType.Run, movingTime: 100);
+            var summary2 = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                 type: ActivityType.Run, movingTime: 100, athlete: new MetaAthlete(123));
 
             summary2.StartLatlng.Add(30.6F);
             summary2.StartLatlng.Add(40.6F);

@@ -98,7 +98,8 @@ namespace StravaVisualizerTest
         public void Test_getUniqueCoordinatesByType()
         {
             Map map = new Map();
-            var summary = new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), endLatlng: new LatLng(), movingTime: 60);
+            var summary = new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), 
+                endLatlng: new LatLng(), movingTime: 60, athlete: new MetaAthlete(123));
             summary.StartLatlng.Add(30.0F);
             summary.StartLatlng.Add(40.0F);
             summary.EndLatlng.Add(30.0F);
@@ -121,7 +122,8 @@ namespace StravaVisualizerTest
         public void Test_updateNumVisits()
         {
             Map map = new Map();
-            var summary = new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), endLatlng: new LatLng(), movingTime: 60);
+            var summary = new SummaryActivity(type: ActivityType.Ride, startLatlng: new LatLng(), 
+                endLatlng: new LatLng(), movingTime: 60, athlete: new MetaAthlete(123));
             summary.StartLatlng.Add(30.0F);
             summary.StartLatlng.Add(40.0F);
             summary.EndLatlng.Add(30.0F);
