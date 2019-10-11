@@ -54,7 +54,7 @@ namespace stravaVisualizer.Controllers
                 stravaUser = new StravaUser()
                 {
                     VisualActivities = activities.ToList(),
-                    StravaId = stravaId,
+                    UserId = stravaId,
                     LastDownload = DateTime.Now.Date
                 };
                 _stravaVisualizerRepository.Add(stravaUser);

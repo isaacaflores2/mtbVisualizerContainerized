@@ -36,9 +36,9 @@ namespace stravaVisualizer.Data
             });
         }
 
-        public void SaveChanges()
+        void IStravaVisualizerDbContext.SaveChanges()
         {
-            this.SaveChanges();
+            base.SaveChanges();
         }
 
         void IStravaVisualizerDbContext.Add<T>(T entity)
