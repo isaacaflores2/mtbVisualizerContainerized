@@ -55,12 +55,12 @@ namespace StravaVisualizerTest
             
             map.getCoordinatesByType(Arg.Any<IEnumerable<VisualActivity>>(), ActivityType.Ride).Returns(coordinates);
 
-            var userActivity = new StravaUser { VisualActivities = (List<VisualActivity>) activities, Id = 2, LastDownload = DateTime.Now };
+            var userActivity = new StravaUser { VisualActivities = (List<VisualActivity>) activities, UserId = 2, LastDownload = DateTime.Now };
             userActivities = new List<StravaUser>
             {
-                new StravaUser {VisualActivities = (List<VisualActivity>)activities, Id = 1, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = (List<VisualActivity>)activities, UserId = 1, LastDownload = DateTime.Now},
                 userActivity,
-                new StravaUser {VisualActivities = (List<VisualActivity>)activities, Id = 3, LastDownload = DateTime.Now},
+                new StravaUser {VisualActivities = (List<VisualActivity>)activities, UserId = 3, LastDownload = DateTime.Now},
 
             }.AsQueryable();
             userActivityRepository = Substitute.For<IStravaVisualizerRepository>();
@@ -92,7 +92,7 @@ namespace StravaVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMap().Result as PartialViewResult;
+            var result = controller.LoadMap() as PartialViewResult;
 
             Assert.AreEqual("_BingMapPartial", result.ViewName);
         }
@@ -110,7 +110,7 @@ namespace StravaVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMap().Result as PartialViewResult;
+            var result = controller.LoadMap() as PartialViewResult;
 
             Assert.AreEqual(typeof(List<Coordinate>), result.Model.GetType());
             Assert.AreEqual( 30.0F , ((IList<Coordinate>)result.Model)[1].Latitude);
@@ -129,7 +129,7 @@ namespace StravaVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMap().Result as PartialViewResult;
+            var result = controller.LoadMap() as PartialViewResult;
 
             Assert.AreEqual(typeof(List<Coordinate>), result.Model.GetType());
             Assert.AreEqual(30.0F, ((IList<Coordinate>)result.Model)[1].Latitude);
