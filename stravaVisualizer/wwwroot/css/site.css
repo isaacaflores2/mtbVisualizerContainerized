@@ -63,6 +63,10 @@ body {
     display: flex;
 }
 
+.container-flex-wrap {
+    flex-wrap: wrap;
+}
+
 .container-flex-grow {
     flex-grow: 1;
 }

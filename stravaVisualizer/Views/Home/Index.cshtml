@@ -4,19 +4,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*<div class="margin-bottom">
-    <h1 class="display-4 text-center">Visuals for your Strava data</h1>    
-    @if(!User.Identity.IsAuthenticated)
-    { 
-        <p class="text-center">Login to view to a monthly summary of your Strava data. You can also see a history of all your run, ride, and all other activities on the Map page.</p>
-    }
-</div>*@
-
 <div id="homeDiv" class="wrapper container-center">
     @if (!User.Identity.IsAuthenticated)
     {
         <h1 class="display-4 text-center">Visuals for your Strava data</h1>
-        <p class="text-center margin-bottom">Login to view to a monthly summary of your Strava data. You can also see a history of all your run, ride, and all other activities on the Map page.</p>
+        <p class="text-center margin-bottom">Login to view to a monthly summary of your Strava data. You can also see a history of all your run, ride, and all other activities on the <a asp-area="" asp-controller="Map" asp-action="LoadMap">Map</a> page.</p>
     }
     else
     {
@@ -24,13 +16,14 @@
     }
 
     <h3 class="text-center">Active days this month</h3>
-    <div id="calendarDiv">
-        <div class="container-flex-center margin-bottom">
-            <img id="home_image_left" class="home-image margin-right container-with-shadow" src="~/Images/Home_GroundControl1.jpg" />
-            <div id="datepicker" class="fixed-med margin-right container-with-shadow"> </div>
-            <img id="home_image_left" class="home-image container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />
-        </div>
-    </div>
+    
+  
+    <inline-block class="container-flex-center">
+        <img id="home_image_left" class="home-image margin-right container-with-shadow" src="~/Images/Home_GroundControl1.jpg" />
+        <div id="datepicker" class="fixed-med margin-right container-with-shadow"> </div>
+        <img id="home_image_left" class="home-image container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />
+    </inline-block>
+  
 
     <h3 class="text-center">Activites this week</h3>
     <div id="weeklyTableDiv" class="container-center container-with-shadow ">
@@ -115,12 +108,6 @@
             @:    $("#datepicker").datepicker();
             @:})
         }
-
-        $(document).ready(function () {
-            $('#weeklyTableDiv')({
-                'width': ($("#homeDiv").width() + 'px')
-            })
-        })
 
         $(document).ready( function () {
             $('#weeklyTable').DataTable({
