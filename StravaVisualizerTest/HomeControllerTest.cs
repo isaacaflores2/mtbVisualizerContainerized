@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using stravaVisualizer.Controllers;
+using NSubstitute;
+using StravaVisualizer.Controllers;
+using StravaVisualizer.Models;
+using StravaVisualizer.Models.Activities;
+using StravaVisualizerTest.Doubles;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace StravaVisualizerTest
@@ -10,10 +15,36 @@ namespace StravaVisualizerTest
     [TestClass]
     public class HomeControllerTest
     {
+        private IHttpContextHelper httpContextHelper;
+        private IStravaVisualizerRepository context;
+        private IEnumerable<StravaUser> userActivities;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            httpContextHelper = Substitute.For<IHttpContextHelper>();
+            httpContextHelper.getAccessToken().Returns("access_token");
+            IEnumerable<VisualActivity> activities = TestData.VisualActivitiesList();
+
+            var userActivity = new StravaUser { VisualActivities = (List<VisualActivity>)activities, UserId = 2, LastDownload = DateTime.Now };
+            userActivities = new List<StravaUser>
+            {
+                new StravaUser {VisualActivities = (List<VisualActivity>)activities, UserId = 1, LastDownload = DateTime.Now},
+                userActivity,
+                new StravaUser {VisualActivities = (List<VisualActivity>)activities, UserId = 3, LastDownload = DateTime.Now},
+
+            }.AsQueryable();
+            context = Substitute.For<IStravaVisualizerRepository>();
+            context.GetUserActivities().Returns(userActivities);
+            context.GetStravaUserById(123).Returns(userActivity);
+            context.GetStravaUserById(2222).Returns(new StravaUser());
+
+        }
+
         [TestMethod]
         public void Test_Index_Return_View()
         {
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(httpContextHelper, context);
 
             var result = controller.Index() as ViewResult;
 
@@ -23,7 +54,7 @@ namespace StravaVisualizerTest
         [TestMethod]
         public void Test_Privacy_Return_View()
         {
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(httpContextHelper, context);
 
             var result = controller.Privacy() as ViewResult;
 

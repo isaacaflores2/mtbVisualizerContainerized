@@ -26,7 +26,7 @@ namespace StravaVisualizerTest
         [TestMethod]
         public void Test_Get_Current_Month()
         {
-            MonthSummary month = new MonthSummary(today, visualActivities);
+            MonthSummary month = new MonthSummary(today, (List<VisualActivity>) visualActivities);
             
             Assert.AreEqual(today.Month, month.Month);
         }
@@ -34,7 +34,7 @@ namespace StravaVisualizerTest
         [TestMethod]
         public void Test_Get_Activities_For_Month()
         {
-            MonthSummary month = new MonthSummary(today, visualActivities);
+            MonthSummary month = new MonthSummary(today, (List<VisualActivity>) visualActivities);
 
             var result = (List<VisualActivity>) month.Activites;
 
@@ -45,7 +45,7 @@ namespace StravaVisualizerTest
         [TestMethod]
         public void Test_Get_Current_Week_Start_Date()
         {
-            MonthSummary month = new MonthSummary(today, visualActivities);
+            MonthSummary month = new MonthSummary(today, (List<VisualActivity>) visualActivities);
            
             var result = month.WeekStartDate;
             

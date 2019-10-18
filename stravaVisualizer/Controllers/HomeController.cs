@@ -9,7 +9,7 @@ using StravaVisualizer.Models;
 using StravaVisualizer.Models.Activities;
 using StravaVisualizer.Models.MonthSummary;
 
-namespace stravaVisualizer.Controllers
+namespace StravaVisualizer.Controllers
 {
     public class HomeController : Controller
     {

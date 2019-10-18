@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using StravaVisualizer.Models.Map;
 using StravaVisualizer.Models.Activities;
 
-namespace stravaVisualizer.Controllers
+namespace StravaVisualizer.Controllers
 {   
     [Authorize]
     public class MapController : Controller
