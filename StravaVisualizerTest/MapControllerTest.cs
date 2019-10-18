@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using stravaVisualizer.Controllers;
+using StravaVisualizer.Controllers;
 using NSubstitute;
 using Microsoft.AspNetCore.Http;
 using StravaVisualizer.Models;
