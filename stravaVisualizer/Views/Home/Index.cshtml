@@ -4,14 +4,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center margin-bottom">
-    <h1 class="display-4">Visuals for your Strava data</h1>
-    <p>View all of your activity history on a map.</p>
-</div>
+@*<div class="margin-bottom">
+    <h1 class="display-4 text-center">Visuals for your Strava data</h1>    
+    @if(!User.Identity.IsAuthenticated)
+    { 
+        <p class="text-center">Login to view to a monthly summary of your Strava data. You can also see a history of all your run, ride, and all other activities on the Map page.</p>
+    }
+</div>*@
 
+<div id="homeDiv" class="wrapper container-center">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <h1 class="display-4 text-center">Visuals for your Strava data</h1>
+        <p class="text-center margin-bottom">Login to view to a monthly summary of your Strava data. You can also see a history of all your run, ride, and all other activities on the Map page.</p>
+    }
+    else
+    {
+        <h1 class="display-4 text-center margin-bottom">Visuals for your Strava data</h1>
+    }
 
-
-<div id="homeDiv" class="wrapper">
     <h3 class="text-center">Active days this month</h3>
     <div id="calendarDiv">
         <div class="container-flex-center margin-bottom">
