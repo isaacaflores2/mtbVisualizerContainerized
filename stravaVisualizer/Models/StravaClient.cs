@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GeoCoordinatePortable;
-using Newtonsoft.Json;
-using System.Diagnostics;
 using IO.Swagger.Client;
 using IO.Swagger.Api;
 using IO.Swagger.Model;

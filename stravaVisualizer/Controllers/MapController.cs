@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IO.Swagger.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using stravaVisualizer.Data;
-using stravaVisualizer.Models;
-using GeoCoordinatePortable;
 using StravaVisualizer.Models;
-using IO.Swagger.Model;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Identity;
-using StravaVisualizer.Models.Map;
 using StravaVisualizer.Models.Activities;
+using StravaVisualizer.Models.Map;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StravaVisualizer.Controllers
-{   
+{
     [Authorize]
     public class MapController : Controller
     {
