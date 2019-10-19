@@ -41,12 +41,12 @@
     .ui-datepicker .ui-datepicker-prev {
         left: 2px;
         top: 7px;
-        background: url(../img/datepickerArrow.png) top no-repeat;
+        /*background: url(../img/datepickerArrow.png) top no-repeat;*/
     }
 
     .ui-datepicker .ui-datepicker-next {
         right: 2px;
-        background: url(../img/datepickerArrow.png) bottom no-repeat;
+        /*background: url(../img/datepickerArrow.png) bottom no-repeat;*/
     }
 
         .ui-datepicker .ui-datepicker-prev span,
@@ -219,11 +219,11 @@
         }
 
 .ui-datepicker .ui-datepicker-prev:hover {
-    background: transparent url(../img/datepickerArrow.png) top no-repeat;
+    background: transparent; /*url(../img/datepickerArrow.png) top no-repeat;*/
 }
 
 .ui-datepicker .ui-datepicker-next {
-    background: transparent url(../img/datepickerArrow.png) bottom no-repeat;
+    background: transparent; /*url(../img/datepickerArrow.png) bottom no-repeat;*/
 }
 
 .activity a {

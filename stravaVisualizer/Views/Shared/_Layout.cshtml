@@ -19,7 +19,7 @@
               asp-fallback-href="~/lib/datatables/css/datatables.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+             integrity="sha384-1UXhfqyOyO+W+XsGhiIFwwD3hsaHRz2XDGMle3b8bXPH5+cMsXVShDoHA3AH/y/p" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/datepicker.css" />
@@ -89,11 +89,12 @@
                 asp-fallback-test="window.jQuery"
                 crossorigin="anonymous"
                 integrity="sha384-PtTRqvDhycIBU6x1wwIqnbDo8adeWIWP3AHmnrvccafo35E7oIvW7HPXn2YimvWu">
-        </script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" 
-                integrity="sha384-L74JDRkaoB7PWnReNepwX6+kSckc13TJXrka4EerY9jxQxSDl0dTguSLcA7dEfq8" 
+        </script>        
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+                asp-fallback-src="~/lib/datatables/js/"
+                asp-fallback-test="window.jQuery"
+                integrity="sha384-L74JDRkaoB7PWnReNepwX6+kSckc13TJXrka4EerY9jxQxSDl0dTguSLcA7dEfq8"
                 crossorigin="anonymous">
-
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>        
