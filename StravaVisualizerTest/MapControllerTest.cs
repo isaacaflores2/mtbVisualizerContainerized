@@ -12,6 +12,7 @@ using StravaVisualizer.Models.Activities;
 using System;
 using System.Linq;
 using StravaVisualizerTest.Doubles;
+using StravaVisualizer.Data;
 
 namespace StravaVisualizerTest
 {

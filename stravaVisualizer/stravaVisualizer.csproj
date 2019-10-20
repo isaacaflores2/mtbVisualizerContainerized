@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Strava" Version="2.1.0" />
     <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
@@ -32,6 +33,11 @@
   <ItemGroup>
     <None Include="wwwroot\Images\Home_DanLLShuttle.jpg" />
     <None Include="wwwroot\Images\Home_GroundControl1.jpg" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>

@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using stravaVisualizer.Models;
+using StravaVisualizer.Data;
 using StravaVisualizer.Models;
-using StravaVisualizer.Models.Activities;
 using StravaVisualizer.Models.MonthSummary;
 
 namespace StravaVisualizer.Controllers
@@ -28,6 +28,11 @@ namespace StravaVisualizer.Controllers
                 string accessToken = _httpContextHelper.getAccessToken();
                 int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
                 var user = context.GetStravaUserById(stravaId);
+                if(user == null || user.VisualActivities == null || user.VisualActivities.Count == 0)
+                {
+                    return View("Index", null);
+                }
+                
                 MonthSummary monthSummary = new MonthSummary(DateTime.Now, user.VisualActivities.ToList());
                 return View("Index", monthSummary);
             }

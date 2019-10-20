@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 using IO.Swagger.Model;
 using Microsoft.EntityFrameworkCore;
 using StravaVisualizer.Data;
+using StravaVisualizer.Models.Activities;
 
-namespace StravaVisualizer.Models.Activities
+namespace StravaVisualizer.Data
 {
     public class StravaVisualizerRepository: IStravaVisualizerRepository
     {
         private readonly IStravaVisualizerDbContext stravaVisualizerDbContext;
 
-        public StravaVisualizerRepository(IStravaVisualizerDbContext stravaVisualizerDbContext)
+        public StravaVisualizerRepository(IStravaVisualizerDbContext context)
         {
-            this.stravaVisualizerDbContext = stravaVisualizerDbContext;
+            this.stravaVisualizerDbContext = context;
         }
 
         

@@ -50,6 +50,17 @@ namespace StravaVisualizerTest
             var result = month.WeekStartDate;
             
             Assert.AreEqual( thisMonday.Date, result.Date);
-        }      
+        }
+
+        [TestMethod]
+        public void Test_Get_Current_Week_Start_Date_On_Sunday()
+        {
+            var sunday = new DateTime(2019, 10, 20);
+            MonthSummary month = new MonthSummary(today, (List<VisualActivity>)visualActivities);
+
+            var result = month.WeekStartDate;
+
+            Assert.AreEqual(thisMonday.Date, result.Date);
+        }
     }
 }
