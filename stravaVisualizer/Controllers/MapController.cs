@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StravaVisualizer.Data;
 using StravaVisualizer.Models;
 using StravaVisualizer.Models.Activities;
 using StravaVisualizer.Models.Map;

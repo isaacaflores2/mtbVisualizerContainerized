@@ -51,7 +51,7 @@ namespace StravaVisualizerTest
             ((IQueryable<VisualActivity>)activityMockSet).Expression.Returns(mockActivities.Expression);
             ((IQueryable<VisualActivity>)activityMockSet).ElementType.Returns(mockActivities.ElementType);
             ((IQueryable<VisualActivity>)activityMockSet).GetEnumerator().Returns(mockActivities.GetEnumerator());
-            ((IQueryable<VisualActivity>)activityMockSet).Contains(visualActivities[0]).Returns(true);
+            //((IQueryable<VisualActivity>)activityMockSet).Contains(visualActivities[0]).Returns(true);
             userActivityDbContext.VisualActivities.Returns(activityMockSet);
 
             userActivityRepository = new StravaVisualizerRepository(userActivityDbContext);

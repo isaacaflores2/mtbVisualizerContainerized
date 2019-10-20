@@ -39,7 +39,7 @@
             </thead>
             <tbody>
 
-                @if (User.Identity.IsAuthenticated)
+                @if (User.Identity.IsAuthenticated && Model != null)
                 {
                     @foreach (var activity in Model.Activites)
                     {
@@ -75,7 +75,7 @@
 @section Scripts{
 
     <script>
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity.IsAuthenticated && Model != null)
         {
             @:var activeDates = {}
             foreach (var activity in Model.Activites)

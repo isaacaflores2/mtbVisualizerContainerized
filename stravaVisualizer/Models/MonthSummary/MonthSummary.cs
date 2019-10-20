@@ -30,7 +30,7 @@ namespace StravaVisualizer.Models.MonthSummary
         public static DateTime getCurrentWeekStartDate(DateTime today)
         {
             var todayDay = today.Day;
-            var dayOfWeek = (int)today.DayOfWeek;
+            var dayOfWeek = (int)today.DayOfWeek + 1;
             var date = todayDay - (dayOfWeek - 1);
             return new DateTime(today.Year, today.Month, date);
         }
