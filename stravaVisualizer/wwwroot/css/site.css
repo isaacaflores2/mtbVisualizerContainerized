@@ -81,7 +81,7 @@ body {
 }
 
 .container-space-evenly {
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-content: space-between;
 }
 
@@ -98,13 +98,13 @@ body {
 }
 
 .fixed-large {
-    width: 600px;
+    width: 500px;
 }
 
-.home-image{
-    max-width: 100%;    
-    flex-shrink: 1;
-    justify-content: center;
+.home-image {
+    flex: 1;
+    max-width: 400px;
+    min-width: 300px;
 }
 
 .hero-image {
@@ -135,7 +135,7 @@ body {
 
 .flex-large {
     flex: 1;
-    max-width: 600px;
+    max-width: 500px;
     min-width: 300px;
 }
 
