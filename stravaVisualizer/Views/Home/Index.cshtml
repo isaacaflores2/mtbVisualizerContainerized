@@ -17,16 +17,16 @@
 
     <h3 class="text-center">Active days this month</h3>
     
-    <div class=" container-flex container-flex-wrap container-space-evenly" style="text-align:center;">
+    <inline-block class="container-flex-wrap container-space-evenly">
         @*<img id="home_image_left" class="home-image margin-right container-with-shadow" src="~/Images/Home_GroundControl1.jpg" />*@       
         <div id="datepicker" class="calendar margin-bottom container-with-shadow"></div>       
         <img id="home_image_left" class="fixed-med margin-bottom container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />        
         
-    </div>
+    </inline-block>
           
     <h3 class="text-center">Activites this week</h3>
-    <div id="weeklyTableDiv" class="container-center container-with-shadow ">
-        <table id="weeklyTable" style="width:100%">
+    <div id="weeklyTableDiv" class="container-with-shadow ">
+        <table id="weeklyTable" >
             <thead class="table-row.header">
                 <tr class="bg-dark text-light">
                     <th>Name</th>
@@ -39,7 +39,7 @@
             <tbody>
 
                 @if (User.Identity.IsAuthenticated && Model != null)
-                {
+                {                    
                     @foreach (var activity in Model.Activites)
                     {
                         if ((activity.Summary.StartDate.Value.Date.Day >= Model.WeekStartDate.Day) && (activity.Summary.StartDate.Value.Date.Day <= Model.WeekStartDate.Day + 6))

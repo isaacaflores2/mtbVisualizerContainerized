@@ -195,6 +195,7 @@ body {
 
 th, td {
     white-space: nowrap;
+    width: auto;
 }
 
 div.dataTables_wrapper {
