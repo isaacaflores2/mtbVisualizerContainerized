@@ -6,6 +6,9 @@
     overflow: hidden;
     background-repeat: no-repeat;
 }
+.ui-corner-all{
+
+}
 
 /* Overlays */
 .ui-widget-overlay {
@@ -14,12 +17,21 @@
     height: 100%;
 }
 
+.datepicker-container {
+    text-align: center;
+}
+
+.datepicker-center {
+    display: inline-block;
+    margin: 0 auto;
+}
+
 .ui-datepicker {
     position: relative;
     width: inherit;
     height: inherit;
     padding: 0;
-    display: none;
+    display: inline-block;
     /*margin: 20px 0 0 23px;*/
 }
 
