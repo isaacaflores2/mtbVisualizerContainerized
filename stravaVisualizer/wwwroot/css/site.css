@@ -79,7 +79,12 @@ body {
 .container-center {
     justify-content: center !important;
 }
+
+.container-space-evenly {
+    justify-content: space-evenly;
+    align-content: space-between;
 }
+
 
 .container-flex-stretch {
     align-items: stretch;
