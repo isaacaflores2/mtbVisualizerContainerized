@@ -101,8 +101,7 @@ body {
     width: 500px;
 }
 .calendar {
-    flex: 1;
-    flex-shrink: 1;
+    width: 400px;
     margin-right: 10px;
 }
 
