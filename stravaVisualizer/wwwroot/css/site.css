@@ -94,17 +94,21 @@ body {
 }
 
 .fixed-med {
-    width: 350px;    
+    width: 400px;    
 }
 
 .fixed-large {
     width: 500px;
 }
+.calendar {
+    flex: 1;
+    flex-shrink: 1;
+    margin-right: 10px;
+}
 
 .home-image {
-    flex: 1;
-    max-width: 400px;
-    min-width: 300px;
+   width: 40%;
+   flex-shrink: 1;     
 }
 
 .hero-image {
@@ -126,16 +130,9 @@ body {
     color: white;
 }
 
-.calendar{
-    max-width: 100%;
-    max-height: 50%;
-    flex-shrink: 1;
-    justify-content: center;
-}
-
 .flex-large {
     flex: 1;
-    max-width: 500px;
+    max-width: 400px;
     min-width: 300px;
 }
 
