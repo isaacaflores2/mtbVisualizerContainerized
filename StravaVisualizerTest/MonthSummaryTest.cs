@@ -56,7 +56,7 @@ namespace StravaVisualizerTest
         public void Test_Get_Current_Week_Start_Date_On_Sunday()
         {
             var sunday = new DateTime(2019, 10, 20);
-            MonthSummary month = new MonthSummary(today, (List<VisualActivity>)visualActivities);
+            MonthSummary month = new MonthSummary(sunday, (List<VisualActivity>)visualActivities);
 
             var result = month.WeekStartDate;
 
