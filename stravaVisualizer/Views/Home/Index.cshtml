@@ -26,15 +26,15 @@
     </div>
           
     <h3 class="text-center">Activites this week</h3>
-    <div id="weeklyTableDiv" class="home-item container-with-shadow">
+    <div id="weeklyTableDiv" class="home-item container-with-shadow" style="width: 100%">
         <table id="weeklyTable" class="compact">
             <thead class="table-row.header">
                 <tr class="bg-dark text-light">
-                    <th  style="white-space: nowrap;" >Name</th>
-                    <th style="white-space: nowrap;" >Distance</th>
-                    <th style="white-space: nowrap;" >Time</th>
-                    <th style="white-space: nowrap;" >Type</th>
-                    <th style="white-space: nowrap;" >Date</th>
+                    <th  style="white-space: normal;" >Name</th>
+                    <th style="white-space: normal;" >Distance</th>
+                    <th style="white-space: normal;" >Time</th>
+                    <th style="white-space: normal;" >Type</th>
+                    <th style="white-space: normal;" >Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,11 +46,11 @@
                         if ((activity.Summary.StartDate.Value.Date.Day >= Model.WeekStartDate.Day) && (activity.Summary.StartDate.Value.Date.Day <= Model.WeekStartDate.Day + 6))
                         {
                             <tr>
-                                <td style="white-space: nowrap;  >@activity.Summary.Name</td>
-                                <td style="white-space: nowrap;" >@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
-                                <td style="white-space: nowrap;" >@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
-                                <td style="white-space: nowrap;" >@activity.Summary.Type</td>
-                                <td style="white-space: nowrap;" >@activity.Summary.StartDate.Value.Date.ToShortDateString()</td>
+                                <td style="white-space: normal;" >@activity.Summary.Name</td>
+                                <td style="white-space: normal;" >@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
+                                <td style="white-space: normal;" >@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
+                                <td style="white-space: normal;" >@activity.Summary.Type</td>
+                                <td style="white-space: normal;" >@activity.Summary.StartDate.Value.Date.ToShortDateString()</td>
                             </tr>
                         }
                     }
@@ -58,11 +58,11 @@
                 else
                 {
                     <tr>
-                        <td style="white-space: nowrap;" >Lunch Run</td>
-                        <td style="white-space: nowrap;" >4 mi</td>
-                        <td style="white-space: nowrap;" >30:00</td>
-                        <td style="white-space: nowrap;" >Run</td>
-                        <td style="white-space: nowrap;" >Oct 15</td>
+                        <td style="white-space: normal;" >Lunch Run</td>
+                        <td style="white-space: normal;" >4 mi</td>
+                        <td style="white-space: normal;" >30:00</td>
+                        <td style="white-space: normal;" >Run</td>
+                        <td style="white-space: normal;" >Oct 15</td>
                     </tr>
                 }
 
@@ -105,6 +105,7 @@
         {
             @:$(function () {
             @:    $("#datepicker").datepicker();
+            @:    $(".ui-state-highlight").removeClass("ui-state-highlight");
             @:})
         }
 
