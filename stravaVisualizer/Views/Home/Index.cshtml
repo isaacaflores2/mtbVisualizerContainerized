@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div id="homeDiv" class="wrapper container-center">
+<div id="homeDiv" class="wrapper margin-bottom">
     @if (!User.Identity.IsAuthenticated)
     {
         <h1 class="display-4 text-center">Visuals for your Strava data</h1>
@@ -17,23 +17,23 @@
 
     <h3 class="text-center">Active days this month</h3>
     
-    <inline-block class="container-flex-wrap container-space-evenly">
+    <div class="container-flex-wrap container-space-evenly margin-bottom">
         @*<img id="home_image_left" class="home-image margin-right container-with-shadow" src="~/Images/Home_GroundControl1.jpg" />*@       
-        <div id="datepicker" class="calendar margin-bottom container-with-shadow"></div>       
-        <img id="home_image_left" class="fixed-med margin-bottom container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />        
+        <div id="datepicker" class="home-item  container-with-shadow"></div>       
+        @*<img id="home_image_left" class="fixed-med margin-bottom container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />*@        
         
-    </inline-block>
+    </div>
           
     <h3 class="text-center">Activites this week</h3>
-    <div id="weeklyTableDiv" class="container-with-shadow ">
-        <table id="weeklyTable" >
+    <div id="weeklyTableDiv" class="container-with-shadow">
+        <table id="weeklyTable" class="compact">
             <thead class="table-row.header">
                 <tr class="bg-dark text-light">
-                    <th>Name</th>
-                    <th>Distance</th>
-                    <th>Time</th>
-                    <th>Type</th>
-                    <th>Date</th>
+                    <th  style="white-space: nowrap;" >Name</th>
+                    <th style="white-space: nowrap;" >Distance</th>
+                    <th style="white-space: nowrap;" >Time</th>
+                    <th style="white-space: nowrap;" >Type</th>
+                    <th style="white-space: nowrap;" >Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,11 +45,11 @@
                         if ((activity.Summary.StartDate.Value.Date.Day >= Model.WeekStartDate.Day) && (activity.Summary.StartDate.Value.Date.Day <= Model.WeekStartDate.Day + 6))
                         {
                             <tr>
-                                <td>@activity.Summary.Name</td>
-                                <td>@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
-                                <td>@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
-                                <td>@activity.Summary.Type</td>
-                                <td>@activity.Summary.StartDate.Value.Date.ToShortDateString()</td>
+                                <td style="white-space: nowrap;" >@activity.Summary.Name</td>
+                                <td style="white-space: nowrap;" >@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
+                                <td style="white-space: nowrap;" >@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
+                                <td style="white-space: nowrap;" >@activity.Summary.Type</td>
+                                <td style="white-space: nowrap;" >@activity.Summary.StartDate.Value.Date.ToShortDateString()</td>
                             </tr>
                         }
                     }
@@ -57,11 +57,11 @@
                 else
                 {
                     <tr>
-                        <td>Lunch Run</td>
-                        <td>4 mi</td>
-                        <td>30:00</td>
-                        <td>Run</td>
-                        <td>Oct 15</td>
+                        <td style="white-space: nowrap;" >Lunch Run</td>
+                        <td style="white-space: nowrap;" >4 mi</td>
+                        <td style="white-space: nowrap;" >30:00</td>
+                        <td style="white-space: nowrap;" >Run</td>
+                        <td style="white-space: nowrap;" >Oct 15</td>
                     </tr>
                 }
 
@@ -111,6 +111,7 @@
             $('#weeklyTable').DataTable({
                 paging: false,
                 searching: false,
+                ordering: false,
             })
         })
     </script>
