@@ -105,6 +105,10 @@ body {
     margin-right: 10px;
 }
 
+.home-item{
+    flex: 1 1;
+}
+
 .home-image {
    width: 40%;
    flex-shrink: 1;     
