@@ -56,7 +56,8 @@ body {
 }
 
 .wrapper {
-    display: inline-block;
+    position: relative;
+    text-align: center;
 }
 
 .container-flex {
@@ -79,6 +80,12 @@ body {
 .container-center {
     justify-content: center !important;
 }
+
+.container-space-around {
+    justify-content: space-around;    
+}
+
+
 
 .container-space-evenly {
     justify-content: space-between;
