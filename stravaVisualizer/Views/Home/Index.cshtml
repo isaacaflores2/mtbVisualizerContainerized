@@ -46,7 +46,7 @@
                         if ((activity.Summary.StartDate.Value.Date.Day >= Model.WeekStartDate.Day) && (activity.Summary.StartDate.Value.Date.Day <= Model.WeekStartDate.Day + 6))
                         {
                             <tr>
-                                <td style="white-space: nowrap; flex: 1;" >@activity.Summary.Name</td>
+                                <td style="white-space: nowrap;  >@activity.Summary.Name</td>
                                 <td style="white-space: nowrap;" >@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
                                 <td style="white-space: nowrap;" >@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
                                 <td style="white-space: nowrap;" >@activity.Summary.Type</td>
@@ -112,7 +112,9 @@
             $('#weeklyTable').DataTable({
                 paging: false,
                 searching: false,
+                info: false,
                 ordering: false,
+                
             })
         })
     </script>
