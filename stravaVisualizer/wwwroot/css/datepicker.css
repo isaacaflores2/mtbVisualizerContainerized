@@ -199,8 +199,8 @@
     .ui-state-focus,
     .ui-widget-content .ui-state-focus,
     .ui-widget-header .ui-state-focus {
-        background: #1ca3f4;
-        color: #fff;
+        background: #f6f6f6;
+        color: #300808;
         text-align: center;
     }
 
@@ -225,13 +225,13 @@
         }
 
 .ui-state-highlight {
-    border: 1px solid #d3d3d3 /*{borderColorDefault}*/ !important;
-    background:  /*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png) /*{bgImgUrlDefault}*/ 50% /*{bgDefaultXPos}*/ 50% /*{bgDefaultYPos}*/ repeat-x /*{bgDefaultRepeat}*/ !important;
+    border: 1px solid #d3d3d3 /*{borderColorDefault}*/ !important;    
+    /*background:  /*{bgColorDefault}*/ url(images/ui-bg_glass_75_e6e6e6_1x400.png) /*{bgImgUrlDefault}*/ 50% /*{bgDefaultXPos}*/ 50% /*{bgDefaultYPos}*/ repeat-x /*{bgDefaultRepeat}*/ !important;*/
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
     border: 1px solid #aaaaaa /*{borderColorActive}*/ !important;
-    background: #ffffff /*{bgColorActive}*/ url(images/ui-bg_glass_65_ffffff_1x400.png) /*{bgImgUrlActive}*/ 50% /*{bgActiveXPos}*/ 50% /*{bgActiveYPos}*/ repeat-x /*{bgActiveRepeat}*/ !important;
+    background: #F6F6F6;
 }
 
 .ui-datepicker .ui-datepicker-prev:hover {
