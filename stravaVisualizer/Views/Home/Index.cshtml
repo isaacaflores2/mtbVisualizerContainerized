@@ -4,53 +4,57 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div id="homeDiv" class="wrapper margin-bottom container-space-around">
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <h1 class="display-4 text-center">Visuals for your Strava data</h1>
-        <p class="text-center margin-bottom">Login to view to a monthly summary of your Strava data. You can also see a history of all your run, ride, and all other activities on the <a asp-area="" asp-controller="Map" asp-action="LoadMap">Map</a> page.</p>
-    }
-    else
-    {
-        <h1 class="display-4 text-center margin-bottom">Visuals for your Strava data</h1>
+<div id="homeDiv" class="row mb-3">
+    <div class="col">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <h1 class="display-4 text-center">Visuals for your Strava data</h1>
+            <p class="text-center margin-bottom">Login to view to a monthly summary of your Strava data. You can also see a history of all your run, ride, and all other activities on the <a asp-area="" asp-controller="Map" asp-action="LoadMap">Map</a> page.</p>
+        }
+        else
+        {
+            <h1 class="display-4 text-center margin-bottom">Visuals for your Strava data</h1>
 
-    }
-
-    <h3 class="text-center">Active days this month</h3>
-    
-    <div class="container-flex-wrap container-space-evenly margin-bottom">
-        @*<img id="home_image_left" class="home-image margin-right container-with-shadow" src="~/Images/Home_GroundControl1.jpg" />*@       
-        <div id="datepicker" class="home-item  container-with-shadow"></div>       
-        @*<img id="home_image_left" class="fixed-med margin-bottom container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />*@        
-        
+        }
     </div>
-          
-    <h3 class="text-center">Activites this week</h3>
-    <div id="weeklyTableDiv" class="home-item container-with-shadow" style="width: 100%">
+</div>
+
+<div class="row mb-3">    
+    <div class="col">
+        <h3 class="text-center">Active days this month</h3>
+        @*<img id="home_image_left" class="home-image margin-right container-with-shadow" src="~/Images/Home_GroundControl1.jpg" />*@
+        <div id="datepicker" class="home-item  container-with-shadow"></div>
+        @*<img id="home_image_left" class="fixed-med margin-bottom container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />*@
+    </div>
+ </div>         
+
+<div class="row">    
+    <div id="weeklyTableDiv" class="col">
+        <h3 class="text-center">Activites this week</h3>
         <table id="weeklyTable" class="compact">
             <thead class="table-row.header">
                 <tr class="bg-dark text-light">
-                    <th  style="white-space: normal;" >Name</th>
-                    <th style="white-space: normal;" >Distance</th>
-                    <th style="white-space: normal;" >Time</th>
-                    <th style="white-space: normal;" >Type</th>
-                    <th style="white-space: normal;" >Date</th>
+                    <th style="white-space: normal;">Name</th>
+                    <th style="white-space: normal;">Distance</th>
+                    <th style="white-space: normal;">Time</th>
+                    <th style="white-space: normal;">Type</th>
+                    <th style="white-space: normal;">Date</th>
                 </tr>
             </thead>
             <tbody>
 
                 @if (User.Identity.IsAuthenticated && Model != null)
-                {                    
+                {
                     @foreach (var activity in Model.Activites)
                     {
                         if ((activity.Summary.StartDate.Value.Date.Day >= Model.WeekStartDate.Day) && (activity.Summary.StartDate.Value.Date.Day <= Model.WeekStartDate.Day + 6))
                         {
                             <tr>
-                                <td style="white-space: normal;" >@activity.Summary.Name</td>
-                                <td style="white-space: normal;" >@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
-                                <td style="white-space: normal;" >@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
-                                <td style="white-space: normal;" >@activity.Summary.Type</td>
-                                <td style="white-space: normal;" >@activity.Summary.StartDate.Value.Date.ToShortDateString()</td>
+                                <td style="white-space: normal;">@activity.Summary.Name</td>
+                                <td style="white-space: normal;">@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
+                                <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
+                                <td style="white-space: normal;">@activity.Summary.Type</td>
+                                <td style="white-space: normal;">@activity.Summary.StartDate.Value.Date.ToShortDateString()</td>
                             </tr>
                         }
                     }
@@ -58,11 +62,11 @@
                 else
                 {
                     <tr>
-                        <td style="white-space: normal;" >Lunch Run</td>
-                        <td style="white-space: normal;" >4 mi</td>
-                        <td style="white-space: normal;" >30:00</td>
-                        <td style="white-space: normal;" >Run</td>
-                        <td style="white-space: normal;" >Oct 15</td>
+                        <td style="white-space: normal;">Lunch Run</td>
+                        <td style="white-space: normal;">4 mi</td>
+                        <td style="white-space: normal;">30:00</td>
+                        <td style="white-space: normal;">Run</td>
+                        <td style="white-space: normal;">Oct 15</td>
                     </tr>
                 }
 
