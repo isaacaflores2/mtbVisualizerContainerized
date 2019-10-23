@@ -13,6 +13,9 @@ namespace StravaVisualizer.Data
         public static IList<VisualActivity> MonthVisualActivitiesList()
         {
             IList<VisualActivity> activities = new List<VisualActivity>();
+            Random gen = new Random();            
+            var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            
 
             for (int i = 0; i < 10; i++)
             {
@@ -49,6 +52,12 @@ namespace StravaVisualizer.Data
             MonthSummary month = new MonthSummary(today, MonthVisualActivitiesList() );
 
             return null;
+        }
+
+        private static DateTime randomDayThisMonth(Random gen, DateTime start)
+        {
+            int range = (DateTime.Today - start).Days;
+            return start.AddDays(gen.Next(range));
         }
     }
 }
