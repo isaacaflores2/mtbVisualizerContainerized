@@ -23,7 +23,7 @@
     <div class="col">
         <h3 class="text-center">Active days this month</h3>
         @*<img id="home_image_left" class="home-image margin-right container-with-shadow" src="~/Images/Home_GroundControl1.jpg" />*@
-        <div id="datepicker" class="home-item  container-with-shadow"></div>
+        <div id="datepicker" class="home-item  container-with-shadow text-light"></div>
         @*<img id="home_image_left" class="fixed-med margin-bottom container-with-shadow" src="~/Images/Home_DanLLShuttle.jpg" />*@
     </div>
  </div>         
@@ -32,10 +32,10 @@
     <div id="weeklyTableDiv" class="col">
         <h3 class="text-center">Activites this week</h3>
         <table id="weeklyTable" class="compact">
-            <thead class="table-row.header">
+            <thead class="">
                 <tr class="bg-dark text-light">
                     <th style="white-space: normal;">Name</th>
-                    <th style="white-space: normal;">Distance</th>
+                    <th style="white-space: normal;">Dist.</th>
                     <th style="white-space: normal;">Time</th>
                     <th style="white-space: normal;">Type</th>
                     <th style="white-space: normal;">Date</th>
@@ -51,10 +51,10 @@
                         {
                             <tr>
                                 <td style="white-space: normal;">@activity.Summary.Name</td>
-                                <td style="white-space: normal;">@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) miles</td>
-                                <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime))</td>
-                                <td style="white-space: normal;">@activity.Summary.Type</td>
-                                <td style="white-space: normal;">@activity.Summary.StartDate.Value.Date.ToShortDateString()</td>
+                                <td style="white-space: normal;">@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) mi</td>
+                                <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime).ToString(@"hh\:mm\:ss"))</td>
+                                <td style="white-space: normal;">@activity.Summary.Type.ToString().Trim()</td>
+                                <td style="white-space: normal;">@activity.Summary.StartDate.Value.Date.ToString("MMM dd")</td>
                             </tr>
                         }
                     }
@@ -118,6 +118,9 @@
                 searching: false,
                 info: false,
                 ordering: false,
+                autoWidth: false,
+                "columns": [
+                    { "width": "20%" }, null, null, null, null]
                 
             })
         })

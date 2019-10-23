@@ -38,7 +38,8 @@ namespace StravaVisualizer.Controllers
             }
             else
             {
-                return View("Index", null);
+                MonthSummary monthSummary = ExampleData.GetMonthSummary();
+                return View("Index", monthSummary);
 
             }
         }
