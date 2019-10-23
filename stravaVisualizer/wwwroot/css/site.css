@@ -1,10 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+:root {
+    --light-grey: #d9d9d9;
+}
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Sticky footer styles
@@ -185,7 +188,7 @@ body {
 }
 
 .bg-light-grey {
-    background-color: #d9d9d9;
+    background-color: 
 }
 
 .custom-bg-dark {
