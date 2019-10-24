@@ -10,7 +10,59 @@ namespace StravaVisualizer.Data
 {
     public static class ExampleData
     {
-        public static IList<VisualActivity> MonthVisualActivitiesList()
+
+        public static IList<VisualActivity> MapVisualActivitiesList()
+        {
+            IList<VisualActivity> activities = new List<VisualActivity>();
+
+            int id = 1;
+            var date = new DateTime(2019, 6, 21);
+
+            //Tiger Mountain
+            for(int i =0; i< 5; i++)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Crossfit, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id );
+
+                summary.StartLatlng.Add(47.47F);
+                summary.StartLatlng.Add(-121.93F);
+                summary.EndLatlng.Add(47.47F);
+                summary.EndLatlng.Add(-121.93F);
+                activities.Add(new VisualActivity(summary));                
+            }
+
+
+            //Duthie Hill
+            for (int i = 0; i < 15; i++)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Crossfit, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+
+                summary.StartLatlng.Add(47.57F);
+                summary.StartLatlng.Add(-121.98F);
+                summary.EndLatlng.Add(47.57F);
+                summary.EndLatlng.Add(-121.98F);
+                activities.Add(new VisualActivity(summary));
+            }
+
+            //Swan creek
+            for (int i = 0; i < 15; i++)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Crossfit, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+
+                summary.StartLatlng.Add(47.21F);
+                summary.StartLatlng.Add(-122.40F);
+                summary.EndLatlng.Add(47.21F);
+                summary.EndLatlng.Add(-122.40F);
+                activities.Add(new VisualActivity(summary));
+            }
+
+
+            return activities;
+        }
+
+            public static IList<VisualActivity> MonthVisualActivitiesList()
         {
             IList<VisualActivity> activities = new List<VisualActivity>();
             Random gen = new Random();            

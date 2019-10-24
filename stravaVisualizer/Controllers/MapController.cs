@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace StravaVisualizer.Controllers
 {
-    [Authorize]
+    
     public class MapController : Controller
     {
         private readonly IHttpContextHelper _httpContextHelper;
@@ -38,7 +38,13 @@ namespace StravaVisualizer.Controllers
     
         public PartialViewResult LoadMap()
         {
-            _httpContextHelper.Context = HttpContext;
+            if (!User.Identity.IsAuthenticated)
+            {
+                var exampleCoordinates = _map.getCoordinates(ExampleData.MapVisualActivitiesList());
+                return PartialView("_BingMapPartial", exampleCoordinates);
+            }
+
+                _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
             var user = context.GetStravaUserById(stravaId);
