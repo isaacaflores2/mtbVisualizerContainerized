@@ -43,7 +43,8 @@
             </thead>
             <tbody>
 
-                @if (User.Identity.IsAuthenticated && Model != null)
+                @*@if (User.Identity.IsAuthenticated && Model != null)*@
+                @if (Model != null)
                 {
                     @foreach (var activity in Model.Activites)
                     {
@@ -59,7 +60,7 @@
                         }
                     }
                 }
-                else
+                @*else
                 {
                     <tr>
                         <td style="white-space: normal;">Lunch Run</td>
@@ -68,7 +69,7 @@
                         <td style="white-space: normal;">Run</td>
                         <td style="white-space: normal;">Oct 15</td>
                     </tr>
-                }
+                }*@
 
             </tbody>
         </table>
@@ -79,7 +80,8 @@
 @section Scripts{
 
     <script>
-        @if (User.Identity.IsAuthenticated && Model != null)
+        @*@if (User.Identity.IsAuthenticated && Model != null)*@
+        @if (Model != null)
         {
             @:var activeDates = {}
             foreach (var activity in Model.Activites)
@@ -105,12 +107,12 @@
             @:        });
             @:});
         }
-        else
+        @*else
         {
             @:$(function () {
             @:    $("#datepicker").datepicker();           
             @:})
-        }
+        }*@
         
         $(document).ready( function () {
             $('#weeklyTable').DataTable({

@@ -15,34 +15,36 @@ namespace StravaVisualizer.Data
             IList<VisualActivity> activities = new List<VisualActivity>();
             Random gen = new Random();            
             var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+
+            var firstDayOfTheWeek = MonthSummary.getCurrentWeekStartDate(DateTime.Today);
+            var dates = randomDatesThisMonth(gen, firstDayOfMonth, firstDayOfTheWeek);
+            if (dates.Contains(firstDayOfTheWeek))
+            {
+                dates.Remove(firstDayOfTheWeek);
+            }
+
+            int id = 1; 
+            foreach(var date in dates)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Crossfit, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+
+                summary.StartLatlng.Add(30.0F);
+                summary.StartLatlng.Add(40.0F);
+                summary.EndLatlng.Add(30.0F);
+                summary.EndLatlng.Add(40.0F);
+                activities.Add(new VisualActivity(summary));
+                id++;
+            }
+
+            var summaryForThisWeek = new SummaryActivity(name: "Morning run", startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Crossfit, movingTime: 60, distance: 5000, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: firstDayOfTheWeek, id: id);
+            summaryForThisWeek.StartLatlng.Add(30.0F);
+            summaryForThisWeek.StartLatlng.Add(40.0F);
+            summaryForThisWeek.EndLatlng.Add(30.0F);
+            summaryForThisWeek.EndLatlng.Add(40.0F);
+            activities.Add(new VisualActivity(summaryForThisWeek));
             
-
-            for (int i = 0; i < 10; i++)
-            {
-                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                    type: ActivityType.Crossfit, movingTime: 60, athlete: new MetaAthlete(123), startDate: new DateTime(2019, 09, i + 1), id: i);
-
-                summary.StartLatlng.Add(30.0F);
-                summary.StartLatlng.Add(40.0F);
-                summary.EndLatlng.Add(30.0F);
-                summary.EndLatlng.Add(40.0F);
-
-                activities.Add(new VisualActivity(summary));
-            }
-
-            for (int i = 0; i < 30; i++)
-            {
-                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                    type: ActivityType.Crossfit, movingTime: 60, athlete: new MetaAthlete(123), startDate: new DateTime(2019, 10, i + 1), id: 9 + i);
-
-                summary.StartLatlng.Add(30.0F);
-                summary.StartLatlng.Add(40.0F);
-                summary.EndLatlng.Add(30.0F);
-                summary.EndLatlng.Add(40.0F);
-
-                activities.Add(new VisualActivity(summary));
-            }
-
             return activities;
         }
 
@@ -51,13 +53,32 @@ namespace StravaVisualizer.Data
             var today =  DateTime.Now;
             MonthSummary month = new MonthSummary(today, MonthVisualActivitiesList() );
 
-            return null;
+            return month;
         }
 
-        private static DateTime randomDayThisMonth(Random gen, DateTime start)
+        private static List<DateTime> randomDatesThisMonth(Random gen, DateTime start, DateTime end)
         {
-            int range = (DateTime.Today - start).Days;
-            return start.AddDays(gen.Next(range));
+            List<DateTime> dates = new List<DateTime>();
+
+            int range = (end - start).Days - 1;
+            
+            if(range == 0)
+            {
+                dates.Add(DateTime.Today);                
+            }
+            else
+            {
+                int numActivities = (int) Math.Ceiling(range/2.0);
+                for(int i =0; i< numActivities; i++)
+                {
+                    var newDate =  start.AddDays(gen.Next(range));
+                    if (!dates.Contains(newDate))
+                    {
+                        dates.Add(newDate);
+                    }
+                }                
+            }            
+            return dates;
         }
     }
 }
