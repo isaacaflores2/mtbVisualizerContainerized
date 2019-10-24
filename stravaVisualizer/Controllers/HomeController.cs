@@ -28,6 +28,7 @@ namespace StravaVisualizer.Controllers
                 string accessToken = _httpContextHelper.getAccessToken();
                 int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
                 var user = context.GetStravaUserById(stravaId);
+
                 if(user == null || user.VisualActivities == null || user.VisualActivities.Count == 0)
                 {
                     return View("Index", null);
