@@ -22,7 +22,7 @@ namespace StravaVisualizer.Data
             for(int i =0; i< 5; i++)
             {
                 var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                    type: ActivityType.Crossfit, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id );
+                    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id );
 
                 summary.StartLatlng.Add(47.47F);
                 summary.StartLatlng.Add(-121.93F);
@@ -36,7 +36,7 @@ namespace StravaVisualizer.Data
             for (int i = 0; i < 15; i++)
             {
                 var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                    type: ActivityType.Crossfit, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+                    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
 
                 summary.StartLatlng.Add(47.57F);
                 summary.StartLatlng.Add(-121.98F);
@@ -46,19 +46,70 @@ namespace StravaVisualizer.Data
             }
 
             //Swan creek
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                    type: ActivityType.Crossfit, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+                    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+
 
                 summary.StartLatlng.Add(47.21F);
                 summary.StartLatlng.Add(-122.40F);
                 summary.EndLatlng.Add(47.21F);
-                summary.EndLatlng.Add(-122.40F);
+                summary.EndLatlng.Add(-122.40F);                
                 activities.Add(new VisualActivity(summary));
             }
 
+            //Capital State
+            for (int i = 0; i < 30; i++)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
 
+                summary.StartLatlng.Add(46.94F);
+                summary.StartLatlng.Add(-123.13F);
+                summary.EndLatlng.Add(46.94F);
+                summary.EndLatlng.Add(-123.13F);
+                activities.Add(new VisualActivity(summary));
+            }
+
+            //Capital State Runs
+            for (int i = 0; i < 20; i++)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Run, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+
+                summary.StartLatlng.Add(46.94F);
+                summary.StartLatlng.Add(-123.13F);
+                summary.EndLatlng.Add(46.94F);
+                summary.EndLatlng.Add(-123.13F);
+                activities.Add(new VisualActivity(summary));
+            }
+
+            //Point Defiance Runs
+            for (int i = 0; i < 5; i++)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Run, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+                
+                summary.StartLatlng.Add(47.31F);
+                summary.StartLatlng.Add(-122.53F);
+                summary.EndLatlng.Add(47.31F);
+                summary.EndLatlng.Add(-122.53F);
+                activities.Add(new VisualActivity(summary));
+            }
+            
+            //Point Defiance Runs
+            for (int i = 0; i < 7; i++)
+            {
+                var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Run, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
+                
+                summary.StartLatlng.Add(47.20F);
+                summary.StartLatlng.Add(-122.57F);
+                summary.EndLatlng.Add(47.20F);
+                summary.EndLatlng.Add(-122.57F);
+                activities.Add(new VisualActivity(summary));
+            }
             return activities;
         }
 

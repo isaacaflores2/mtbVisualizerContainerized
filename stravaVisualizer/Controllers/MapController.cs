@@ -86,13 +86,21 @@ namespace StravaVisualizer.Controllers
 
         public PartialViewResult LoadMapByType(String type)
         {
+
+            Enum.TryParse(type, out ActivityType activityType);
+
+            if (!User.Identity.IsAuthenticated)
+            {                
+                var exampleCoordinates = _map.getCoordinatesByType(ExampleData.MapVisualActivitiesList(), activityType);
+                return PartialView("_BingMapPartial", exampleCoordinates);
+            }
+
             _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
             var user = getUpdatedUserActivities(accessToken, stravaId);
-            Enum.TryParse(type, out ActivityType activityType);
+            
             var coordinates = _map.getCoordinatesByType(user.VisualActivities, activityType);
-
             return PartialView("_BingMapPartial", coordinates);
         }
    
