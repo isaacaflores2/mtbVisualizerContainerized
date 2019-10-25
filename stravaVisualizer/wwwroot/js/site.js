@@ -22,14 +22,14 @@ function createCustomClusteredPin(cluster) {
     var radius = Math.log(clusterSize) / Math.log(10) * 3 + minRadius;
 
     //Default cluster color is red.
-    var fillColor = 'rgba(255, 40, 40, 0.5)';
+    var fillColor = 'rgba(255, 40, 40, 5)';
 
     if (clusterSize < 10) {
         //Make the cluster green if there are less than 10 pushpins in it.
-        fillColor = 'rgba(0, 102, 0, 0.5)';
+        fillColor = 'rgba(0, 102, 0, 5)';
     } else if (clusterSize < 100) {
         //Make the cluster yellow if there are 10 to 99 pushpins in it.
-        fillColor = 'rgba(255, 210, 40, 0.5)';
+        fillColor = 'rgba(255, 210, 40, 5)';
     }
 
     //Create an SVG string of two circles, one on top of the other, with the specified radius and color.
