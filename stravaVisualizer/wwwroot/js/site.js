@@ -56,4 +56,9 @@ var mapElementStyle = {
         transit: { fillColor: '#000000' }
 }
 var mapLandColor =  '#dbcebd'    
-    
+
+var titleAll = 'All of Your Activities'
+var titleRides = 'All of Your Runs'
+var titleRuns = 'All of Your Rides'
+
+var mapSpinner = '<div class="d-flex justify-content-center align-items-center align-self-center"><div class="spinner-grow"role="status" style="margin-top: 300px;"><span class="sr-only">Loading...</span></div></div>'   
