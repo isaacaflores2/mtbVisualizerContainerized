@@ -36,8 +36,11 @@
 
     <script>
         var today = new Date()
-        $("#calendarDiv").load('@Url.Action("LoadCalendarPartial")', { date: today.toISOString() })
-        $("#tableDiv").load('@Url.Action("LoadTablePartial")', { date: today.toISOString() })
+        $("#calendarDiv").load('@Url.Action("LoadCalendarPartial")', { date: today.toISOString() }, function () {
+            $("#tableDiv").load('@Url.Action("LoadTablePartial")', { date: today.toISOString() })
+        })
+        @*$("#calendarDiv").load('@Url.Action("LoadCalendarPartial")', { date: today.toISOString() })
+        $("#tableDiv").load('@Url.Action("LoadTablePartial")', { date: today.toISOString() })*@
     </script>
 }
 
