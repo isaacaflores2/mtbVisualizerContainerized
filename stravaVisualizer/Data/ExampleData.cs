@@ -141,7 +141,7 @@ namespace StravaVisualizer.Data
             }
 
             var summaryForThisWeek = new SummaryActivity(name: "Morning run", startLatlng: new LatLng(), endLatlng: new LatLng(),
-                    type: ActivityType.Crossfit, movingTime: 60, distance: 5000, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: firstDayOfTheWeek, id: id);
+                    type: ActivityType.Run, movingTime: 60, distance: 5000, elapsedTime: 1380, athlete: new MetaAthlete(123), startDate: firstDayOfTheWeek, id: id);
             summaryForThisWeek.StartLatlng.Add(30.0F);
             summaryForThisWeek.StartLatlng.Add(40.0F);
             summaryForThisWeek.EndLatlng.Add(30.0F);
