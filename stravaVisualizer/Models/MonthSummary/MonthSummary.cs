@@ -17,9 +17,7 @@ namespace StravaVisualizer.Models.MonthSummary
         {
             Month = today.Month;
             WeekStartDate = getCurrentWeekStartDate(today);
-            Activites = new List<VisualActivity>();
-
-            getActivitiesForThisMonth(visualActivities);
+            Activites = getActivitiesForThisMonth(visualActivities);
         }
 
         public int getCurrentMonth()
@@ -37,12 +35,26 @@ namespace StravaVisualizer.Models.MonthSummary
             return new DateTime(today.Year, today.Month, date);
         }
 
-        public void getActivitiesForThisMonth(ICollection<VisualActivity> visualActivities)
+        public IList<VisualActivity> getActivitiesForThisMonth(ICollection<VisualActivity> visualActivities)
         {
-            Activites = (from activity in visualActivities
+            var activites = (from activity in visualActivities
                          where activity.Summary.StartDate.Value.Month == Month &&
                          activity.Summary.StartDate.Value.Year == WeekStartDate.Year
                          select activity).ToList();
+
+            return activites;
+        }
+
+        public IList<VisualActivity> getActivitiesForThisWeek(ICollection<VisualActivity> visualActivities)
+        {
+            //if ((activity.Summary.StartDate.Value.Date.Day >= Model.WeekStartDate.Day) && (activity.Summary.StartDate.Value.Date.Day <= Model.WeekStartDate.Day + 6))
+
+            var activites = (from activity in visualActivities
+                             where (activity.Summary.StartDate.Value.Date.Day >= WeekStartDate.Day) && 
+                             (activity.Summary.StartDate.Value.Date.Day <= WeekStartDate.Day + 6)
+                             select activity).ToList();
+
+            return activites;
         }
     }
 }

@@ -62,5 +62,16 @@ namespace StravaVisualizerTest
 
             Assert.AreEqual(thisMonday.Date, result.Date);
         }
+
+
+        [TestMethod]
+        public void Test_Get_Activities_For_Week()
+        {
+            MonthSummary month = new MonthSummary(today, (List<VisualActivity>)visualActivities);
+
+            var result = month.getActivitiesForThisWeek((List<VisualActivity>)visualActivities);
+
+            Assert.AreEqual(7, result.Count);
+        }
     }
 }

@@ -1,48 +1,70 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using stravaVisualizer.Models;
 using StravaVisualizer.Data;
 using StravaVisualizer.Models;
+using StravaVisualizer.Models.Activities;
 using StravaVisualizer.Models.MonthSummary;
 
 namespace StravaVisualizer.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IStravaVisualizerRepository context;
+        private readonly IStravaVisualizerRepository _context;
+        private readonly IStravaClient _stravaClient;
         private readonly IHttpContextHelper _httpContextHelper;
 
-        public HomeController(IHttpContextHelper httpContextHelper, IStravaVisualizerRepository context)
+        public HomeController(IHttpContextHelper httpContextHelper, IStravaClient stravaClient, IStravaVisualizerRepository context)
         {
             this._httpContextHelper = httpContextHelper;
-            this.context = context;
+            this._stravaClient = stravaClient;
+            this._context = context;
         }
 
         public IActionResult Index()
+        {            
+            return View("IndexWithPartials");                        
+        }
+
+        public PartialViewResult LoadCalendarPartial(DateTime date)
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                _httpContextHelper.Context = HttpContext;
-                string accessToken = _httpContextHelper.getAccessToken();
-                int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
-                var user = context.GetStravaUserById(stravaId);
-
-                if(user == null || user.VisualActivities == null || user.VisualActivities.Count == 0)
-                {
-                    return View("Index", null);
-                }
-                
-                MonthSummary monthSummary = new MonthSummary(DateTime.Now, user.VisualActivities.ToList());
-                return View("Index", monthSummary);
+                MonthSummary exampleMonthSummary = ExampleData.GetMonthSummary();
+                return PartialView("_CalendarPartial", exampleMonthSummary);
             }
-            else
+
+            _httpContextHelper.Context = HttpContext;
+            string accessToken = _httpContextHelper.getAccessToken();
+            int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
+            var user = getUpdatedUserActivities(accessToken, stravaId);
+
+            MonthSummary monthSummary = new MonthSummary(date, user.VisualActivities.ToList());
+
+            return PartialView("_CalendarPartial", monthSummary);
+        }
+
+        public PartialViewResult LoadTablePartial(DateTime date)
+        {
+            if (!User.Identity.IsAuthenticated)
             {
-                MonthSummary monthSummary = ExampleData.GetMonthSummary();
-                return View("Index", monthSummary);
-
+                MonthSummary exampleMonthSummary = ExampleData.GetMonthSummary();
+                IList<VisualActivity> exampleActivities = exampleMonthSummary.getActivitiesForThisWeek(exampleMonthSummary.Activites);
+                return PartialView("_TablePartial", exampleActivities);
             }
+
+            _httpContextHelper.Context = HttpContext;
+            string accessToken = _httpContextHelper.getAccessToken();
+            int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
+            var user = getUpdatedUserActivities(accessToken, stravaId);
+
+            MonthSummary monthSummary = new MonthSummary(date, user.VisualActivities.ToList());
+            IList<VisualActivity> activities = monthSummary.getActivitiesForThisWeek(monthSummary.Activites);
+
+            return PartialView("_TablePartial", activities);
         }
 
         public IActionResult Privacy()
@@ -54,6 +76,42 @@ namespace StravaVisualizer.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private StravaUser getUpdatedUserActivities(string accessToken, int id)
+        {
+            var user = _context.GetStravaUserById(id);
+
+            if (user == null || user.VisualActivities == null || user.VisualActivities.Count == 0)
+            {
+                var activities = _stravaClient.getAllUserActivities(accessToken, id);
+                user = new StravaUser()
+                {
+                    VisualActivities = activities.ToList(),
+                    UserId = id,
+                    LastDownload = DateTime.Now.Date
+                };
+                _context.Add(user);
+                _context.SaveChanges();
+            }
+            else
+            {                
+                var latestActivities = _stravaClient.getUserActivitiesAfter(accessToken, user, user.LastDownload);
+
+                if (latestActivities != null)
+                {
+                    foreach (var activity in latestActivities)
+                    {
+                        if (!_context.Contains(activity))
+                        {
+                            _context.Add(activity);
+                            user.VisualActivities.Add(activity);
+                        }
+                    }
+                    _context.SaveChanges();
+                }
+            }
+            return user;
         }
     }
 }

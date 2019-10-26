@@ -62,7 +62,7 @@ namespace StravaVisualizerTest
 
             var result = controller.Index() as ViewResult;
 
-            Assert.AreEqual("MapAsync", result.ViewName);
+            Assert.AreEqual("Index", result.ViewName);
         }
 
         [TestMethod]
@@ -78,13 +78,13 @@ namespace StravaVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMap() as PartialViewResult;
+            var result = controller.LoadMapPartial() as PartialViewResult;
 
             Assert.AreEqual("_BingMapPartial", result.ViewName);
         }
 
         [TestMethod]
-        public void Test_LoadMap_Context_Data_For_Returning_User()
+        public void Test_LoadMapPartial_Context_Data_For_Returning_User()
         {
             MapController controller = new MapController(httpContextHelper, stravaClient, map, userActivityRepository);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
@@ -96,7 +96,7 @@ namespace StravaVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMap() as PartialViewResult;
+            var result = controller.LoadMapPartial() as PartialViewResult;
 
             Assert.AreEqual(4, ((List<Coordinate>)result.Model).Count());
             Assert.AreEqual(typeof(List<Coordinate>), result.Model.GetType());
@@ -104,7 +104,7 @@ namespace StravaVisualizerTest
         }
 
         [TestMethod]
-        public void Test_LoadMap_Context_Data_For_New_User()
+        public void Test_LoadMapPartial_Context_Data_For_New_User()
         {
             MapController controller = new MapController(httpContextHelper, stravaClient, map, userActivityRepository);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
@@ -116,7 +116,7 @@ namespace StravaVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMap() as PartialViewResult;
+            var result = controller.LoadMapPartial() as PartialViewResult;
 
             Assert.AreEqual(2, ((List<Coordinate>)result.Model).Count());
             Assert.AreEqual(typeof(List<Coordinate>), result.Model.GetType());
@@ -124,7 +124,7 @@ namespace StravaVisualizerTest
         }
         
         [TestMethod]
-        public void Test_LoadMapByType()
+        public void Test_LoadMapByTypePartial()
         {
             MapController controller = new MapController(httpContextHelper, stravaClient, map, userActivityRepository);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
@@ -136,7 +136,7 @@ namespace StravaVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMapByType("Ride") as PartialViewResult;
+            var result = controller.LoadMapByTypePartial("Ride") as PartialViewResult;
             var activities = result.Model as List<Coordinate>;
             Assert.AreEqual(3, ((List<Coordinate>)result.Model).Count());            
             Assert.AreEqual(30.6F,  activities[0].Latitude);

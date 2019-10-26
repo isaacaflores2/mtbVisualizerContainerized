@@ -48,22 +48,22 @@
         });
 
         $("#map_show_rides").click(function () {
-            $("#mapDiv").load('@Url.Action("LoadMapByType")', {type : "Ride" })
+            $("#mapDiv").load('@Url.Action("LoadMapByTypePartial")', {type : "Ride" })
         })
 
 
 
         $("#map_show_runs").click(function () {
-            $("#mapDiv").load('@Url.Action("LoadMapByType")', {type : "Run" })
+            $("#mapDiv").load('@Url.Action("LoadMapByTypePartial")', {type : "Run" })
         })
 
 
         $("#map_show_all").click(function () {
-            $("#mapDiv").load('@Url.Action("LoadMap")')
+            $("#mapDiv").load('@Url.Action("LoadMapPartial")')
         })
 
         $.ajax({
-            url: '@Url.Action("LoadMap")',
+            url: '@Url.Action("LoadMapPartial")',
             type: 'GET',
             error: function (xhr) {
                 alert('Error: ' + xhr.statusText);
