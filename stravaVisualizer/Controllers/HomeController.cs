@@ -26,7 +26,7 @@ namespace StravaVisualizer.Controllers
 
         public IActionResult Index()
         {            
-            return View("IndexWithPartials");                        
+            return View();                        
         }
 
         public PartialViewResult LoadCalendarPartial(DateTime date)
