@@ -1,5 +1,6 @@
 ﻿
 @using StravaVisualizer.Models.Activities
+@using StravaVisualizer.Models.MonthSummary
 @model IList<VisualActivity>
 
 <h3 class="text-center">Activites this week</h3>
@@ -23,8 +24,8 @@
                 
                 <tr>
                     <td style="white-space: normal;">@activity.Summary.Name</td>
-                    <td style="white-space: normal;">@(Math.Round((float)activity.Summary.Distance / (float)1609.344)) mi</td>
-                    <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime).ToString(@"hh\:mm\:ss"))</td>
+                    <td style="white-space: normal;">@(((float)activity.Summary.Distance / (float)1609.344).ToString("0.00"))</td>
+                    <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime).ToStringWithOptionalHours())</td>
                     <td style="white-space: normal;">@activity.Summary.Type.ToString().Trim()</td>
                     <td style="white-space: normal;">@activity.Summary.StartDate.Value.Date.ToString("MMM dd")</td>
                 </tr>
