@@ -13,11 +13,11 @@ namespace StravaVisualizerTest
         [TestMethod]
         public void Test_Index()
         {
-            ErrorController controler = new ErrorController();
+            ErrorController controller = new ErrorController();
 
-            var result = controler.Index() as ViewResult;
+            var result = controller.Index() as ViewResult;
 
-            Assert.AreEqual("Error", result.ViewName);
+            Assert.AreEqual("Index", result.ViewName);
         }
     }
 }

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using stravaVisualizer.Models;
+
 
 namespace StravaVisualizer.Controllers
-{
+{    
     public class ErrorController : Controller
-    {
+    {                       
         public IActionResult Index()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        {                        
+            return View();
         }
     }
 }
