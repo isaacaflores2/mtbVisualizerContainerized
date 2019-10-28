@@ -8,11 +8,13 @@
 
 @if (showBanner)
 {
-    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-        <p>We use cookies to remember your repeat visits and to help request data from Strava. <a asp-area="" asp-controller="Home" asp-action="Privacy">Learn More</a>.</p>
-        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-            <span aria-hidden="true">Accept</span>
-        </button>
+    <div id="cookieConsent" class="alert alert-info alert-dismissible fade show row justify-content-between align-content-center"   role="alert">   
+        <div class="col pr-5">
+            <p>We use cookies to remember your repeat visits and to help request data from Strava. <a asp-area="" asp-controller="Home" asp-action="Privacy">Learn More</a>.</p>               
+        </div>
+        <div class="col-1 pl-1">
+            <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">Accept</button>
+        </div>
     </div>
     <script>
         (function () {
