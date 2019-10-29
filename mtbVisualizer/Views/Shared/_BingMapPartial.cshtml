@@ -1,0 +1,47 @@
+﻿
+@using MtbVisualizer.Models
+@model ICollection<Coordinate>
+
+<div id='myMap' ></div>
+<script type='text/javascript'>
+    var map, clusterLayer;
+    var locations = []
+    var pins = []
+    function loadMapScenario() {
+        var navigationBarMode = Microsoft.Maps.NavigationBarMode
+        map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+            navigationBarMode: navigationBarMode.compact,
+            supportedMapTypes: [Microsoft.Maps.MapTypeId.road, Microsoft.Maps.MapTypeId.aerial, Microsoft.Maps.MapTypeId.grayscale, Microsoft.Maps.MapTypeId.canvasLight, Microsoft.Maps.MapTypeId.canvasDark],
+            customMapStyle: {
+                elements: mapElementStyle
+            },
+            settings: {
+                landColor: mapLandColor
+            }
+
+        });
+
+        @foreach(Coordinate c in Model) {
+            @: var location = new Microsoft.Maps.Location(@c.Latitude, @c.Longitude)
+            @: locations.push(location)
+            @*@: var pin = new Microsoft.Maps.Pushpin(location, { text: "@pin.Text" });*@
+            @: var pin = new Microsoft.Maps.Pushpin(location, { icon: pinSvg.join(''),  text: '1' });
+            @: pins.push(pin)
+            @*@: map.entities.push(pin);*@
+        }
+
+        var rect = Microsoft.Maps.LocationRect.fromLocations(locations)
+        map.setView({ bounds: rect, padding: 0 })
+
+        Microsoft.Maps.loadModule('Microsoft.Maps.Clustering', function () {
+            var clusterLayer = new Microsoft.Maps.ClusterLayer(pins,
+                {
+                    clusteredPinCallback: createCustomClusteredPin,                    
+                    gridSize: 80
+                });
+            map.layers.insert(clusterLayer);
+        });       
+    }
+</script>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AiazNxpO30PT7UwaV6w3yi9yxxYHIJ1CclFCdwHLt68WRhLpgGLMyij33FXz_psx&callback=loadMapScenario' async defer></script>
+
