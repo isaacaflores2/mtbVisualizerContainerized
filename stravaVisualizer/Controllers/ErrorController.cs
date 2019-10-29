@@ -11,12 +11,12 @@ namespace StravaVisualizer.Controllers
     {        
         public IActionResult Index()
         {                        
-            return View();
+            return View("Index");
         }
 
         public IActionResult PageNotFound()
         {
-            return View();
+            return View("PageNotFound");
         }
     }
 }
