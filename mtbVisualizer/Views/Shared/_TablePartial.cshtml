@@ -1,0 +1,50 @@
+﻿@using MtbVisualizer.Models.Activities
+@using MtbVisualizer.Models.MonthSummary
+@model IList<VisualActivity>
+
+<h3 class="text-center">Activites this week</h3>
+<table id="weeklyTable" class="compact">
+    <thead class="">
+        <tr class="bg-dark text-light">
+            <th style="white-space: normal;">Name</th>
+            <th style="white-space: normal;">Dist.</th>
+            <th style="white-space: normal;">Time</th>
+            <th style="white-space: normal;">Type</th>
+            <th style="white-space: normal;">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @*@if (User.Identity.IsAuthenticated && Model != null)*@
+        @if (Model != null)
+        {
+            @foreach (var activity in Model)
+            {
+                
+                <tr>
+                    <td style="white-space: normal;">@activity.Summary.Name</td>
+                    <td style="white-space: normal;">@(((float)activity.Summary.Distance / (float)1609.344).ToString("0.00"))</td>
+                    <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime).ToStringWithOptionalHours())</td>
+                    <td style="white-space: normal;">@activity.Summary.Type.ToString().Trim()</td>
+                    <td style="white-space: normal;">@activity.Summary.StartDate.Value.Date.ToString("MMM dd")</td>
+                </tr>
+                
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#weeklyTable').DataTable({
+            paging: false,
+            searching: false,
+            info: false,
+            ordering: false,
+            autoWidth: false,
+            "columns": [
+                { "width": "20%" }, null, null, null, null]
+
+        })
+    })
+</script>
