@@ -14,9 +14,7 @@
             @if (!User.Identity.IsAuthenticated)
             {                
                 <h6 class="text-center margin-bottom">
-                    <a asp-area="Identity" asp-page="/Account/Login">Login</a> to view to a monthly summary of your Strava data.
-                    You can also see a history of all your run, ride, and all other activities on the
-                    <a asp-area="" asp-controller="Map" asp-action="LoadMap">Map</a> page.
+                    <a asp-area="Identity" asp-page="/Account/Login">Login</a> to view to a monthly summary of your Strava data.                    
                 </h6>
             }            
         </div>
