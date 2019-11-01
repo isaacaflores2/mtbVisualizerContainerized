@@ -4,7 +4,7 @@
 <h3 class="text-center">Active days this month</h3>
 <div id="datepicker" class="home-item  container-with-shadow text-light"></div>
 
-<script type="text/javascript" >
+<script type="text/javascript">
     @if (Model != null)
     {
         @:var activeDates = {}
@@ -18,10 +18,10 @@
         @:var eventDates = {}
         @:eventDates[new Date('10/10/2019')] = new Date('10/10/2019').toString()
         @:$(function () {
-        @:    $("#datepicker").datepicker({           
+        @:    $("#datepicker").datepicker({
         @:        beforeShowDay: function (date) {
         @:              var highlight = activeDates[date]
-        @:              if (highlight) {            
+        @:              if (highlight) {
         @:                    return [true, "activity", '']
         @:                }
         @:                else {
@@ -34,7 +34,7 @@
     else
     {
         @:$(function () {
-        @:    $("#datepicker").datepicker();           
+        @:    $("#datepicker").datepicker();
         @:})
     }
 </script>
