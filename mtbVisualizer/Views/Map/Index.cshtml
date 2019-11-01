@@ -62,8 +62,6 @@
             $("#mapDiv").load('@Url.Action("LoadMapByTypePartial")', {type : "Ride" })
         })
 
-
-
         $("#map_show_runs").click(function () {
             $("#mapDiv").empty()
             $("#mapDiv").html(mapSpinner)
@@ -80,16 +78,6 @@
         })
 
         $("#mapDiv").load('@Url.Action("LoadMapPartial")')
-
-        @*$.ajax({
-            url: '@Url.Action("LoadMapPartial")',
-            type: 'GET',
-            error: function (xhr) {
-                alert('Error: ' + xhr.statusText);
-            },
-            success: function (result) {
-                $('#mapDiv').html(result);
-            }
-        });*@
+      
     </script>
 }
