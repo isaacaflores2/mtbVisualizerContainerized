@@ -73,5 +73,17 @@ namespace MtbVisualizerTest
 
             Assert.AreEqual(7, result.Count);
         }
+
+        [TestMethod]
+        public void Test_Get_Current_Week_Start_Date_On_A_New_MOnth()
+        {
+            var dateOnNewMonth = new DateTime(2019, 11, 01);
+            var startOfTheWeek = new DateTime(2019, 10, 28);
+            MonthSummary month = new MonthSummary(dateOnNewMonth, (List<VisualActivity>)visualActivities);
+
+            var result = month.WeekStartDate;
+
+            Assert.AreEqual(startOfTheWeek.Date, result.Date);
+        }
     }
 }
