@@ -113,7 +113,7 @@ namespace MtbVisualizer.Data
             return activities;
         }
 
-            public static IList<VisualActivity> MonthVisualActivitiesList()
+        public static IList<VisualActivity> MonthVisualActivitiesList()
         {
             IList<VisualActivity> activities = new List<VisualActivity>();
             Random gen = new Random();            
@@ -121,6 +121,7 @@ namespace MtbVisualizer.Data
 
             var firstDayOfTheWeek = MonthSummary.getCurrentWeekStartDate(DateTime.Today);
             var dates = randomDatesThisMonth(gen, firstDayOfMonth, firstDayOfTheWeek);
+
             if (dates.Contains(firstDayOfTheWeek))
             {
                 dates.Remove(firstDayOfTheWeek);
@@ -140,13 +141,13 @@ namespace MtbVisualizer.Data
                 id++;
             }
 
-            var summaryForThisWeek = new SummaryActivity(name: "Morning run", startLatlng: new LatLng(), endLatlng: new LatLng(),
-                    type: ActivityType.Run, movingTime: 60, distance: 5000, elapsedTime: 1380, athlete: new MetaAthlete(123), startDate: firstDayOfTheWeek, id: id);
-            summaryForThisWeek.StartLatlng.Add(30.0F);
-            summaryForThisWeek.StartLatlng.Add(40.0F);
-            summaryForThisWeek.EndLatlng.Add(30.0F);
-            summaryForThisWeek.EndLatlng.Add(40.0F);
-            activities.Add(new VisualActivity(summaryForThisWeek));
+            var summaryForCurrentDay = new SummaryActivity(name: "Morning run", startLatlng: new LatLng(), endLatlng: new LatLng(),
+                    type: ActivityType.Run, movingTime: 60, distance: 5000, elapsedTime: 1380, athlete: new MetaAthlete(123), startDate: DateTime.Today, id: id);
+            summaryForCurrentDay.StartLatlng.Add(30.0F);
+            summaryForCurrentDay.StartLatlng.Add(40.0F);
+            summaryForCurrentDay.EndLatlng.Add(30.0F);
+            summaryForCurrentDay.EndLatlng.Add(40.0F);
+            activities.Add(new VisualActivity(summaryForCurrentDay));
             
             return activities;
         }

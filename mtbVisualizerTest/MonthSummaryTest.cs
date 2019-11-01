@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MtbVisualizer.Data;
 using MtbVisualizer.Models.Activities;
 using MtbVisualizer.Models.MonthSummary;
 using MtbVisualizerTest.Doubles;
@@ -63,17 +64,6 @@ namespace MtbVisualizerTest
             Assert.AreEqual(thisMonday.Date, result.Date);
         }
 
-
-        [TestMethod]
-        public void Test_Get_Activities_For_Week()
-        {
-            MonthSummary month = new MonthSummary(today, (List<VisualActivity>)visualActivities);
-
-            var result = month.getActivitiesForThisWeek((List<VisualActivity>)visualActivities);
-
-            Assert.AreEqual(7, result.Count);
-        }
-
         [TestMethod]
         public void Test_Get_Current_Week_Start_Date_On_A_New_MOnth()
         {
@@ -85,5 +75,29 @@ namespace MtbVisualizerTest
 
             Assert.AreEqual(startOfTheWeek.Date, result.Date);
         }
+
+        [TestMethod]
+        public void Test_Get_Activities_For_Week()
+        {
+            MonthSummary month = new MonthSummary(today, (List<VisualActivity>)visualActivities);
+
+            var result = month.getActivitiesForThisWeek((List<VisualActivity>)visualActivities);
+
+            Assert.AreEqual(7, result.Count);
+        }
+
+
+
+        [TestMethod]
+        public void Test_Get_Activities_For_Week_On_A_New_Month()
+        {
+
+            var dateOnNewMonth = new DateTime(2019, 11, 01);            
+            var month = ExampleData.GetMonthSummary();
+                       
+            var result = month.getActivitiesForThisWeek(month.Activites);
+
+            Assert.AreEqual(1, result.Count);
+        }        
     }
 }
