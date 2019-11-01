@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.Logging;
 
-namespace stravaVisualizer
+namespace mtbVisualizer
 {
     public class Program
     {
