@@ -5,7 +5,8 @@ I was inspired to create this website because I wanted to be able to visualize a
 1) Monthly Calendar - The calendar highlights dates you have recorded a run, ride, or any workout using Strava. 
 2) Weekly Table - The table list any activities you have recorded on Strava this week. 
 3) Map - The map displays number of visits per location (start coordinates) for your run, rides, or all combined activities. 
-
+--- 
+## Technologies
 The web application uses the following technologies to be able to request, display, and save your data:
 1. ASP.NET Core
 2. OAuth
@@ -19,7 +20,6 @@ The web application uses the following technologies to be able to request, displ
     * jQueryUI
     * Datatables
 7. Bootstrap
---- 
 ## Dependencies 
 1. Nuget Packages
     * AspNet.Security.OAuth.Strava
