@@ -1,5 +1,17 @@
-# mtbVisualizer
-## ASP.NET Core web application that provides visuals for your Strava data.
-Currently working on adding the following feature(s):
-1) Map - Displays you Ride or Run coordinates and shows number of visits per location. 
+# [mtbVisualizer](https://mtbvisualizer.azurewebsites.net/) 
+## Visualize your Strava data
+ASP.NET Core Web Application that utilizes the Strava API to allow you to view your workouts and activies on a calendar, table, and a map. 
+I was inspired to create this website because I wanted to be able to visualize all the cool places I have mountain biked in Washington. The site has the following features:
+1) Monthly Calendar - The calendar highlights dates you have recorded a run, ride, or any workout using Strava. 
+2) Weekly Table - The table list any activities you have recorded on Strava this week. 
+3) Map - The map displays number of visits per location (start coordinates) for your run, rides, or all combined activities. 
 
+The web application uses the following technologies to be able to request, display, and save your data:
+1. ASP.NET Core
+2. OAuth
+3. Azure
+4. jQuery (jQueryUI, Datatables)
+
+--- 
+## Detailed Project Description
+## Dependencies 
