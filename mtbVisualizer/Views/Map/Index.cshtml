@@ -2,7 +2,9 @@
 @using MtbVisualizer.Models
 @using IO.Swagger.Model
 @model ICollection<Pin>
-
+@{
+    ViewData["Title"] = "Map Page";
+}
 <div class="row mb-2">
     <div class="col">
         <h2 id="MapPageTitle" class="text-center">All of Your Activities</h2>
@@ -15,7 +17,7 @@
     <div>
         <div class="col">
             <h6 class="text-center margin-bottom">
-                <a asp-area="Identity" asp-page="/Account/Login">Login</a> to view to a monthly summary of your Strava data.                
+                <a asp-area="Identity" asp-page="/Account/Login">Login</a> to view to a monthly summary of your Strava data.
             </h6>
         </div>
     </div>
@@ -76,6 +78,6 @@
         })
 
         $("#mapDiv").load('@Url.Action("LoadMapPartial")')
-      
+
     </script>
 }
