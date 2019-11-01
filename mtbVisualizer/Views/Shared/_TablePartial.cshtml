@@ -20,7 +20,7 @@
         {
             @foreach (var activity in Model)
             {
-                
+
                 <tr>
                     <td style="white-space: normal;">@activity.Summary.Name</td>
                     <td style="white-space: normal;">@(((float)activity.Summary.Distance / (float)1609.344).ToString("0.00"))</td>
@@ -28,13 +28,13 @@
                     <td style="white-space: normal;">@activity.Summary.Type.ToString().Trim()</td>
                     <td style="white-space: normal;">@activity.Summary.StartDate.Value.Date.ToString("MMM dd")</td>
                 </tr>
-                
+
             }
         }
     </tbody>
 </table>
 
-<script type="text/javascript">
+<script>
     $(document).ready(function () {
         $('#weeklyTable').DataTable({
             paging: false,
