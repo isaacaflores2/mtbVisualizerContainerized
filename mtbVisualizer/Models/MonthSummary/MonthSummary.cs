@@ -26,13 +26,13 @@ namespace MtbVisualizer.Models.MonthSummary
         }
 
         public static DateTime getCurrentWeekStartDate(DateTime today)
-        {
-            var todayDay = today.Day;
-            //var dayOfWeek = (int)today.DayOfWeek;
+        {         
+            var dayOfYear = today.Date.DayOfYear;
             var dayOfWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;
+            var weekStartDayOfYear = dayOfYear - dayOfWeek;
+            DateTime weekStartDate = new DateTime(today.Year, 1, 1).AddDays(weekStartDayOfYear);
 
-            var date = todayDay - (dayOfWeek - 1);
-            return new DateTime(today.Year, today.Month, date);
+            return weekStartDate;
         }
 
         public IList<VisualActivity> getActivitiesForThisMonth(ICollection<VisualActivity> visualActivities)
