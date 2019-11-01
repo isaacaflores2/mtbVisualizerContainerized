@@ -1,5 +1,5 @@
-# [mtbVisualizer](https://mtbvisualizer.azurewebsites.net/) 
-## Visualize your Strava data
+# mtbVisualizer
+## [Visualize your Strava data](https://mtbvisualizer.azurewebsites.net/) 
 ASP.NET Core Web Application that utilizes the Strava API to allow you to view your workouts and activies on a calendar, table, and a map. 
 I was inspired to create this website because I wanted to be able to visualize all the cool places I have mountain biked in Washington. The site has the following features:
 1) Monthly Calendar - The calendar highlights dates you have recorded a run, ride, or any workout using Strava. 
@@ -10,8 +10,24 @@ The web application uses the following technologies to be able to request, displ
 1. ASP.NET Core
 2. OAuth
 3. Azure
-4. jQuery (jQueryUI, Datatables)
-
+    * App Service
+    * SQL Database
+    * Azure KeyVault
+4. Bing Maps API
+5. Strava API
+6. jQuery
+    * jQueryUI
+    * Datatables
+7. Bootstrap
 --- 
-## Detailed Project Description
 ## Dependencies 
+1. Nuget Packages
+    * AspNet.Security.OAuth.Strava
+    * Microsoft.AspNetCore.AzureKeyVault.HostingStartup
+    * Microsoft.Azure.KeyVault
+    * Microsoft.Azure.Services.AppAuthentication
+    * Newtonsoft.Json
+2. [Strava Client Code](https://developers.strava.com/docs/#client-code)
+3. [jQueryUI](https://jqueryui.com/)
+4. [Datatables](https://datatables.net/)
+  
