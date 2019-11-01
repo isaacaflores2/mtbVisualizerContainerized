@@ -47,10 +47,9 @@ namespace MtbVisualizer.Models.MonthSummary
 
         public IList<VisualActivity> getActivitiesForThisWeek(ICollection<VisualActivity> visualActivities)
         {
-            //if ((activity.Summary.StartDate.Value.Date.Day >= Model.WeekStartDate.Day) && (activity.Summary.StartDate.Value.Date.Day <= Model.WeekStartDate.Day + 6))
-
+           
             var activites = (from activity in visualActivities
-                             where (activity.Summary.StartDate.Value.Date.Day >= WeekStartDate.Day) && 
+                             where (activity.Summary.StartDate.Value.Date.DayOfYear >= WeekStartDate.DayOfYear) &&
                              (activity.Summary.StartDate.Value.Date.Day <= WeekStartDate.Day + 6)
                              select activity).ToList();
 
