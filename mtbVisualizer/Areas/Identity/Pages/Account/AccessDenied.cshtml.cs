@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace stravaVisualizer.Areas.Identity.Pages.Account
+namespace mtbVisualizer.Areas.Identity.Pages.Account
 {
     public class AccessDeniedModel : PageModel
     {

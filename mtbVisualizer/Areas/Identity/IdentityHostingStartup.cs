@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MtbVisualizer.Data;
 
-[assembly: HostingStartup(typeof(stravaVisualizer.Areas.Identity.IdentityHostingStartup))]
-namespace stravaVisualizer.Areas.Identity
+[assembly: HostingStartup(typeof(mtbVisualizer.Areas.Identity.IdentityHostingStartup))]
+namespace mtbVisualizer.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

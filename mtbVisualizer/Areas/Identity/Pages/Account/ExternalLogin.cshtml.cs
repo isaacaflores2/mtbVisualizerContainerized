@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using static AspNet.Security.OAuth.Strava.StravaAuthenticationConstants;
 
-namespace stravaVisualizer.Areas.Identity.Pages.Account
+namespace mtbVisualizer.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
