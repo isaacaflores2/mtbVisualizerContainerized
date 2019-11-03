@@ -3,7 +3,7 @@
 ASP.NET Core Web Application that utilizes the Strava API to allow you to view your workouts and activies on a calendar, table, and a map. 
 I was inspired to create this website because I wanted to be able to visualize all the cool places I have mountain biked in Washington. The site has the following features:
 1) Monthly Calendar - The calendar highlights dates you have recorded a run, ride, or any workout using Strava. 
-2) Weekly Table - The table list any activities you have recorded on Strava this week. 
+2) Weekly Table - The table lists any activities you have recorded on Strava this week. 
 3) Map - The map displays number of visits per location (start coordinates) for your run, rides, or all combined activities. 
 --- 
 ## Technologies
