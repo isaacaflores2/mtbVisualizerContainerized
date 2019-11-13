@@ -58,7 +58,7 @@ var mapElementStyle = {
 var mapLandColor =  '#dbcebd'    
 
 var titleAll = 'All of Your Activities'
-var titleRides = 'All of Your Runs'
-var titleRuns = 'All of Your Rides'
+var titleRides = 'All of Your Rides'
+var titleRuns = 'All of Your Runs'
 
 var mapSpinner = '<div class="d-flex justify-content-center align-items-center align-self-center"><div class="spinner-grow"role="status" style="margin-top: 200px;"><span class="sr-only">Loading...</span></div></div>'   
