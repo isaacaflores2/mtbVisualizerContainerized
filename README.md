@@ -11,7 +11,7 @@ I was inspired to create this website because I wanted to be able to visualize a
 The web application uses the following technologies to be able to request, display, and save your data:
 1. ASP.NET Core
 2. OAuth
-3. Azure (App Service, SQL Database, Azure KeyVault)=
+3. Azure (App Service, SQL Database, Azure KeyVault)
 4. Bing Maps API
 5. Strava API
 6. jQuery (jQueryUI, Datatables)
