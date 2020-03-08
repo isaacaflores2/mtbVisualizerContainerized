@@ -10,8 +10,8 @@ using MtbVisualizer.Data;
 namespace mtbVisualizer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191029220041_Initial")]
-    partial class Initial
+    [Migration("20200308165958_Intial")]
+    partial class Intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

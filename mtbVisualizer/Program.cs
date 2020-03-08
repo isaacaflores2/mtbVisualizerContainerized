@@ -44,6 +44,6 @@ namespace mtbVisualizer
             ).UseStartup<Startup>()
              .Build();
 
-        private static string GetKeyVaultEndpoint() => "https://mtbvisvault.vault.azure.net";
+        private static string GetKeyVaultEndpoint() => "https://mtbviskv.vault.azure.net";
     }
 }

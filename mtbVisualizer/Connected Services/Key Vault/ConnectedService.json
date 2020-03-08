@@ -1,13 +1,13 @@
 ﻿{
   "ProviderId": "Microsoft.Azure.KeyVault",
-  "Version": "16.3.0.0",
+  "Version": "16.4.0.0",
   "GettingStartedDocument": {
     "Uri": "https://go.microsoft.com/fwlink/?linkid=869667"
   },
   "ExtendedData": {
     "PublishEnvironmentProperties": {
       "KeyVaultName": [
-        "mtbvisvault"
+        "mtbviskv"
       ]
     }
   }
