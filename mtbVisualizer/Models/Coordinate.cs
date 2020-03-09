@@ -10,8 +10,6 @@ namespace MtbVisualizer.Models
         {
             Latitude = latitude;
             Longitude = longitude;
-        }
-
-        
+        }        
     }
 }

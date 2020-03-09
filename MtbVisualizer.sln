@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtbVisualizer", "mtbVisuali
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtbVisualizerTest", "mtbVisualizerTest\mtbVisualizerTest.csproj", "{17B69EE7-F5F3-4657-9627-69A6CC67CDE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map.API", "Services\Map\Map.API\Map.API.csproj", "{941F8867-9F4E-4681-8472-308FE00EEB0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map.UnitTest", "test\Services\Map.UnitTest\Map.UnitTest.csproj", "{9735544A-53FB-41CB-9F69-531AD5E467EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{17B69EE7-F5F3-4657-9627-69A6CC67CDE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17B69EE7-F5F3-4657-9627-69A6CC67CDE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17B69EE7-F5F3-4657-9627-69A6CC67CDE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941F8867-9F4E-4681-8472-308FE00EEB0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941F8867-9F4E-4681-8472-308FE00EEB0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941F8867-9F4E-4681-8472-308FE00EEB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941F8867-9F4E-4681-8472-308FE00EEB0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9735544A-53FB-41CB-9F69-531AD5E467EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9735544A-53FB-41CB-9F69-531AD5E467EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9735544A-53FB-41CB-9F69-531AD5E467EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9735544A-53FB-41CB-9F69-531AD5E467EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
