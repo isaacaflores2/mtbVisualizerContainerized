@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using IO.Swagger.Client;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
-using MtbVisualizer.Models.Activities;
 
 namespace Map.API.Models
 {

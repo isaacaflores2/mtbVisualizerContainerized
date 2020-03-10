@@ -5,31 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Map.API.Data;
 using System.Net;
-using MtbVisualizer.Models.Map;
-using MtbVisualizer.Models.Activities;
 using Map.API.Models;
 
 namespace Map.API.Controllers
 {
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [Route("api/v1/map")]    
     public class MapCoordinatesController : ControllerBase
     {
         private readonly ICoordinatesRepository context;
-        private readonly IStravaClient stravaClient;
-        private readonly IMap map;
+        private readonly IStravaClient stravaClient;        
 
-
-        public MapCoordinatesController(ICoordinatesRepository context, IStravaClient stravaClient, IMap map)
+        public MapCoordinatesController(ICoordinatesRepository context, IStravaClient stravaClient)
         {
             this.context = context;
-            this.stravaClient = stravaClient;
-            this.map = map;
+            this.stravaClient = stravaClient;            
         }
 
-        // GET: api/MapCoordinates
+        // GET: api/v1/map/coordinates
         [HttpGet]
-        [Route("coordinates/{id:int}")]
+        //[Route("coordinates/{id:int}")]
+        [Route("coordinates")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IEnumerable<Coordinates>), (int)HttpStatusCode.OK)]
@@ -40,6 +36,7 @@ namespace Map.API.Controllers
                 return BadRequest();
             }
             
+            //Add try block to function
             var coordinates = getUserCoordinates(accessToken, id).ToList();
             
             if (coordinates != null)

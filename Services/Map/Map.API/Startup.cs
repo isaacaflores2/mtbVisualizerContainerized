@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Map.API.Models;
+using IO.Swagger.Api;
 
 namespace Map.API
 {
@@ -33,6 +35,11 @@ namespace Map.API
             var connectionString = "Server=(localdb)\\mssqllocaldb;Database=MapAPI;Trusted_Connection=True;";
             services.AddDbContext<MapCoordinatesContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddTransient<IActivitiesApi, ActivitiesApi>();
+            services.AddTransient<IAthletesApi, AthletesApi>();
+            services.AddTransient<ICoordinatesRepository, CoordinatesRepository>();
+            services.AddTransient<IStravaClient, StravaClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\mtbVisualizer\mtbVisualizer.csproj" />
     <ProjectReference Include="..\..\..\stravaApi\IO.Swagger\IO.Swagger.csproj" />
   </ItemGroup>
 

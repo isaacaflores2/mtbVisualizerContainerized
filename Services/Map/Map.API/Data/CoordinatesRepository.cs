@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IO.Swagger.Model;
 using Map.API.Models;
 using Microsoft.EntityFrameworkCore;
-using MtbVisualizer.Models.Activities;
 
 namespace Map.API.Data
 {

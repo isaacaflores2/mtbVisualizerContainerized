@@ -8,7 +8,6 @@ using IO.Swagger.Model;
 using System.Threading.Tasks;
 using Map.UnitTest.Doubles;
 using Map.API.Models;
-using MtbVisualizer.Models.Activities;
 using System.Linq;
 
 namespace Map.UnitTest

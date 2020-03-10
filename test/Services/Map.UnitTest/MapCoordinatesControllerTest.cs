@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using Map.API.Controllers;
 using Map.API.Models;
 using Map.UnitTest.Doubles;
-using MtbVisualizer.Models.Activities;
 
 namespace Map.UnitTest
 {
@@ -18,7 +17,6 @@ namespace Map.UnitTest
         private int stravaId;
         private IStravaClient stravaClient;  
         private ICoordinatesRepository context;
-        private MtbVisualizer.Models.Map.IMap map;
 
         [TestInitialize]
         public void Setup()
@@ -26,8 +24,7 @@ namespace Map.UnitTest
             accessToken = "access_token";
             stravaId = 123;
             stravaClient = Substitute.For<IStravaClient>(); ;
-            context = Substitute.For<ICoordinatesRepository>();
-            map = new MtbVisualizer.Models.Map.Map();
+            context = Substitute.For<ICoordinatesRepository>();            
 
             //Mock stravaClient
             IEnumerable<VisualActivity> activities = TestData.VisualActivitiesList();
@@ -53,7 +50,7 @@ namespace Map.UnitTest
         public void Test_CoordinatesById_ForReturingUser()
         {
             //Arrange            
-            var controller = new MapCoordinatesController(context, stravaClient, map);            
+            var controller = new MapCoordinatesController(context, stravaClient);            
             var expectedCoordinates = TestData.CoordinatesList().ToList();
             expectedCoordinates.AddRange(TestData.NewCoordinatesList());
             
@@ -70,7 +67,7 @@ namespace Map.UnitTest
         public void Test_CoordinatesById_ForNewUser()
         {
             //Arrange            
-            var controller = new MapCoordinatesController(context, stravaClient, map);            
+            var controller = new MapCoordinatesController(context, stravaClient);            
             var expectedCoordinates = TestData.CoordinatesList().ToList();
 
             //Act
