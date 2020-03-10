@@ -8,11 +8,15 @@ namespace Map.API.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int? UserID;
+        public int? UserID { get; set; }
         public long? ActvityID;
         public string? ActivityType;
         public float? Latitude;
         public float? Longitude;
+
+        public Coordinates()
+        {
+        }
 
         public Coordinates(int? userId, long? actvitiyId, string? activityType, float? latitude, float? longitude)
         {
