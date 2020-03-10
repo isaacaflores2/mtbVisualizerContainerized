@@ -6,6 +6,10 @@ namespace Map.API.Data
 {
     public class MapCoordinatesContext : DbContext
     {
+        public MapCoordinatesContext() : base()
+        {
+        }
+
         public MapCoordinatesContext(DbContextOptions<MapCoordinatesContext> options)
             : base(options)
         {
