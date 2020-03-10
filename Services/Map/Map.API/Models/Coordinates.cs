@@ -6,9 +6,10 @@ namespace Map.API.Models
 {
     public class Coordinates
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int? UserID { get; set; }
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+        public int? UserID;
         public long? ActvityID;
         public string? ActivityType;
         public float? Latitude;
