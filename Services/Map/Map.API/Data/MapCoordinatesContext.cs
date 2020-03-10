@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using IO.Swagger.Model;
+﻿using System.Threading.Tasks;
 using Map.API.Models;
 using Microsoft.EntityFrameworkCore;
-using MtbVisualizer.Data;
-using MtbVisualizer.Models.Activities;
 
 namespace Map.API.Data
 {
