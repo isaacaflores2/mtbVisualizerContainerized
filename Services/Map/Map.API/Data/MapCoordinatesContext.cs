@@ -18,21 +18,6 @@ namespace Map.API.Data
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Coordinates> StartCoordinates { get; set; }
-
-        public void SaveChanges()
-        {
-            SaveChanges();
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await SaveChangesAsync();
-        }
-
-        public void Add<T>(T entity)
-        {
-            Add<T>(entity);
-        }
+        public DbSet<Coordinates> StartCoordinates { get; set; }        
     }
 }

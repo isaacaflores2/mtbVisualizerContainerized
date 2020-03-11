@@ -25,23 +25,27 @@ namespace Map.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true)
+                    UserID = table.Column<int>(nullable: true),
+                    ActvityID = table.Column<long>(nullable: true),
+                    ActivityType = table.Column<string>(nullable: true),
+                    Latitude = table.Column<float>(nullable: true),
+                    Longitude = table.Column<float>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StartCoordinates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StartCoordinates_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_StartCoordinates_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StartCoordinates_UserId",
+                name: "IX_StartCoordinates_UserID",
                 table: "StartCoordinates",
-                column: "UserId");
+                column: "UserID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

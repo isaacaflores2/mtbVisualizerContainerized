@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Map.API.Migrations
 {
     [DbContext(typeof(MapCoordinatesContext))]
-    [Migration("20200311021857_mapapi-initial")]
+    [Migration("20200311231718_mapapi-initial")]
     partial class mapapiinitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,12 +28,24 @@ namespace Map.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UserId")
+                    b.Property<string>("ActivityType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ActvityID")
+                        .HasColumnType("bigint");
+
+                    b.Property<float?>("Latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("Longitude")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserID");
 
                     b.ToTable("StartCoordinates");
                 });
@@ -55,7 +67,7 @@ namespace Map.API.Migrations
                 {
                     b.HasOne("Map.API.Models.User", null)
                         .WithMany("StartCoordinates")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserID");
                 });
 #pragma warning restore 612, 618
         }

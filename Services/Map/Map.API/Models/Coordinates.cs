@@ -6,14 +6,13 @@ namespace Map.API.Models
 {
     public class Coordinates
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]        
         public int Id { get; set; }
-        public int? UserID;
-        public long? ActvityID;
-        public string? ActivityType;
-        public float? Latitude;
-        public float? Longitude;
+        public int? UserID { get; set; }
+        public long? ActvityID { get; set; }
+        public string? ActivityType { get; set; }
+        public float? Latitude { get; set; }
+        public float? Longitude { get; set; }
 
         public Coordinates()
         {
