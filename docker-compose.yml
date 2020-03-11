@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  map.api:
+    image: ${DOCKER_REGISTRY-}mapapi
+    environment:
+      - ConnectionString=Server=sqldata;User Id=sa;Password=Pass@word
+    build:
+      context: .
+      dockerfile: Services/Map/Map.API/Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - sqldata
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: "Pass@word"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "5433:1433"
+        
+
+        

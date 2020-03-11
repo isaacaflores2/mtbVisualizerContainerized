@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Map.API.Migrations
 {
     [DbContext(typeof(MapCoordinatesContext))]
-    [Migration("20200310205214_mapapi-initial")]
+    [Migration("20200311021857_mapapi-initial")]
     partial class mapapiinitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
