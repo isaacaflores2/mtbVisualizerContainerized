@@ -10,12 +10,10 @@ namespace Map.API.Data
     public class CoordinatesRepository: ICoordinatesRepository
     {
         private readonly MapCoordinatesContext context;
-        private readonly IStravaClient stravaClient;
 
-        public CoordinatesRepository(MapCoordinatesContext context, IStravaClient stravaClient)
+        public CoordinatesRepository(MapCoordinatesContext context)
         {            
             this.context = context;
-            this.stravaClient = stravaClient;
         }
         
         public User GetUserById(int id)

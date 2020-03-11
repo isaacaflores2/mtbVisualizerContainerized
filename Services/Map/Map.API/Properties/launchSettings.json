@@ -30,6 +30,10 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
+      "environmentVariables": {
+        "Key": "Value",
+        "MigrationConnection": "Server=localhost,5433;Database=master;User=sa;Password=Pass@word;"
+      },
       "publishAllPorts": true,
       "useSSL": true
     }
