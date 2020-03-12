@@ -60,7 +60,6 @@ namespace Map.UnitTest
             //Assert            
             Assert.AreEqual(expectedCoordinates.Count, actionResult.Count);
             Assert.AreEqual(expectedCoordinates.First().ActvityID, actionResult.First().ActvityID);
-
         }
 
         [TestMethod]
