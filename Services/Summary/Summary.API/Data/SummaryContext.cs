@@ -16,7 +16,7 @@ namespace Summary.API.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> SummaryUsers { get; set; }
 
         public DbSet<MonthSummaryActivity> MonthSummaryActivities { get; set; }        
     }

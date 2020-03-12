@@ -13,6 +13,18 @@ services:
     depends_on:
       - sqldata
 
+  summary.api:
+    image: ${DOCKER_REGISTRY-}summaryapi
+    environment:
+      - ConnectionString=Server=sqldata;User Id=sa;Password=Pass@word
+    build:
+      context: .
+      dockerfile: Services/Summary/Summary.API/Dockerfile
+    ports:
+      - "8001:80"
+    depends_on:
+      - sqldata
+
   sqldata:
     image: mcr.microsoft.com/mssql/server
     environment:
@@ -20,6 +32,4 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "5433:1433"
-        
-
         

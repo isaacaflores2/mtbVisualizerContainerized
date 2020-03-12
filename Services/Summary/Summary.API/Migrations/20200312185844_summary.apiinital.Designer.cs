@@ -10,7 +10,7 @@ using Summary.API.Data;
 namespace Summary.API.Migrations
 {
     [DbContext(typeof(SummaryContext))]
-    [Migration("20200312172115_summary.apiinital")]
+    [Migration("20200312185844_summary.apiinital")]
     partial class summaryapiinital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace Summary.API.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("SummaryUsers");
                 });
 
             modelBuilder.Entity("Summary.API.Models.MonthSummaryActivity", b =>

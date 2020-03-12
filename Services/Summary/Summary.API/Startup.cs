@@ -2,14 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IO.Swagger.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Summary.API.Data;
+using Summary.API.Models;
 
 namespace Summary.API
 {
@@ -26,6 +30,15 @@ namespace Summary.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var connectionString = Configuration["SummaryAPIConnectionString"];
+            services.AddDbContext<SummaryContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            services.AddTransient<IActivitiesApi, ActivitiesApi>();
+            services.AddTransient<IAthletesApi, AthletesApi>();
+            services.AddTransient<ISummaryRepository, SummaryRepository>();
+            services.AddTransient<IStravaClient, StravaClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

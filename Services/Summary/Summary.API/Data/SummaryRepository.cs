@@ -18,7 +18,7 @@ namespace Summary.API.Data
 
         public User GetUserById(int id)
         {
-            var userActivityForId = context.Users
+            var userActivityForId = context.SummaryUsers
                 .Where(user => user.UserId == id)
                 .Include(user => user.MonthSummaries)
                 .FirstOrDefault();

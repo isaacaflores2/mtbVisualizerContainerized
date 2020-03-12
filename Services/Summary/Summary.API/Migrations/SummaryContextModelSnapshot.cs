@@ -61,7 +61,7 @@ namespace Summary.API.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("SummaryUsers");
                 });
 
             modelBuilder.Entity("Summary.API.Models.MonthSummaryActivity", b =>

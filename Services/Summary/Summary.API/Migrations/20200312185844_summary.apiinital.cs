@@ -8,7 +8,7 @@ namespace Summary.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "SummaryUsers",
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
@@ -16,7 +16,7 @@ namespace Summary.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_SummaryUsers", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -36,9 +36,9 @@ namespace Summary.API.Migrations
                 {
                     table.PrimaryKey("PK_MonthSummaryActivities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MonthSummaryActivities_Users_UserId",
+                        name: "FK_MonthSummaryActivities_SummaryUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "SummaryUsers",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -55,7 +55,7 @@ namespace Summary.API.Migrations
                 name: "MonthSummaryActivities");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "SummaryUsers");
         }
     }
 }

@@ -9,9 +9,9 @@ using Summary.API.Data;
 using Summary.API.Models;
 
 namespace Summary.API.Controllers
-{
-    [Route("api/[controller]")]
+{    
     [ApiController]
+    [Route("api/v1/summary")]
     public class SummaryController : ControllerBase
     {
         private readonly ISummaryRepository context;
@@ -23,7 +23,7 @@ namespace Summary.API.Controllers
             this.stravaClient = stravaClient;
         }
 
-        // GET: api/v1/map/coordinates
+        // GET: api/v1/summary/month
         [HttpGet]        
         [Route("month")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -115,6 +115,13 @@ namespace Summary.API.Controllers
             }
 
             return monthSummaryActivities;
+        }
+
+        // GET: api/v1/summary/5
+        [HttpGet("{id}", Name = "Get")]
+        public string Get(int id)
+        {
+            return "value";
         }
     }
 }
