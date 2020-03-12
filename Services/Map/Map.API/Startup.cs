@@ -31,7 +31,7 @@ namespace Map.API
         {
             services.AddControllers();
 
-            var connectionString = Configuration["ConnectionString"];
+            var connectionString = Configuration["MapAPIConnectionString"];
             services.AddDbContext<MapCoordinatesContext>(options =>
                 options.UseSqlServer(connectionString));
 
