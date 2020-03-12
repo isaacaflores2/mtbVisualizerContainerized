@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication;
 using MtbVisualizer.Models;
 using MtbVisualizer.Models.Map;
 using IO.Swagger.Api;
+using mtbVisualizer.Services;
 
 namespace mtbVisualizer
 {
@@ -72,6 +73,8 @@ namespace mtbVisualizer
             #endregion
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddHttpClient<IMapCoordinatesService, MapCoordinatesService>();
 
             services.AddTransient<IHttpContextHelper, HttpContextHelper>();
             services.AddTransient<IStravaClient, StravaClient>();
