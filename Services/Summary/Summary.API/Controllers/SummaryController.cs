@@ -85,7 +85,8 @@ namespace Summary.API.Controllers
             }
 
             var activitiesThisMonth = from activity in user.MonthSummaries
-                                      where activity.StartDate.Value.Month == month
+                                      where activity.StartDate.Value.Month == month &&
+                                      activity.StartDate.Value.Year == DateTime.Now.Year
                                       select activity;
 
             if (activitiesThisMonth == null || activitiesThisMonth.ToList().Count == 0)
