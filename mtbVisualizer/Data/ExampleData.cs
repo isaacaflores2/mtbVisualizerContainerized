@@ -1,6 +1,5 @@
 ﻿using IO.Swagger.Model;
 using MtbVisualizer.Models.Activities;
-using MtbVisualizer.Models.MonthSummary;
 using System;
 using System.Collections.Generic;
 using System.Linq;

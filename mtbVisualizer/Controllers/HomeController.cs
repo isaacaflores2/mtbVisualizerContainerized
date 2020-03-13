@@ -7,7 +7,6 @@ using MtbVisualizer.Models;
 using MtbVisualizer.Data;
 using MtbVisualizer.Models;
 using MtbVisualizer.Models.Activities;
-using MtbVisualizer.Models.MonthSummary;
 using mtbVisualizer.Services;
 using MtbVisualizer.ViewModels;
 using System.Threading.Tasks;

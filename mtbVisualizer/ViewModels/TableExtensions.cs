@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MtbVisualizer.Models.MonthSummary
+namespace MtbVisualizer.ViewModels
 {
     public static class TableExtensions
     {

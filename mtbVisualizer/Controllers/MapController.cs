@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using mtbVisualizer.Services;
 using MtbVisualizer.Data;
 using MtbVisualizer.Models;
-using MtbVisualizer.Models.Activities;
-using MtbVisualizer.Models.Map;
 using MtbVisualizer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -94,19 +92,10 @@ namespace MtbVisualizer.Controllers
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
 
             var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
-            var activityCoordinatesByType = GetActivityCoordinatesByType(activityCoordinates, type);
+            var activityCoordinatesByType = ActivityCoordinates.GetActivityCoordinatesByType(activityCoordinates, type);
             var coordinates = convertToCoordinates(activityCoordinatesByType);
             
             return PartialView("_BingMapPartial", coordinates);
-        }
-
-        private ICollection<ActivityCoordinates> GetActivityCoordinatesByType(ICollection<ActivityCoordinates> activityCoordinates, string type)
-        {
-            var activityCoordinatesByType = (from activity in activityCoordinates
-                                            where activity.ActivityType == type
-                                            select activity).ToList();
-
-            return activityCoordinatesByType;
-        }   
+        }       
     }
 }

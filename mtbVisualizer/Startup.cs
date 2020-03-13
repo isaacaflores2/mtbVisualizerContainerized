@@ -15,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication;
 using MtbVisualizer.Models;
-using MtbVisualizer.Models.Map;
 using IO.Swagger.Api;
 using mtbVisualizer.Services;
 
@@ -77,8 +76,7 @@ namespace mtbVisualizer
             services.AddHttpClient<IMapCoordinatesService, MapCoordinatesService>();
 
             services.AddTransient<IHttpContextHelper, HttpContextHelper>();
-            services.AddTransient<IStravaClient, StravaClient>();
-            services.AddTransient<IMap, Map>();
+            services.AddTransient<IStravaClient, StravaClient>();            
             services.AddTransient<IActivitiesApi, ActivitiesApi>();
             services.AddTransient<IAthletesApi, AthletesApi>();         
         }
