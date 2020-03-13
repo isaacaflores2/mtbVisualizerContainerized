@@ -3,12 +3,45 @@ using MtbVisualizer.Models.Activities;
 using MtbVisualizer.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace MtbVisualizerTest.Doubles
 {
     public class  TestData
     {
+        public static IEnumerable<MonthSummaryActivity> MonthSummariesList()
+        {
+            var monthSummary1 = new MonthSummaryActivity()
+            {
+                Id = 1,
+                UserId = 123,
+                Name = "Morning Workout",
+                Distance = 50.0F,
+                ElapsedTime= 30,
+                Type = ActivityType.Crossfit.ToString(),
+                StartDate = new DateTime(2019, 10, 1)
+            };
+
+            var monthSummary2 = new MonthSummaryActivity()
+            {
+                Id = 1,
+                UserId = 123,
+                Name = "Morning Run",
+                Distance = 50.0F,
+                ElapsedTime = 30,
+                Type = ActivityType.Run.ToString(),
+                StartDate = new DateTime(2019, 10, 14)
+            };
+
+            var monthSummaries = new List<MonthSummaryActivity>
+            {
+                monthSummary1,
+                monthSummary2,
+            };
+
+            return monthSummaries;
+        }
+
         public static IEnumerable<ActivityCoordinates> ActivityCoordinatesList()
         {
             var activityCoordinate1 = new ActivityCoordinates()

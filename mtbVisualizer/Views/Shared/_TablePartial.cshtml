@@ -1,6 +1,6 @@
-﻿@using MtbVisualizer.Models.Activities
+﻿@using MtbVisualizer.ViewModels
 @using MtbVisualizer.Models.MonthSummary
-@model IList<VisualActivity>
+@model ICollection<MonthSummaryActivity>
 
 <h3 class="text-center">Activites this week</h3>
 <table id="weeklyTable" class="compact">
@@ -22,11 +22,11 @@
             {
 
                 <tr>
-                    <td style="white-space: normal;">@activity.Summary.Name</td>
-                    <td style="white-space: normal;">@(((float)activity.Summary.Distance / (float)1609.344).ToString("0.00"))</td>
-                    <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.Summary.ElapsedTime).ToStringWithOptionalHours())</td>
-                    <td style="white-space: normal;">@activity.Summary.Type.ToString().Trim()</td>
-                    <td style="white-space: normal;">@activity.Summary.StartDate.Value.Date.ToString("MMM dd")</td>
+                    <td style="white-space: normal;">@activity.Name</td>
+                    <td style="white-space: normal;">@(((float)activity.Distance / (float)1609.344).ToString("0.00"))</td>
+                    <td style="white-space: normal;">@(TimeSpan.FromSeconds((double)activity.ElapsedTime).ToStringWithOptionalHours())</td>
+                    <td style="white-space: normal;">@activity.Type.ToString().Trim()</td>
+                    <td style="white-space: normal;">@activity.StartDate.Date.ToString("MMM dd")</td>
                 </tr>
 
             }

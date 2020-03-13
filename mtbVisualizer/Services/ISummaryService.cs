@@ -1,12 +1,13 @@
 ﻿using MtbVisualizer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace mtbVisualizer.Services
 {
-    public interface IMapCoordinatesService
+    public interface ISummaryService
     {
-        Task<IEnumerable<ActivityCoordinates>> GetActivityCoordinates(string accessToken, int id);
+        Task<IEnumerable<MonthSummaryActivity>> GetMonthSummaryActivities(string accessToken, int id);
     }
 }

@@ -8,5 +8,6 @@ namespace mtbVisualizer
     public class AppSettings
     {
         public string MapUrl { get; set; }
+        public string SummaryUrl { get; set; }
     }
 }
