@@ -61,7 +61,7 @@ namespace MtbVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMapPartial() as PartialViewResult;
+            var result = controller.LoadMapPartial().Result as PartialViewResult;
 
             Assert.AreEqual("_BingMapPartial", result.ViewName);
         }
@@ -79,7 +79,7 @@ namespace MtbVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMapPartial().Model as ICollection<Coordinate>;            
+            var result = controller.LoadMapPartial().Result.Model as ICollection<Coordinate>;            
                         
             Assert.IsNotNull(result);            
             Assert.AreEqual(2, result.Count());            
@@ -99,7 +99,7 @@ namespace MtbVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMapByTypePartial("Ride").Model as ICollection<Coordinate>;
+            var result = controller.LoadMapByTypePartial("Ride").Result.Model as ICollection<Coordinate>;
                         
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count);                        

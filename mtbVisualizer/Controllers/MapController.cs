@@ -37,7 +37,7 @@ namespace MtbVisualizer.Controllers
             return View("Index");
         }
     
-        public PartialViewResult LoadMapPartial()
+        public async Task<PartialViewResult> LoadMapPartial()
         {
             //if (!User.Identity.IsAuthenticated)
             //{
@@ -49,7 +49,7 @@ namespace MtbVisualizer.Controllers
             string accessToken = _httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
             
-            var activityCoordinates = mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId).Result.ToList();
+            var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
             var coordinates = convertToCoordinates(activityCoordinates);
 
             return PartialView("_BingMapPartial", coordinates);
@@ -81,7 +81,7 @@ namespace MtbVisualizer.Controllers
             return coordinates;
         }
 
-        public PartialViewResult LoadMapByTypePartial(String type)
+        public async Task<PartialViewResult> LoadMapByTypePartial(String type)
         {
 
             //Enum.TryParse(type, out ActivityType activityType);
@@ -94,9 +94,9 @@ namespace MtbVisualizer.Controllers
 
             _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
-            int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);            
+            int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
 
-            var activityCoordinates = mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId).Result.ToList();
+            var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
             var activityCoordinatesByType = GetActivityCoordinatesByType(activityCoordinates, type);
             var coordinates = convertToCoordinates(activityCoordinatesByType);
             
