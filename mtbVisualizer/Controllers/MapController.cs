@@ -19,16 +19,13 @@ namespace MtbVisualizer.Controllers
     public class MapController : Controller
     {
         private readonly IHttpContextHelper _httpContextHelper;        
-        private readonly IStravaVisualizerRepository _context;
         private readonly IMapCoordinatesService mapCoordinatesService;
 
         public IDictionary<string, string> AuthProperties { get; set; }
 
-        public MapController(IHttpContextHelper httpContextHelper, IStravaVisualizerRepository userActivityRepository, 
-                                IMapCoordinatesService mapCoordinatesService) 
+        public MapController(IHttpContextHelper httpContextHelper, IMapCoordinatesService mapCoordinatesService) 
         {
-            this._httpContextHelper = httpContextHelper;            
-            this._context = userActivityRepository;
+            this._httpContextHelper = httpContextHelper;                        
             this.mapCoordinatesService = mapCoordinatesService;
         }
 
@@ -110,44 +107,6 @@ namespace MtbVisualizer.Controllers
                                             select activity).ToList();
 
             return activityCoordinatesByType;
-        }
-
-   
-        //private StravaUser getUpdatedUserActivities(string accessToken, int id)
-        //{
-        //    var user = _context.GetStravaUserById(id);
-
-        //    if (user == null || user.VisualActivities == null || user.VisualActivities.Count == 0)
-        //    {
-        //        var activities = _stravaClient.getAllUserActivities(accessToken, id);
-        //        user = new StravaUser()
-        //        {
-        //            VisualActivities = activities.ToList(),
-        //            UserId = id,
-        //            LastDownload = DateTime.Now.Date
-        //        };
-        //        _context.Add(user);
-        //        _context.SaveChanges();
-        //    }
-        //    else
-        //    {
-        //        var lastDownloadDate = new DateTime(2019, 9, 29);
-        //        var latestActivities = _stravaClient.getUserActivitiesAfter(accessToken, user, user.LastDownload);
-
-        //        if (latestActivities != null)
-        //        {
-        //            foreach (var activity in latestActivities)
-        //            {
-        //                if (!_context.Contains(activity))
-        //                {
-        //                    _context.Add(activity);
-        //                    user.VisualActivities.Add(activity);
-        //                }
-        //            }
-        //            _context.SaveChanges();
-        //        }
-        //    }
-        //    return user; 
-        //} 
+        }   
     }
 }

@@ -80,9 +80,7 @@ namespace mtbVisualizer
             services.AddTransient<IStravaClient, StravaClient>();
             services.AddTransient<IMap, Map>();
             services.AddTransient<IActivitiesApi, ActivitiesApi>();
-            services.AddTransient<IAthletesApi, AthletesApi>();
-            services.AddTransient<IStravaVisualizerRepository, StravaVisualizerRepository>();
-            services.AddScoped<IMtbVisualizerDbContext, ApplicationDbContext>();
+            services.AddTransient<IAthletesApi, AthletesApi>();         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

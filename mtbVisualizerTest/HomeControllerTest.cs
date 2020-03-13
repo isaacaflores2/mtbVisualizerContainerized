@@ -20,8 +20,7 @@ namespace MtbVisualizerTest
     [TestClass]
     public class HomeControllerTest
     {
-        private IHttpContextHelper httpContextHelper;        
-        private IStravaVisualizerRepository context;
+        private IHttpContextHelper httpContextHelper;                
         private ISummaryService summaryService;
 
         [TestInitialize]
@@ -38,7 +37,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_Index_Return_View()
         {
-            HomeController controller = new HomeController(httpContextHelper, context, summaryService);
+            HomeController controller = new HomeController(httpContextHelper, summaryService);
             var claims = new Claim[] { new Claim("stravaId", "123") };
             var identity = new ClaimsIdentity(claims, "mock");
             var user = new ClaimsPrincipal(identity);
@@ -55,7 +54,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_Index_For_User_With_No_Data()
         {
-            HomeController controller = new HomeController(httpContextHelper, context, summaryService);
+            HomeController controller = new HomeController(httpContextHelper, summaryService);
             var claims = new Claim[] { new Claim("stravaId", "222") };
             var identity = new ClaimsIdentity(claims, "mock");
             var user = new ClaimsPrincipal(identity);
@@ -73,7 +72,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_Calendar_Partial_View()
         {
-            HomeController controller = new HomeController(httpContextHelper, context, summaryService);
+            HomeController controller = new HomeController(httpContextHelper, summaryService);
             var claims = new Claim[] { new Claim("stravaId", "123") };
             var identity = new ClaimsIdentity(claims, "mock");
             var user = new ClaimsPrincipal(identity);
@@ -94,7 +93,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_Table_Partial_View()
         {
-            HomeController controller = new HomeController(httpContextHelper, context, summaryService);
+            HomeController controller = new HomeController(httpContextHelper, summaryService);
             var claims = new Claim[] { new Claim("stravaId", "123") };
             var identity = new ClaimsIdentity(claims, "mock");
             var user = new ClaimsPrincipal(identity);
@@ -115,7 +114,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_Privacy_Return_View()
         {
-            HomeController controller = new HomeController(httpContextHelper, context, summaryService);
+            HomeController controller = new HomeController(httpContextHelper, summaryService);
 
             var result = controller.Privacy() as ViewResult;
 

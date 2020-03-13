@@ -19,11 +19,7 @@ namespace MtbVisualizerTest
     [TestClass]
     public class MapControllerTest
     {
-        private IHttpContextHelper httpContextHelper;
-        //private IStravaClient stravaClient;
-        //private IMap map;
-        //private IEnumerable<StravaUser> userActivities;
-        private IStravaVisualizerRepository userActivityRepository;
+        private IHttpContextHelper httpContextHelper;        
         private IMapCoordinatesService mapCoordinatesService;
 
         [TestInitialize]
@@ -41,7 +37,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_Index_Return_View()
         {          
-            MapController controller = new MapController(httpContextHelper, userActivityRepository, mapCoordinatesService);
+            MapController controller = new MapController(httpContextHelper, mapCoordinatesService);
 
             var result = controller.Index() as ViewResult;
 
@@ -50,8 +46,8 @@ namespace MtbVisualizerTest
 
         [TestMethod]
         public void Test_LoadMap_Return_View()
-        {           
-            MapController controller = new MapController(httpContextHelper, userActivityRepository, mapCoordinatesService);
+        {
+            MapController controller = new MapController(httpContextHelper, mapCoordinatesService);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                 new Claim("stravaId", "123")               
@@ -69,7 +65,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_LoadMapPartial_Context_Data()
         {
-            MapController controller = new MapController(httpContextHelper, userActivityRepository, mapCoordinatesService);
+            MapController controller = new MapController(httpContextHelper, mapCoordinatesService);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                 new Claim("stravaId", "123")
@@ -89,7 +85,7 @@ namespace MtbVisualizerTest
         [TestMethod]
         public void Test_LoadMapByTypePartial()
         {
-            MapController controller = new MapController(httpContextHelper, userActivityRepository, mapCoordinatesService);
+            MapController controller = new MapController(httpContextHelper, mapCoordinatesService);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                 new Claim("stravaId", "123")

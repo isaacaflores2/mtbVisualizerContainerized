@@ -16,15 +16,13 @@ namespace MtbVisualizer.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IStravaVisualizerRepository _context;
         private readonly ISummaryService summaryService;
         private readonly IHttpContextHelper httpContextHelper;
 
 
-        public HomeController(IHttpContextHelper httpContextHelper, IStravaVisualizerRepository context, ISummaryService summaryService)
+        public HomeController(IHttpContextHelper httpContextHelper, ISummaryService summaryService)
         {
             this.httpContextHelper = httpContextHelper;            
-            this._context = context;
             this.summaryService = summaryService;
         }
 
