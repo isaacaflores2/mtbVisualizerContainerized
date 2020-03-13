@@ -1,5 +1,6 @@
 ﻿using IO.Swagger.Model;
 using MtbVisualizer.Models.Activities;
+using MtbVisualizer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,67 @@ namespace MtbVisualizerTest.Doubles
 {
     public class  TestData
     {
+        public static IEnumerable<ActivityCoordinates> ActivityCoordinatesList()
+        {
+            var activityCoordinate1 = new ActivityCoordinates()
+            {
+                Id = 1,
+                UserID = 123,
+                ActvityID = 1L,
+                ActivityType = ActivityType.Crossfit.ToString(),
+                Latitude = 30.0F,
+                Longitude = 40.0F
+            };
+
+            var activityCoordinate2 = new ActivityCoordinates()
+            {
+                Id = 2,
+                UserID = 123,
+                ActvityID = 2L,
+                ActivityType = ActivityType.Ride.ToString(),
+                Latitude = 30.6F,
+                Longitude = 40.6F
+            };
+
+            var activityCoordinates = new List<ActivityCoordinates>
+            {
+                activityCoordinate1,
+                activityCoordinate2,
+            };
+
+            return activityCoordinates;
+        }
+
+        public static IEnumerable<ActivityCoordinates> NewActivityCoordinatesList()
+        {
+            var activityCoordinate1 = new ActivityCoordinates()
+            {
+                Id =1,
+                UserID = 123,
+                ActvityID = 1L, 
+                ActivityType = ActivityType.Ride.ToString(),
+                Latitude = 30.0F,
+                Longitude = 40.0F
+            };
+
+            var activityCoordinate2 = new ActivityCoordinates()
+            {
+                Id = 2,
+                UserID = 123,
+                ActvityID = 2L,
+                ActivityType = ActivityType.Ride.ToString(),
+                Latitude = 30.6F,
+                Longitude = 40.6F
+            };
+
+            var activityCoordinates = new List<ActivityCoordinates>
+            {
+                activityCoordinate1,
+                activityCoordinate2,
+            };
+
+            return activityCoordinates;
+        }
 
         public static ICollection<VisualActivity> SingleVisuActvityList()
         {

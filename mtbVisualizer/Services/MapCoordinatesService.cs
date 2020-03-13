@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
-using MtbVisualizer.Models;
+using MtbVisualizer.ViewModels;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 

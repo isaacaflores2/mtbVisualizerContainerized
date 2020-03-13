@@ -1,12 +1,11 @@
-﻿using MtbVisualizer.Models;
+﻿using MtbVisualizer.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace mtbVisualizer.Services
 {
-    interface IMapCoordinatesService
+    public interface IMapCoordinatesService
     {
         Task<IEnumerable<ActivityCoordinates>> GetActivityCoordinates(String accessToken, int id);
     }
