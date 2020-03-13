@@ -14,7 +14,7 @@ namespace MtbVisualizer.ViewModels
         public string Type { get; set; }
         public DateTime StartDate { get; set; }
 
-        private static DateTime getCurrentWeekStartDate(DateTime today)
+        public static DateTime getCurrentWeekStartDate(DateTime today)
         {
             var dayOfYear = today.Date.DayOfYear;
             var dayOfWeek = today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)today.DayOfWeek;

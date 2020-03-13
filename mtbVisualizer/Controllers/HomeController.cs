@@ -32,11 +32,11 @@ namespace MtbVisualizer.Controllers
 
         public async Task<PartialViewResult> LoadCalendarPartial(DateTime date)
         {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    MonthSummary exampleMonthSummary = ExampleData.GetMonthSummary();
-            //    return PartialView("_CalendarPartial", exampleMonthSummary);
-            //}
+            if (!User.Identity.IsAuthenticated)
+            {
+                var exampleMonthSummaryActivity = ExampleData.GetMonthSummaryActivities();
+                return PartialView("_CalendarPartial", exampleMonthSummaryActivity);
+            }
 
             httpContextHelper.Context = HttpContext;
             string accessToken = httpContextHelper.getAccessToken();
@@ -51,9 +51,9 @@ namespace MtbVisualizer.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                MonthSummary exampleMonthSummary = ExampleData.GetMonthSummary();
-                IList<VisualActivity> exampleActivities = exampleMonthSummary.getActivitiesForThisWeek(exampleMonthSummary.Activites);
-                return PartialView("_TablePartial", exampleActivities);
+                var exampleMonthSummaryActivity = ExampleData.GetMonthSummaryActivities();
+                var exampleActivitiesThisWeek = MonthSummaryActivity.getActivitiesForThisWeek(exampleMonthSummaryActivity, date);
+                return PartialView("_TablePartial", exampleActivitiesThisWeek);
             }
 
             httpContextHelper.Context = HttpContext;

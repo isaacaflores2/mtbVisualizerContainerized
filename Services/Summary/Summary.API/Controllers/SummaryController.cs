@@ -29,14 +29,14 @@ namespace Summary.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IEnumerable<MonthSummaryActivity>), (int)HttpStatusCode.OK)]
-        public ActionResult<IEnumerable<MonthSummaryActivity>> MonthSummaryById(string accessToken, int id, int month)
+        public ActionResult<IEnumerable<MonthSummaryActivity>> MonthSummaryById(string accessToken, int id, DateTime today)
         {
             if (String.IsNullOrEmpty(accessToken) || id <= 0)
             {
                 return BadRequest();
             }
             
-            var activities = getUserMonthlyActivities(accessToken, id, month).ToList();
+            var activities = getUserMonthlyActivities(accessToken, id, today).ToList();
 
             if (activities != null)
             {
@@ -46,7 +46,7 @@ namespace Summary.API.Controllers
             return NotFound();
         }
 
-        private IEnumerable<MonthSummaryActivity> getUserMonthlyActivities(string accessToken, int id, int month)
+        private IEnumerable<MonthSummaryActivity> getUserMonthlyActivities(string accessToken, int id, DateTime today)
         {
             var user = context.GetUserById(id);
 
@@ -85,8 +85,8 @@ namespace Summary.API.Controllers
             }
 
             var activitiesThisMonth = from activity in user.MonthSummaries
-                                      where activity.StartDate.Value.Month == month &&
-                                      activity.StartDate.Value.Year == DateTime.Now.Year
+                                      where activity.StartDate.Value.Month == today.Month &&
+                                      activity.StartDate.Value.Year == today.Year
                                       select activity;
 
             if (activitiesThisMonth == null || activitiesThisMonth.ToList().Count == 0)

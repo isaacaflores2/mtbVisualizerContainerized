@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MtbVisualizer.Models.Activities;
-using MtbVisualizer.Models.MonthSummary;
+using MtbVisualizer.ViewModels;
 
 namespace MtbVisualizerTest
 {

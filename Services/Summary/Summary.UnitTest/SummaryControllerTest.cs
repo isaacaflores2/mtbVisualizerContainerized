@@ -46,10 +46,10 @@ namespace Summary.UnitTest
         {
             //Arrange
             var controller = new SummaryController(context, stravaClient);
-            var month = 9;             
+            var today = new DateTime(2019, 9, 01);             
 
             //Act
-            var actionResult = controller.MonthSummaryById(accessToken, stravaId, month ).Value.ToList();
+            var actionResult = controller.MonthSummaryById(accessToken, stravaId, today ).Value.ToList();
 
             //Assert
             Assert.IsNotNull(actionResult);
@@ -61,10 +61,11 @@ namespace Summary.UnitTest
         {
             //Arrange
             var controller = new SummaryController(context, stravaClient);
-            var month = 9;
+            var today = new DateTime(2019, 9, 01);
+
 
             //Act
-            var actionResult = controller.MonthSummaryById(accessToken, 2222, month).Value.ToList();
+            var actionResult = controller.MonthSummaryById(accessToken, 2222, today).Value.ToList();
 
             //Assert
             Assert.IsNotNull(actionResult);

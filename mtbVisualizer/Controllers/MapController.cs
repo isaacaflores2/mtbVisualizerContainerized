@@ -34,58 +34,31 @@ namespace MtbVisualizer.Controllers
     
         public async Task<PartialViewResult> LoadMapPartial()
         {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    var exampleCoordinates = _map.getCoordinates(ExampleData.MapVisualActivitiesList());
-            //    return PartialView("_BingMapPartial", exampleCoordinates);
-            //}
+            if (!User.Identity.IsAuthenticated)
+            {
+                var exampleActivityCoordinates = ExampleData.ActivityCoordinatesList();
+                var exampleCoordinates = ActivityCoordinates.ConvertToCoordinates(exampleActivityCoordinates);
+                return PartialView("_BingMapPartial", exampleCoordinates);
+            }
 
             _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
             
             var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
-            var coordinates = convertToCoordinates(activityCoordinates);
+            var coordinates =  ActivityCoordinates.ConvertToCoordinates(activityCoordinates);
 
             return PartialView("_BingMapPartial", coordinates);
         }
 
-        private ICollection<Coordinate> convertToCoordinates(ICollection<ActivityCoordinates> activityCoordinates)
-        {
-            if( activityCoordinates == null || activityCoordinates.Count == 0)
+        public async Task<PartialViewResult> LoadMapByTypePartial(string type)
+        {            
+            if (!User.Identity.IsAuthenticated)
             {
-                return null; 
+                var exampleActivityCoordinatesByType = ActivityCoordinates.GetActivityCoordinatesByType(ExampleData.ActivityCoordinatesList(), type);
+                var exampleCoordinates = ActivityCoordinates.ConvertToCoordinates(exampleActivityCoordinatesByType);
+                return PartialView("_BingMapPartial", exampleCoordinates);
             }
-            
-            var coordinates = extractCoordinates(activityCoordinates);
-
-            return coordinates;
-        }
-
-        private ICollection<Coordinate> extractCoordinates(ICollection<ActivityCoordinates> activityCoordinates)
-        {
-            var coordinates = new LinkedList<Coordinate>();
-            foreach (var a in activityCoordinates)
-            {
-                if (a == null )
-                    continue;
-
-                coordinates.AddLast( new Coordinate(a.Latitude, a.Longitude));
-            }
-
-            return coordinates;
-        }
-
-        public async Task<PartialViewResult> LoadMapByTypePartial(String type)
-        {
-
-            //Enum.TryParse(type, out ActivityType activityType);
-
-            //if (!User.Identity.IsAuthenticated)
-            //{                
-            //    var exampleCoordinates = _map.getCoordinatesByType(ExampleData.MapVisualActivitiesList(), activityType);
-            //    return PartialView("_BingMapPartial", exampleCoordinates);
-            //}
 
             _httpContextHelper.Context = HttpContext;
             string accessToken = _httpContextHelper.getAccessToken();
@@ -93,7 +66,7 @@ namespace MtbVisualizer.Controllers
 
             var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
             var activityCoordinatesByType = ActivityCoordinates.GetActivityCoordinatesByType(activityCoordinates, type);
-            var coordinates = convertToCoordinates(activityCoordinatesByType);
+            var coordinates = ActivityCoordinates.ConvertToCoordinates(activityCoordinatesByType);
             
             return PartialView("_BingMapPartial", coordinates);
         }       
