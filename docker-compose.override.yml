@@ -6,8 +6,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - dbconnection=Server=sqldata;User Id=sa;Password=Pass@word
-      - MapUrl=https://localhost:5101,
-      - SummaryUrl=https://localhost:5110,
+      - MapUrl=http://map.api:80
+      - SummaryUrl=http://summary.api:80
     ports:
       - "80"
       - "443"
@@ -20,10 +20,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ConnectionString=Server=sqldata;User Id=sa;Password=Pass@word
-    ports:
-      - "80"
-      - "443"
+    ports:      
       - "5101:80"
+      - "5102:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -34,9 +33,8 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ConnectionString=Server=sqldata;User Id=sa;Password=Pass@word
     ports:
-      - "80"
-      - "443"
-      - "5110:80"
+      - "5111:80"
+      - "5112:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
