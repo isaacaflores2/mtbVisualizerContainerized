@@ -54,6 +54,11 @@ namespace Map.API.Controllers
             if (user == null || user.StartCoordinates == null || user.StartCoordinates.Count == 0)
             {
                 var coordinates = stravaClient.getAllUserCoordinatesById(accessToken, id);
+                //Activities without a valid location cannot be mapped
+
+                coordinates = from c in coordinates
+                              where !(c.Longitude == null || c.Longitude == null)
+                              select c;
 
                 user = new User()
                 {
