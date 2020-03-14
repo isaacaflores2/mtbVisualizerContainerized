@@ -23,7 +23,7 @@ namespace mtbVisualizer.Services
 
         public async Task<IEnumerable<ActivityCoordinates>> GetActivityCoordinates(string accessToken, int id)
         {
-            var uri = $"{remoteServiceBaseUrl}coordinates/?id={id}&accessToken={accessToken}";
+            var uri = $"{remoteServiceBaseUrl}map/coordinates/?id={id}&accessToken={accessToken}";
 
             var responseString = await httpClient.GetStringAsync(uri);
 
