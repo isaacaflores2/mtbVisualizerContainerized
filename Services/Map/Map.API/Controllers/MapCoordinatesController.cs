@@ -71,7 +71,13 @@ namespace Map.API.Controllers
                 if (latestCoordinates != null)
                 {
                     foreach (var activity in latestCoordinates)
-                    {
+                    {       
+                        //Activities without a valid location cannot be mapped
+                        if(activity.Latitude == null || activity.Longitude == null)
+                        {
+                            continue;
+                        }
+
                         if (!context.Contains(activity))
                         {
                             context.Add(activity);
