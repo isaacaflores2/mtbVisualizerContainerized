@@ -39,6 +39,8 @@ namespace mtbVisualizer
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<AppSettings>(Configuration);
+
             var connectionString = Configuration["dbconnection"];
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
@@ -72,13 +74,9 @@ namespace mtbVisualizer
             #endregion
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             services.AddHttpClient<IMapCoordinatesService, MapCoordinatesService>();
-
-            services.AddTransient<IHttpContextHelper, HttpContextHelper>();
-            services.AddTransient<IStravaClient, StravaClient>();            
-            services.AddTransient<IActivitiesApi, ActivitiesApi>();
-            services.AddTransient<IAthletesApi, AthletesApi>();         
+            services.AddHttpClient<ISummaryService, SummaryService>();          
+            services.AddTransient<IHttpContextHelper, HttpContextHelper>();       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
