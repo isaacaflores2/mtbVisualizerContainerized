@@ -10,12 +10,12 @@ The new web application adds the following technologies to be able to request, d
 2. Docker Compse
 
 ## Project References
-I utilized the following resources as references for the project architecture and utilizing Docker:
+I utilized the following resources as references for the project architecture and to utilize Docker:
 1. [eShopOnContainers](https://github.com/dotnet-architecture/eShopOnContainers)
 2. [.NET Microservices: Architecture for Containerized .NET Applications](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/)
 3. [Quickstart: Compose and ASP.NET Core with SQL Serve](https://docs.docker.com/compose/aspnet-mssql-compose/)
 
 
 ## Application Architecture 
-The ASP.NET Core MVC application uses two microservices using Http as the communication protocol to request and display Strava data. Each service has their own Strava client and stores their own data. The MVC application uses a seperate identity database to store user login information. 
+The ASP.NET Core MVC application uses two microservices using Http as the communication protocol to request and display Strava data. Each service has its own Strava client and stores its own data. The MVC application uses a separate identity database to store user login information. 
 ![](img/mtbVisualizerContainerized-Architecture.png)
