@@ -31,7 +31,7 @@ namespace MtbVisualizerTest
             
             summaryService = Substitute.For<ISummaryService>();
             var monthSummaries = TestData.MonthSummariesList();
-            summaryService.GetMonthSummaryActivities("access_token", 123).Returns(Task.FromResult(monthSummaries));
+            summaryService.GetMonthSummaryActivities("access_token", 123, Arg.Any<DateTime>()).Returns(Task.FromResult(monthSummaries));
         }
 
         [TestMethod]
