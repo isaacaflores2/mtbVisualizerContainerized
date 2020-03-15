@@ -21,14 +21,6 @@ namespace MtbVisualizer.Data
             //Tiger Mountain
             for(int i =0; i< 5; i++)
             {
-                //var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                //    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id );
-
-                //summary.StartLatlng.Add(47.47F);
-                //summary.StartLatlng.Add(-121.93F);
-                //summary.EndLatlng.Add(47.47F);
-                //summary.EndLatlng.Add(-121.93F);
-
                 var activityCoordinate = new ActivityCoordinates()
                 {
                     Id = id,
@@ -46,14 +38,6 @@ namespace MtbVisualizer.Data
             //Duthie Hill
             for (int i = 0; i < 15; i++)
             {
-                //var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                //    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
-
-                //summary.StartLatlng.Add(47.57F);
-                //summary.StartLatlng.Add(-121.98F);
-                //summary.EndLatlng.Add(47.57F);
-                //summary.EndLatlng.Add(-121.98F);
-
                 var activityCoordinate = new ActivityCoordinates()
                 {
                     Id = id,
@@ -70,13 +54,6 @@ namespace MtbVisualizer.Data
             //Swan creek
             for (int i = 0; i < 50; i++)
             {
-                //var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                //    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
-                //summary.StartLatlng.Add(47.21F);
-                //summary.StartLatlng.Add(-122.40F);
-                //summary.EndLatlng.Add(47.21F);
-                //summary.EndLatlng.Add(-122.40F);
-
                 var activityCoordinate = new ActivityCoordinates()
                 {
                     Id = id,
@@ -93,14 +70,6 @@ namespace MtbVisualizer.Data
             //Capital State
             for (int i = 0; i < 30; i++)
             {
-                //var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                //    type: ActivityType.Ride, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
-
-                //summary.StartLatlng.Add(46.94F);
-                //summary.StartLatlng.Add(-123.13F);
-                //summary.EndLatlng.Add(46.94F);
-                //summary.EndLatlng.Add(-123.13F);
-
                 var activityCoordinate = new ActivityCoordinates()
                 {
                     Id = id,
@@ -117,14 +86,6 @@ namespace MtbVisualizer.Data
             //Capital State Runs
             for (int i = 0; i < 20; i++)
             {
-                //var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                //    type: ActivityType.Run, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
-
-                //summary.StartLatlng.Add(46.94F);
-                //summary.StartLatlng.Add(-123.13F);
-                //summary.EndLatlng.Add(46.94F);
-                //summary.EndLatlng.Add(-123.13F);
-
                 var activityCoordinate = new ActivityCoordinates()
                 {
                     Id = id,
@@ -141,14 +102,6 @@ namespace MtbVisualizer.Data
             //Point Defiance Runs
             for (int i = 0; i < 5; i++)
             {
-                //var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                //    type: ActivityType.Run, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
-                
-                //summary.StartLatlng.Add(47.31F);
-                //summary.StartLatlng.Add(-122.53F);
-                //summary.EndLatlng.Add(47.31F);
-                //summary.EndLatlng.Add(-122.53F);
-                
                 var activityCoordinate = new ActivityCoordinates()
                 {
                     Id = id,
@@ -165,14 +118,6 @@ namespace MtbVisualizer.Data
             //Chambers Bay Runs
             for (int i = 0; i < 7; i++)
             {
-                //var summary = new SummaryActivity(startLatlng: new LatLng(), endLatlng: new LatLng(),
-                //    type: ActivityType.Run, movingTime: 60, distance: 3, elapsedTime: 3000, athlete: new MetaAthlete(123), startDate: date, id: id);
-                
-                //summary.StartLatlng.Add(47.20F);
-                //summary.StartLatlng.Add(-122.57F);
-                //summary.EndLatlng.Add(47.20F);
-                //summary.EndLatlng.Add(-122.57F);
-
                 var activityCoordinate = new ActivityCoordinates()
                 {
                     Id = id,
@@ -219,14 +164,6 @@ namespace MtbVisualizer.Data
 
                 id++;
             }
-
-            //var summaryForCurrentDay = new SummaryActivity(name: "Morning run", startLatlng: new LatLng(), endLatlng: new LatLng(),
-            //        type: ActivityType.Run, movingTime: 60, distance: 5000, elapsedTime: 1380, athlete: new MetaAthlete(123), startDate: DateTime.Today, id: id);
-
-            //summaryForCurrentDay.StartLatlng.Add(30.0F);
-            //summaryForCurrentDay.StartLatlng.Add(40.0F);
-            //summaryForCurrentDay.EndLatlng.Add(30.0F);
-            //summaryForCurrentDay.EndLatlng.Add(40.0F);
 
             var summaryForCurrentDay = new MonthSummaryActivity()
             {
