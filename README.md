@@ -2,7 +2,8 @@
 ## Visualize your Strava data
 Restructured version of a previous project, [mtbVisualizer](https://github.com/isaacaflores2/mtbVisualizer),that utilizes a microservice architecture and Docker containers!
 
---- 
+![](img/mtbVisualizerScreenshot.png)
+
 ## Additional Technologies
 The web application uses the following technologies to be able to request, display, and save your data:
 1. Docker 
