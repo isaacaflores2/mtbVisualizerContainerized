@@ -22,8 +22,7 @@ namespace Map.API.Controllers
         }
 
         // GET: api/v1/map/coordinates
-        [HttpGet]
-        //[Route("coordinates/{id:int}")]
+        [HttpGet]    
         [Route("coordinates")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -34,8 +33,7 @@ namespace Map.API.Controllers
             {
                 return BadRequest();
             }
-            
-            //Add try block to function
+                        
             var coordinates = getUserCoordinates(accessToken, id).ToList();
             
             if (coordinates != null)
@@ -91,31 +89,6 @@ namespace Map.API.Controllers
                 }
             }
             return user.StartCoordinates;
-        }
-
-        // GET: api/MapCoordinates/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/MapCoordinates
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/MapCoordinates/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
