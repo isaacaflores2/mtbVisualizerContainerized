@@ -15,9 +15,9 @@ namespace MtbVisualizer.ViewModels
 
         public static ICollection<Coordinate> ConvertToCoordinates(ICollection<ActivityCoordinates> activityCoordinates)
         {
-            if (activityCoordinates == null || activityCoordinates.Count == 0)
+            if (activityCoordinates == null)
             {
-                return null;
+                return new List<Coordinate>();
             }
 
             var coordinates = extractCoordinates(activityCoordinates);
