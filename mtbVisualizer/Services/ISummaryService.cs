@@ -8,6 +8,6 @@ namespace mtbVisualizer.Services
 {
     public interface ISummaryService
     {
-        Task<IEnumerable<MonthSummaryActivity>> GetMonthSummaryActivities(string accessToken, int id);
+        Task<IEnumerable<MonthSummaryActivity>> GetMonthSummaryActivities(string accessToken, int id, DateTime today);
     }
 }

@@ -42,7 +42,7 @@ namespace MtbVisualizer.Controllers
             string accessToken = httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
 
-            var monthSummaryActivities = (await summaryService.GetMonthSummaryActivities(accessToken, stravaId)).ToList();
+            var monthSummaryActivities = (await summaryService.GetMonthSummaryActivities(accessToken, stravaId, date)).ToList();
             
             return PartialView("_CalendarPartial", monthSummaryActivities);
         }
@@ -60,7 +60,7 @@ namespace MtbVisualizer.Controllers
             string accessToken = httpContextHelper.getAccessToken();
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
 
-            var monthSummaryActivities = (await summaryService.GetMonthSummaryActivities(accessToken, stravaId)).ToList();
+            var monthSummaryActivities = (await summaryService.GetMonthSummaryActivities(accessToken, stravaId, date)).ToList();
             var activitiesThisWeek = MonthSummaryActivity.getActivitiesForThisWeek(monthSummaryActivities, date);
                         
             return PartialView("_TablePartial", activitiesThisWeek);

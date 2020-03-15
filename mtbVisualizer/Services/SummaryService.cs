@@ -20,12 +20,12 @@ namespace mtbVisualizer.Services
             this.httpClient = httpClient;
             this.settings = settings;
 
-            remoteServiceBaseUrl = $"{this.settings.Value.SummaryUrl}/api/v1/";
+            remoteServiceBaseUrl = $"{this.settings.Value.SummaryUrl}/api/v1/summary/";
         }
 
-        public async Task<IEnumerable<MonthSummaryActivity>> GetMonthSummaryActivities(string accessToken, int id)
+        public async Task<IEnumerable<MonthSummaryActivity>> GetMonthSummaryActivities(string accessToken, int id, DateTime today)
         {
-            var uri = $"{remoteServiceBaseUrl}month/?id={id}&accessToken={accessToken}";
+            var uri = $"{remoteServiceBaseUrl}month/?id={id}&accessToken={accessToken}&today={today}";
 
             var responseString = await httpClient.GetStringAsync(uri);
 
