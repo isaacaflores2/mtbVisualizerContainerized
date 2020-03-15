@@ -18,12 +18,12 @@ namespace mtbVisualizer.Services
             this.httpClient = httpClient;
             this.settings = settings;
 
-            remoteServiceBaseUrl = $"{this.settings.Value.MapUrl}/api/v1/";
+            remoteServiceBaseUrl = $"{this.settings.Value.MapUrl}/api/v1/map/";
         }
 
         public async Task<IEnumerable<ActivityCoordinates>> GetActivityCoordinates(string accessToken, int id)
         {
-            var uri = $"{remoteServiceBaseUrl}map/coordinates/?id={id}&accessToken={accessToken}";
+            var uri = $"{remoteServiceBaseUrl}coordinates/?id={id}&accessToken={accessToken}";
 
             var responseString = await httpClient.GetStringAsync(uri);
 
