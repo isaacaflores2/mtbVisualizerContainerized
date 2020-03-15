@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Map.API.Data;
 using System.Net;
@@ -55,7 +54,6 @@ namespace Map.API.Controllers
             {
                 var coordinates = stravaClient.getAllUserCoordinatesById(accessToken, id);
                 //Activities without a valid location cannot be mapped
-
                 coordinates = from c in coordinates
                               where !(c.Longitude == null || c.Longitude == null)
                               select c;
