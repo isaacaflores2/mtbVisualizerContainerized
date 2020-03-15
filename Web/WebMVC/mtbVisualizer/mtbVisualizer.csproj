@@ -5,7 +5,8 @@
     <UserSecretsId>aspnet-stravaVisualizer-1E492C91-6A98-40DD-8534-87217326EA5C</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>    
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,15 +34,13 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <ProjectReference Include="..\stravaApi\IO.Swagger\IO.Swagger.csproj" />
-  </ItemGroup>
-
-
   <ItemGroup>
     <None Include="wwwroot\Images\Home_DanLLShuttle.jpg" />
     <None Include="wwwroot\Images\Home_GroundControl1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\stravaApi\IO.Swagger\IO.Swagger.csproj" />
   </ItemGroup>
 
 

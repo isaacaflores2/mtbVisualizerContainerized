@@ -5,19 +5,19 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IO.Swagger", "stravaApi\IO.Swagger\IO.Swagger.csproj", "{3C6A2FD3-F23C-47C4-8E7E-DC6C9F12DBEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtbVisualizer", "mtbVisualizer\mtbVisualizer.csproj", "{D29FD821-031F-4963-A547-F509CB22FDE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtbVisualizer", "Web\WebMVC\mtbVisualizer\mtbVisualizer.csproj", "{D29FD821-031F-4963-A547-F509CB22FDE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtbVisualizerTest", "mtbVisualizerTest\mtbVisualizerTest.csproj", "{17B69EE7-F5F3-4657-9627-69A6CC67CDE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtbVisualizerTest", "Web\WebMVC\mtbVisualizerTest\mtbVisualizerTest.csproj", "{17B69EE7-F5F3-4657-9627-69A6CC67CDE9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Map.API", "Services\Map\Map.API\Map.API.csproj", "{941F8867-9F4E-4681-8472-308FE00EEB0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Map.UnitTest", "test\Services\Map.UnitTest\Map.UnitTest.csproj", "{9735544A-53FB-41CB-9F69-531AD5E467EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Map.UnitTest", "Services\Map\Map.UnitTest\Map.UnitTest.csproj", "{9735544A-53FB-41CB-9F69-531AD5E467EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Summary.API", "Services\Summary\Summary.API\Summary.API.csproj", "{3E4EE732-DE4E-4C2A-AE34-AC5FC76F3676}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Summary.UnitTest", "Services\Summary\Summary.UnitTest\Summary.UnitTest.csproj", "{054DA2C1-A815-48BB-B2F0-3D9F94607FFA}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{15906D2C-475F-40C7-9702-485B3EC2A0DC}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{054DA2C1-A815-48BB-B2F0-3D9F94607FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{054DA2C1-A815-48BB-B2F0-3D9F94607FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{054DA2C1-A815-48BB-B2F0-3D9F94607FFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15906D2C-475F-40C7-9702-485B3EC2A0DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15906D2C-475F-40C7-9702-485B3EC2A0DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15906D2C-475F-40C7-9702-485B3EC2A0DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15906D2C-475F-40C7-9702-485B3EC2A0DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
