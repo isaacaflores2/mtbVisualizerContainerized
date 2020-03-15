@@ -117,12 +117,5 @@ namespace Summary.API.Controllers
 
             return monthSummaryActivities;
         }
-
-        // GET: api/v1/summary/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
     }
 }
