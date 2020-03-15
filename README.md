@@ -1,6 +1,5 @@
 # mtbVisualizerContainerized
 ## Visualize your Strava data
----
 Restructured version of a previous project, [mtbVisualizer](https://github.com/isaacaflores2/mtbVisualizer),that utilizes a microservice architecture and Docker containers!
 
 --- 
