@@ -10,8 +10,8 @@ using Summary.API.Data;
 namespace Summary.API.Migrations
 {
     [DbContext(typeof(SummaryContext))]
-    [Migration("20200312185844_summary.apiinital")]
-    partial class summaryapiinital
+    [Migration("20201011222252_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace Summary.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ActvityID")
+                        .HasColumnType("bigint");
 
                     b.Property<float?>("Distance")
                         .HasColumnType("real");

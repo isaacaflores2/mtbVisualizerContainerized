@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Summary.API.Migrations
 {
-    public partial class summaryapiinital : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,7 @@ namespace Summary.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
+                    ActvityID = table.Column<long>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Distance = table.Column<float>(nullable: true),
                     ElapsedTime = table.Column<int>(nullable: true),

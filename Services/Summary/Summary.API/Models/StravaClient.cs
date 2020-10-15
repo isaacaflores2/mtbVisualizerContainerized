@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IO.Swagger.Client;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
+using System.Collections.Concurrent;
 
 namespace Summary.API.Models
 {
@@ -51,28 +52,43 @@ namespace Summary.API.Models
 
         private int calcTotalActivityCount(ActivityStats athleteStats)
         {            
-            int total = athleteStats.AllRideTotals.Count.Value;
-            total += athleteStats.AllRunTotals.Count.Value;
-            total += athleteStats.AllSwimTotals.Count.Value;
-            
-            return total;
+            int totalRides_Runs_Swims = athleteStats.AllRideTotals.Count.Value;
+            totalRides_Runs_Swims += athleteStats.AllRunTotals.Count.Value;
+            totalRides_Runs_Swims += athleteStats.AllSwimTotals.Count.Value;
+                        
+            return totalRides_Runs_Swims;
         }
 
-        public async Task<IEnumerable<SummaryActivity>> requestActivities( int total)
+        public async Task<IEnumerable<SummaryActivity>> requestActivities( int totalRides_Runs_Swims, int perPage =30)
         {
-            List<SummaryActivity> activities = new List<SummaryActivity>();
-            int i = 1;
+            var activities = new ConcurrentBag<SummaryActivity>();
+            int numPages = totalRides_Runs_Swims / perPage + 1;
+
+            //Loop for total/30 times to get at least the number of total rides, swims, and runs
+            Parallel.For(1, numPages, async page =>
+            {
+
+                var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: page, perPage: perPage);
+                if (activitiesPage != null && activitiesPage.Count != 0)
+                {
+                    activities.AddRange(activitiesPage);
+                }
+            });
+
+            //Then sequentially request pages until returned page is empty
+            //This allows us to get the remaining actvities includes in the total (ski, yoga, workout, etc.)
             while (true)
             {
-                var activitesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: i);
-                if(activitesPage.Count == 0 )
+                var activitesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: numPages, perPage: perPage);
+                if (activitesPage == null || activitesPage.Count == 0)
                 {
                     break;
                 }
 
                 activities.AddRange(activitesPage);
-                i++;
+                numPages++;
             }
+
             return activities;
         }
        
@@ -146,6 +162,17 @@ namespace Summary.API.Models
             }
             return activities;
 
-        }       
+        }   
+    }
+
+    public static class Extensions
+    {
+        public static void AddRange<T>(this ConcurrentBag<T> @this, IEnumerable<T> toAdd)
+        {
+            foreach (var element in toAdd)
+            {
+                @this.Add(element);
+            }
+        }
     }
 }

@@ -26,6 +26,9 @@ namespace Summary.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("ActvityID")
+                        .HasColumnType("bigint");
+
                     b.Property<float?>("Distance")
                         .HasColumnType("real");
 

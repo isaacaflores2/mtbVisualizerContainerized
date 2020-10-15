@@ -11,6 +11,7 @@ namespace Summary.API.Models
         [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
+        public long? ActvityID { get; set; }
         public string? Name { get; set; }
         public float? Distance { get; set; }
         public int? ElapsedTime { get; set; }

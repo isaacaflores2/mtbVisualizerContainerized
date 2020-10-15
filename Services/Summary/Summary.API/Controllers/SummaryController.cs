@@ -110,7 +110,8 @@ namespace Summary.API.Controllers
                         Distance = activity.Summary.Distance,
                         ElapsedTime = activity.Summary.ElapsedTime,
                         Type = activity.Summary.Type.ToString(),
-                        StartDate = activity.Summary.StartDate
+                        StartDate = activity.Summary.StartDate,
+                        ActvityID = activity.ActivityId
                     }
                 );
             }

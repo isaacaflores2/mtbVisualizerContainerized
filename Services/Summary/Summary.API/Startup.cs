@@ -55,6 +55,21 @@ namespace Summary.API
             {
                 endpoints.MapControllers();
             });
+
+            migrateDatabase(app);
+        }
+
+        private static void migrateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<SummaryContext>())
+                {
+                    context.Database.Migrate();                   
+                }
+            }
         }
     }
 }
