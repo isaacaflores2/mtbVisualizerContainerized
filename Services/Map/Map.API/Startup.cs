@@ -12,8 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Map.API.Models;
 using IO.Swagger.Api;
+using MtbVis.Common;
 
 namespace Map.API
 {
@@ -55,6 +55,21 @@ namespace Map.API
             {
                 endpoints.MapControllers();
             });
+
+            migrateDatabase(app);
+        }
+
+        private static void migrateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<MapCoordinatesContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }

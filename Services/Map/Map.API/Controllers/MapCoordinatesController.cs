@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Map.API.Data;
 using System.Net;
 using Map.API.Models;
+using MtbVis.Common;
 
 namespace Map.API.Controllers
 {
@@ -67,7 +68,7 @@ namespace Map.API.Controllers
             }
             else
             {                
-                var latestCoordinates = stravaClient.getUserCoordinatesById(accessToken, user, user.LastDownload);
+                var latestCoordinates = stravaClient.getUserCoordinatesByIdAfter(accessToken, user.LastDownload);
 
                 if (latestCoordinates != null)
                 {
