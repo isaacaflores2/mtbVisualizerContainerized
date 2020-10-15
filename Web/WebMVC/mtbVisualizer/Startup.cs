@@ -115,6 +115,21 @@ namespace mtbVisualizer
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            migrateDatabase(app);
+        }
+
+        private static void migrateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
