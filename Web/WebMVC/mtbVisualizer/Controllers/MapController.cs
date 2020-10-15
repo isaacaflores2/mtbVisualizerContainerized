@@ -46,9 +46,9 @@ namespace MtbVisualizer.Controllers
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
             
             var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
-            var coordinates =  ActivityCoordinates.ConvertToCoordinates(activityCoordinates);
+            //var coordinates =  ActivityCoordinates.ConvertToCoordinates(activityCoordinates);
 
-            return PartialView("_BingMapPartial", coordinates);
+            return PartialView("_BingMapPartial", activityCoordinates);
         }
 
         public async Task<PartialViewResult> LoadMapByTypePartial(string type)

@@ -1,6 +1,5 @@
-﻿
-@using MtbVisualizer.Models
-@model ICollection<Coordinate>
+﻿@using MtbVisualizer.ViewModels
+@model ICollection<ActivityCoordinates>
 
 <div id='myMap' ></div>
 <script type='text/javascript'>
@@ -21,7 +20,7 @@
 
         });
 
-        @foreach(Coordinate c in Model) {
+        @foreach(ActivityCoordinates c in Model) {
             @: var location = new Microsoft.Maps.Location(@c.Latitude, @c.Longitude)
             @: locations.push(location)
             @*@: var pin = new Microsoft.Maps.Pushpin(location, { text: "@pin.Text" });*@
