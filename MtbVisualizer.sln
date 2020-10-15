@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Summary.UnitTest", "Service
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MtbVis.Common", "MtbVis.Common\MtbVis.Common.csproj", "{2C0455C1-DCAD-4694-A7E4-724C18B496AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{925B023F-E2A8-4E1F-9DE4-6EF97CA0D72B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0455C1-DCAD-4694-A7E4-724C18B496AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0455C1-DCAD-4694-A7E4-724C18B496AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0455C1-DCAD-4694-A7E4-724C18B496AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0455C1-DCAD-4694-A7E4-724C18B496AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
