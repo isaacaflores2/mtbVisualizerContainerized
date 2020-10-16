@@ -53,28 +53,22 @@
         });
 
         $("#map_show_rides").click(function () {
-            $("#mapDiv").empty()
-            $("#mapDiv").html(mapSpinner)
-            $("#MapPageTitle").html(titleRides)
-            $("#mapDiv").load('@Url.Action("LoadMapByTypePartial")', {type : "Ride" })
+            $("#MapPageTitle").html(titleRides);            
+            loadMapByType("Ride");
         })
 
-        $("#map_show_runs").click(function () {
-            $("#mapDiv").empty()
-            $("#mapDiv").html(mapSpinner)
-            $("#MapPageTitle").html(titleRuns)
-            $("#mapDiv").load('@Url.Action("LoadMapByTypePartial")', {type : "Run" })
+        $("#map_show_runs").click(function () {            
+            $("#MapPageTitle").html(titleRuns);            
+            loadMapByType("Run");
         })
 
 
-        $("#map_show_all").click(function () {
-            $("#mapDiv").empty()
-            $("#mapDiv").html(mapSpinner)
-            $("#MapPageTitle").html(titleAll)
-            $("#mapDiv").load('@Url.Action("LoadMapPartial")')
+        $("#map_show_all").click(function () {            
+            $("#MapPageTitle").html(titleAll);            
+            loadMapByType("All");
         })
 
-        $("#mapDiv").load('@Url.Action("LoadMapPartial")')
+        $("#mapDiv").load('@Url.Action("LoadMapPartial")');
 
     </script>
 }

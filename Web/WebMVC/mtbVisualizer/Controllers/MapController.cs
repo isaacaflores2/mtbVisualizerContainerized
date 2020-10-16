@@ -37,8 +37,7 @@ namespace MtbVisualizer.Controllers
             if (!User.Identity.IsAuthenticated)
             {
                 var exampleActivityCoordinates = ExampleData.ActivityCoordinatesList();
-                var exampleCoordinates = ActivityCoordinates.ConvertToCoordinates(exampleActivityCoordinates);
-                return PartialView("_BingMapPartial", exampleCoordinates);
+                return PartialView("_BingMapPartial", exampleActivityCoordinates);
             }
 
             _httpContextHelper.Context = HttpContext;
@@ -46,8 +45,7 @@ namespace MtbVisualizer.Controllers
             int stravaId = Convert.ToInt32(User.FindFirst("stravaId").Value);
             
             var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
-            //var coordinates =  ActivityCoordinates.ConvertToCoordinates(activityCoordinates);
-
+    
             return PartialView("_BingMapPartial", activityCoordinates);
         }
 
@@ -56,8 +54,7 @@ namespace MtbVisualizer.Controllers
             if (!User.Identity.IsAuthenticated)
             {
                 var exampleActivityCoordinatesByType = ActivityCoordinates.GetActivityCoordinatesByType(ExampleData.ActivityCoordinatesList(), type);
-                var exampleCoordinates = ActivityCoordinates.ConvertToCoordinates(exampleActivityCoordinatesByType);
-                return PartialView("_BingMapPartial", exampleCoordinates);
+                return PartialView("_BingMapPartial", exampleActivityCoordinatesByType);
             }
 
             _httpContextHelper.Context = HttpContext;
@@ -66,9 +63,8 @@ namespace MtbVisualizer.Controllers
 
             var activityCoordinates = (await mapCoordinatesService.GetActivityCoordinates(accessToken, stravaId)).ToList();
             var activityCoordinatesByType = ActivityCoordinates.GetActivityCoordinatesByType(activityCoordinates, type);
-            var coordinates = ActivityCoordinates.ConvertToCoordinates(activityCoordinatesByType);
             
-            return PartialView("_BingMapPartial", coordinates);
+            return PartialView("_BingMapPartial", activityCoordinatesByType);
         }       
     }
 }

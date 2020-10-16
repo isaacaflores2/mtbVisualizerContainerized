@@ -1,14 +1,11 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-var pinRadius = 10
+﻿var pinRadius = 10;
 var pinColor = 'rgba(0, 102, 0, 0.5)'
-var pinSvg = ['<svg xmlns="http://www.w3.org/2000/svg" width="', (pinRadius * 2), '" height="', (pinRadius * 2), '">',
+var pinSvg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="', (pinRadius * 2), '" height="', (pinRadius * 2), '">',
     '<circle cx="', pinRadius, '" cy="', pinRadius, '" r="', pinRadius, '" fill="', pinColor, '"/>',
     '<circle cx="', pinRadius, '" cy="', pinRadius, '" r="', pinRadius - 7, '" fill="', pinColor, '"/>',
-    '</svg>'];
+    '</svg>'
+];
 
 function createCustomClusteredPin(cluster) {
     //Define variables for minimum cluster radius, and how wide the outline area of the circle should be.
@@ -33,10 +30,12 @@ function createCustomClusteredPin(cluster) {
     }
 
     //Create an SVG string of two circles, one on top of the other, with the specified radius and color.
-    var svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="', (radius * 2), '" height="', (radius * 2), '">',
+    var svg = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="', (radius * 2), '" height="', (radius * 2), '">',
         '<circle cx="', radius, '" cy="', radius, '" r="', radius, '" fill="', fillColor, '"/>',
         '<circle cx="', radius, '" cy="', radius, '" r="', radius - outlineWidth, '" fill="', fillColor, '"/>',
-        '</svg>'];
+        '</svg>'
+    ];
 
     //Customize the clustered pushpin using the generated SVG and anchor on its center.
     cluster.setOptions({
@@ -55,10 +54,11 @@ var mapElementStyle = {
         street: { fillColor: '#ffffff', strokeColor: '#ffffff' },
         transit: { fillColor: '#000000' }
 }
-var mapLandColor =  '#dbcebd'    
+var mapLandColor = '#dbcebd';    
 
-var titleAll = 'All of Your Activities'
-var titleRides = 'All of Your Rides'
-var titleRuns = 'All of Your Runs'
+var titleAll = 'All of Your Activities';
+var titleRides = 'All of Your Rides';
+var titleRuns = 'All of Your Runs';
 
-var mapSpinner = '<div class="d-flex justify-content-center align-items-center align-self-center"><div class="spinner-grow"role="status" style="margin-top: 200px;"><span class="sr-only">Loading...</span></div></div>'   
+var mapSpinner = '<div class="d-flex justify-content-center align-items-center align-self-center"><div class="spinner-grow"role="status" style="margin-top: 200px;"><span class="sr-only">Loading...</span></div></div>';   
+
