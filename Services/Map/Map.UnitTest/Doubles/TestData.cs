@@ -1,5 +1,6 @@
 ﻿using IO.Swagger.Model;
 using Map.API.Models;
+using MtbVis.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;

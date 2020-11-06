@@ -95,7 +95,7 @@ namespace MtbVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.LoadMapByTypePartial("Ride").Result.Model as ICollection<Coordinate>;
+            var result = controller.LoadMapByTypePartial("Ride").Result.Model as ICollection<ActivityCoordinates>;
                         
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count);                        

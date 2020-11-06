@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Map.API.Controllers;
 using Map.API.Models;
 using Map.UnitTest.Doubles;
+using MtbVis.Common;
 
 namespace Map.UnitTest
 {
@@ -35,8 +36,8 @@ namespace Map.UnitTest
             stravaClient.getAllUserActivities(accessToken, 2222).Returns(newUserActivities);
             stravaClient.getAllUserCoordinatesById(accessToken, 123).Returns(coordinates);
             stravaClient.getAllUserCoordinatesById(accessToken, 2222).Returns(coordinates);
-            stravaClient.getUserActivitiesByIdAfter(accessToken, Arg.Any<User>(), Arg.Any<DateTime>()).Returns(newUserActivities);
-            stravaClient.getUserCoordinatesById(accessToken, Arg.Any<User>(), Arg.Any<DateTime>()).Returns(newCoordinates);
+            stravaClient.getUserActivitiesByIdAfter(accessToken, Arg.Any<DateTime>()).Returns(newUserActivities);
+            stravaClient.getUserCoordinatesByIdAfter(accessToken, Arg.Any<DateTime>()).Returns(newCoordinates);
 
             //Mock repository
             var stravaUser = new User { StartCoordinates = coordinates.ToList(), UserId = 123, LastDownload = DateTime.Now };        

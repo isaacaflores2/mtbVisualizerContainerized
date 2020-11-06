@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Map.UnitTest.Doubles;
 using Map.API.Models;
 using System.Linq;
+using MtbVis.Common;
 
 namespace Map.UnitTest
 {
@@ -20,7 +21,7 @@ namespace Map.UnitTest
         private int totalRides = 5;
         private int totalRuns = 5;
         private int totalSwims = 1;
-        
+        private List<SummaryActivity> emptyActivities;
 
         [TestInitialize]
         public void Setup()
@@ -43,10 +44,10 @@ namespace Map.UnitTest
                 
             };
 
-            List<SummaryActivity> emptyActivities = new List<SummaryActivity>();           
+            emptyActivities = new List<SummaryActivity>();           
 
-            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 1).Returns(Task.FromResult(activities));
-            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 2).Returns(Task.FromResult(emptyActivities));
+            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 1, perPage: Arg.Any<int>()).Returns(Task.FromResult(activities));
+            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 2, perPage: Arg.Any<int>()).Returns(Task.FromResult(emptyActivities));
 
             List<SummaryActivity> activitiesAfter = new List<SummaryActivity>
             {
@@ -60,8 +61,8 @@ namespace Map.UnitTest
                 TestData.SummaryActivity3(),
                 TestData.SummaryActivity3()
             };
-            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 1, after: Arg.Any<int>()).Returns(Task.FromResult(activitiesAfter));
-            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 2, after: Arg.Any<int>()).Returns(Task.FromResult(emptyActivities));
+            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 1, after: Arg.Any<int>(), perPage: Arg.Any<int>()).Returns(Task.FromResult(activitiesAfter));
+            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 2, after: Arg.Any<int>(), perPage: Arg.Any<int>()).Returns(Task.FromResult(emptyActivities));
         }
 
         [TestMethod]
@@ -73,7 +74,7 @@ namespace Map.UnitTest
 
             Assert.AreEqual(2, result.Count);
             Assert.AreEqual(60, result.ToArray()[0].Summary.MovingTime);
-            Assert.AreEqual(ActivityType.Ride, result.ToArray()[1].Summary.Type);
+            Assert.AreEqual(ActivityType.Ride, result.First().Summary.Type);
         }
 
         [TestMethod]
@@ -84,8 +85,8 @@ namespace Map.UnitTest
             var result = (List<SummaryActivity>) await stravaClient.requestAllUserActivitiesAsync("access_token", 123);
             
             Assert.AreEqual(2, result.Count);
-            Assert.AreEqual(60, result.ToArray()[0].MovingTime);
-            Assert.AreEqual(ActivityType.Ride, result.ToArray()[1].Type);
+            Assert.AreEqual(60, result.Last().MovingTime);
+            Assert.AreEqual(ActivityType.Ride, result.First().Type);
         }
 
         [TestMethod]
@@ -93,11 +94,11 @@ namespace Map.UnitTest
         {
             StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
 
-            var result = (List<SummaryActivity>)await stravaClient.requestActivities(totalRides+totalRuns+totalSwims);
+            var result = (List<SummaryActivity>)await stravaClient.requestActivitiesAsync(totalRides+totalRuns+totalSwims);
 
             Assert.AreEqual(2, result.Count);
-            Assert.AreEqual(60, result.ToArray()[0].MovingTime);
-            Assert.AreEqual(ActivityType.Ride, result.ToArray()[1].Type);
+            Assert.AreEqual(60, result.Last().MovingTime);
+            Assert.AreEqual(ActivityType.Ride, result.First().Type);
         }
 
         [TestMethod]
@@ -105,19 +106,12 @@ namespace Map.UnitTest
         {
             StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
             DateTime dateTime = DateTime.Now;
-            var user = new User()
-            {
-                StartCoordinates = TestData.CoordinatesList(),
-                UserId = 123,                
-                LastDownload = dateTime
-            };
-
-            //List<VisualActivity> result = (List<VisualActivity>) stravaClient.getUserActivitiesAfter("access_token", 123, dateTime);
-            List<VisualActivity> result = (List<VisualActivity>) stravaClient.getUserActivitiesByIdAfter("access_token", user, dateTime);
+                                    
+            List<VisualActivity> result = (List<VisualActivity>) stravaClient.getUserActivitiesByIdAfter("access_token", dateTime);
 
             Assert.AreEqual(9, result.Count);
-            Assert.AreEqual(100, result.ToArray()[0].Summary.MovingTime);
-            Assert.AreEqual(ActivityType.Run, result.ToArray()[1].Summary.Type);
+            Assert.AreEqual(100, result.Last().Summary.MovingTime);
+            Assert.AreEqual(ActivityType.Run, result.First().Summary.Type);
         }
 
         [TestMethod]
@@ -125,15 +119,9 @@ namespace Map.UnitTest
         {
             StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
             DateTime dateTime = DateTime.Now;
-            var user = new User()
-            {
-                StartCoordinates = null,
-                UserId = 123,
-                LastDownload = dateTime
-            };
+            activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 1, after: Arg.Any<int>(), perPage: Arg.Any<int>()).Returns(Task.FromResult(emptyActivities));
 
-            //List<VisualActivity> result = (List<VisualActivity>) stravaClient.getUserActivitiesAfter("access_token", 123, dateTime);
-            List<VisualActivity> result = (List<VisualActivity>)stravaClient.getUserActivitiesByIdAfter("access_token", user, dateTime);
+            List<VisualActivity> result = (List<VisualActivity>)stravaClient.getUserActivitiesByIdAfter("access_token", dateTime);
 
             Assert.AreEqual(0, result.Count);           
         }
@@ -143,14 +131,8 @@ namespace Map.UnitTest
         {
             StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
             DateTime dateTime = DateTime.Now;
-            var user = new User()
-            {
-                StartCoordinates = TestData.CoordinatesList(),
-                UserId = 123,
-                LastDownload = dateTime
-            };
-
-            List<SummaryActivity> result = (List<SummaryActivity>) await stravaClient.requestActivitiesAfterAsync("access_token", user, dateTime);
+           
+            List<SummaryActivity> result = (List<SummaryActivity>) await stravaClient.requestActivitiesAfterAsync("access_token", dateTime);
 
             Assert.AreEqual(9,result.Count);
             Assert.AreEqual(100, result.ToArray()[0].MovingTime);
@@ -158,30 +140,30 @@ namespace Map.UnitTest
         }
 
 
-        [TestMethod]
-        public async Task Test_requestActivitiesAfter()
-        {
-            StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
+        //[TestMethod]
+        //public async Task Test_requestActivitiesAfter()
+        //{
+        //    StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
 
-            DateTime dateTime = DateTime.Now;
+        //    DateTime dateTime = DateTime.Now;
 
-            List<SummaryActivity> result = (List<SummaryActivity>) await stravaClient.requestActivitiesAfter(totalRides + totalRuns + totalSwims, dateTime);
+        //    List<SummaryActivity> result = (List<SummaryActivity>) await stravaClient.requestActivitiesAfterAsync(totalRides + totalRuns + totalSwims, dateTime);
 
-            Assert.AreEqual(9, result.Count);
-            Assert.AreEqual(100, result.ToArray()[0].MovingTime);
-            Assert.AreEqual(ActivityType.Run, result.ToArray()[1].Type);
-        }
+        //    Assert.AreEqual(9, result.Count);
+        //    Assert.AreEqual(100, result.ToArray()[0].MovingTime);
+        //    Assert.AreEqual(ActivityType.Run, result.ToArray()[1].Type);
+        //}
 
         [TestMethod]
         public void Test_GetAllCoordinatesById()
         {
             StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
 
-            var result = (LinkedList<Coordinates>) stravaClient.getAllUserCoordinatesById("access_token", 123);
+            var result = stravaClient.getAllUserCoordinatesById("access_token", 123);
 
-            Assert.AreEqual(2, result.Count);                   
-            Assert.AreEqual(ActivityType.Crossfit.ToString(), result.First().ActivityType);        
-            Assert.AreEqual(ActivityType.Ride.ToString(), result.ToArray()[1].ActivityType);        
+            Assert.AreEqual(2, result.Count());                   
+            Assert.AreEqual(ActivityType.Crossfit.ToString(), result.Last().ActivityType);        
+            Assert.AreEqual(ActivityType.Ride.ToString(), result.First().ActivityType);        
         }
 
         [TestMethod]
@@ -196,9 +178,9 @@ namespace Map.UnitTest
                 LastDownload = dateTime
             };
          
-            var result = (LinkedList<Coordinates>)stravaClient.getUserCoordinatesById("access_token", user, dateTime);
+            var result = stravaClient.getUserCoordinatesByIdAfter("access_token", dateTime);
 
-            Assert.AreEqual(9, result.Count);           
+            Assert.AreEqual(9, result.Count());           
         }
     }
 }
