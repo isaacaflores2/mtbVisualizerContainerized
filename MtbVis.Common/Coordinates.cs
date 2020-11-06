@@ -1,4 +1,5 @@
 ﻿
+using IO.Swagger.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,6 +26,19 @@ namespace MtbVis.Common
             ActivityType = activityType;
             Latitude = latitude;
             Longitude = longitude;
-        }        
+        }
+        
+        public Coordinates(SummaryActivity summaryActivity)
+        {
+            UserID = summaryActivity.Athlete.Id;
+            ActvityID = summaryActivity.Id;
+            ActivityType = summaryActivity.Type.ToString();
+
+            if (summaryActivity.StartLatlng != null)
+            {
+                Latitude = summaryActivity.StartLatlng[0];
+                Latitude = summaryActivity.StartLatlng[1];
+            }               
+        }
     }
 }

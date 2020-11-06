@@ -41,7 +41,7 @@ namespace MtbVis.Common
             {
                 var athleteStats = await _athletesApi.GetStatsAsync(userId);
                 int totalActivites = calcTotalActivityCount(athleteStats);
-                return await requestActivities(totalActivites);
+                return await requestActivitiesAsync(totalActivites);
             }
             catch (Exception e)
             {
@@ -59,7 +59,7 @@ namespace MtbVis.Common
             return totalRides_Runs_Swims;
         }
 
-        private async Task<IEnumerable<SummaryActivity>> requestActivities(int totalRides_Runs_Swims, int perPage = 30)
+        public async Task<IEnumerable<SummaryActivity>> requestActivitiesAsync(int totalRides_Runs_Swims, int perPage = 30)
         {
             var activities = new ConcurrentBag<SummaryActivity>();
             int numPages = totalRides_Runs_Swims / perPage + 1;
@@ -89,7 +89,41 @@ namespace MtbVis.Common
                 numPages++;
             }
 
-            return activities;
+            return activities.ToList();
+        }
+
+        private async Task<IEnumerable<Coordinates>> requestCoordinatesAsync(int totalRides_Runs_Swims, int perPage = 30)
+        {
+            var coordinates = new ConcurrentBag<Coordinates>();
+            int numPages = totalRides_Runs_Swims / perPage + 1;
+
+            //Loop for total/perPage times to get at least the number of total rides, swims, and runs
+            Parallel.For(1, numPages, async page =>
+            {
+
+                var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: page, perPage: perPage);
+                if (activitiesPage != null && activitiesPage.Count() != 0)
+                {
+                    saveActivityStartCoordinates(activitiesPage, coordinates);
+                }
+            });
+
+            //Then sequentially request pages until returned page is empty
+            //This allows us to get the remaining actvities includes in the total (ski, yoga, workout, etc.)
+            while (true)
+            {
+                var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: numPages, perPage: perPage);
+                if (activitiesPage == null || activitiesPage.Count == 0)
+                {
+                    break;
+                }
+
+                saveActivityStartCoordinates(activitiesPage, coordinates);
+
+                numPages++;
+            }
+
+            return coordinates;
         }
 
         public IEnumerable<VisualActivity> getUserActivitiesByIdAfter(string accessToken, DateTime afterDate)
@@ -124,7 +158,7 @@ namespace MtbVis.Common
                 while (true)
                 {
                     var activitesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: i, after: afterDateEpoch, perPage: perPage);
-                    if (activitesPage.Count == 0)
+                    if (activitesPage == null || activitesPage.Count == 0)
                     {
                         break;
                     }
@@ -143,9 +177,25 @@ namespace MtbVis.Common
 
         public IEnumerable<Coordinates> getAllUserCoordinatesById(string accessToken, int id)
         {
-            var activities = getAllUserActivities(accessToken, id);
+            return getAllUserCoordinatesByIdAsync(accessToken, id).Result;
+        }
 
-            return extractCoordinates(activities);
+        private async Task<IEnumerable<Coordinates>> getAllUserCoordinatesByIdAsync(string accessToken, int id)
+        {
+            Configuration.Default.AccessToken = accessToken;
+
+            try
+            {
+                var athleteStats = await _athletesApi.GetStatsAsync(id);
+                int totalActivites = calcTotalActivityCount(athleteStats);
+                return await requestCoordinatesAsync(totalActivites);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling getAllUserCoordinatesByIdAsync: " + e.Message);
+            }
+
+            return null;
         }
 
         public IEnumerable<Coordinates> getUserCoordinatesByIdAfter(string accessToken, DateTime afterDate)
@@ -171,6 +221,21 @@ namespace MtbVis.Common
             }
 
             return coordinates;
+        }
+
+        private void saveActivityStartCoordinates(IEnumerable<SummaryActivity> summaryActivities, ConcurrentBag<Coordinates> coordinates)
+        {
+            if (summaryActivities == null && summaryActivities.Count() == 0)
+            {
+                return;
+            }
+            
+            foreach (var summaryActivity in summaryActivities)
+            {
+                coordinates.Add(
+                    new Coordinates(summaryActivity)
+                );
+            }
         }
     }
 }

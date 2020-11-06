@@ -13,5 +13,10 @@ namespace Map.API.Models
         public int UserId { get; set; }        
         public DateTime LastDownload { get; set; }
         public ICollection<Coordinates> StartCoordinates { get; set; }
+
+        public User()
+        {
+            StartCoordinates = new List<Coordinates>();
+        }
     }
 }

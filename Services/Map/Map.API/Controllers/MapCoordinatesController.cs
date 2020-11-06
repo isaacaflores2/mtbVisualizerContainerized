@@ -51,45 +51,65 @@ namespace Map.API.Controllers
 
             if (user == null || user.StartCoordinates == null || user.StartCoordinates.Count == 0)
             {
-                var coordinates = stravaClient.getAllUserCoordinatesById(accessToken, id);
+                IEnumerable<Coordinates> coordinates = stravaClient.getAllUserCoordinatesById(accessToken, id);
+                
                 //Activities without a valid location cannot be mapped
                 coordinates = from c in coordinates
                               where !(c.Longitude == null || c.Longitude == null)
                               select c;
 
-                user = new User()
+                if(user == null)
                 {
-                    StartCoordinates = coordinates.ToList(),
-                    UserId = id,
-                    LastDownload = DateTime.Now.Date
-                };
-                context.Add(user);
-                context.SaveChanges();
-            }
+                    user = new User()
+                    {
+                        StartCoordinates = coordinates.ToList(),
+                        UserId = id,
+                        LastDownload = DateTime.Now.Date
+                    };
+                    context.Add(user);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    //Update UserId if it is not valid
+                    if(user.UserId <= 0 && user.UserId != id)
+                    {
+                        user.UserId = id; 
+                    }
+
+                    addCoordinates(user, coordinates);
+                }                
+            }            
             else
             {                
                 var latestCoordinates = stravaClient.getUserCoordinatesByIdAfter(accessToken, user.LastDownload);
-
-                if (latestCoordinates != null)
-                {
-                    foreach (var activity in latestCoordinates)
-                    {       
-                        //Activities without a valid location cannot be mapped
-                        if(activity.Latitude == null || activity.Longitude == null)
-                        {
-                            continue;
-                        }
-
-                        if (!context.Contains(activity))
-                        {
-                            context.Add(activity);
-                            user.StartCoordinates.Add(activity);
-                        }
-                    }
-                    context.SaveChanges();
-                }
+                addCoordinates(user, latestCoordinates);                
             }
+
             return user.StartCoordinates;
+        }
+
+        private void addCoordinates(User user, IEnumerable<Coordinates> coordinates)
+        {
+            if (coordinates != null)
+            {
+                foreach (var activity in coordinates)
+                {
+                    //Activities without a valid location cannot be mapped
+                    if (activity.Latitude == null || activity.Longitude == null)
+                    {
+                        continue;
+                    }
+
+                    if (!context.Contains(activity))
+                    {
+                        context.Add(activity);
+                        user.StartCoordinates.Add(activity);
+                    }
+                }
+                user.LastDownload = DateTime.Now.Date;
+                context.SaveChanges();
+            }
         }
     }
 }
