@@ -19,20 +19,12 @@
         renderMap(locationsByType["All"], pinsByType["All"]);
     }
 
-    function saveLocationByType(location, type) {
-        if (locationsByType[type] == null) {
-            locationsByType[type] = [];
+    function saveCoordinateToDict(dict, coordinate, type) {
+        if (dict[type] == null) {
+            dict[type] = [];
         }
-        locationsByType[type].push(location);
-        locationsByType["All"].push(location);
-    }
-
-    function savePinByType(pin, type) {
-        if (pinsByType[type] == null) {
-            pinsByType[type] = [];
-        }
-        pinsByType[type].push(pin);
-        pinsByType["All"].push(pin);
+        dict[type].push(coordinate);
+        dict["All"].push(coordinate);
     }
 
     function renderMap(locations, pins) {
@@ -47,7 +39,7 @@
                 landColor: mapLandColor
             }
         });
-
+        
         var rect = Microsoft.Maps.LocationRect.fromLocations(locations)
         map.setView({ bounds: rect, padding: 0 })
 
@@ -58,7 +50,7 @@
                     gridSize: 80
                 });
             map.layers.insert(clusterLayer);
-        });
+        });        
     }
 
     function loadMapByType(type) {
