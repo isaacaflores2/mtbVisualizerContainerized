@@ -92,40 +92,6 @@ namespace MtbVis.Common
             return activities.ToList();
         }
 
-        private async Task<IEnumerable<Coordinates>> requestCoordinatesAsync(int totalRides_Runs_Swims, int perPage = 30)
-        {
-            var coordinates = new ConcurrentBag<Coordinates>();
-            int numPages = totalRides_Runs_Swims / perPage + 1;
-
-            //Loop for total/perPage times to get at least the number of total rides, swims, and runs
-            Parallel.For(1, numPages, async page =>
-            {
-
-                var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: page, perPage: perPage);
-                if (activitiesPage != null && activitiesPage.Count() != 0)
-                {
-                    saveActivityStartCoordinates(activitiesPage, coordinates);
-                }
-            });
-
-            //Then sequentially request pages until returned page is empty
-            //This allows us to get the remaining actvities includes in the total (ski, yoga, workout, etc.)
-            while (true)
-            {
-                var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: numPages, perPage: perPage);
-                if (activitiesPage == null || activitiesPage.Count == 0)
-                {
-                    break;
-                }
-
-                saveActivityStartCoordinates(activitiesPage, coordinates);
-
-                numPages++;
-            }
-
-            return coordinates;
-        }
-
         public IEnumerable<VisualActivity> getUserActivitiesByIdAfter(string accessToken, DateTime afterDate)
         {
             var summaryActivities = requestActivitiesAfterAsync(accessToken, afterDate, perPage: 50).Result;
@@ -174,7 +140,7 @@ namespace MtbVis.Common
             }
             return null;
         }
-
+        
         public IEnumerable<Coordinates> getAllUserCoordinatesById(string accessToken, int id)
         {
             return getAllUserCoordinatesByIdAsync(accessToken, id).Result;
@@ -198,29 +164,77 @@ namespace MtbVis.Common
             return null;
         }
 
-        public IEnumerable<Coordinates> getUserCoordinatesByIdAfter(string accessToken, DateTime afterDate)
+        private async Task<IEnumerable<Coordinates>> requestCoordinatesAsync(int totalRides_Runs_Swims, int perPage = 30)
         {
-            var activities = getUserActivitiesByIdAfter(accessToken, afterDate);
+            var coordinates = new ConcurrentBag<Coordinates>();
+            int numPages = totalRides_Runs_Swims / perPage + 1;
 
-            return extractCoordinates(activities);
-        }
-
-        private IEnumerable<Coordinates> extractCoordinates(IEnumerable<VisualActivity> activities)
-        {
-            if (activities == null)
+            //Loop for total/perPage times to get at least the number of total rides, swims, and runs
+            Parallel.For(1, numPages, async page =>
             {
-                return null;
-            }
 
-            ICollection<Coordinates> coordinates = new LinkedList<Coordinates>();
-            foreach (var activity in activities)
+                var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: page, perPage: perPage);
+                if (activitiesPage != null && activitiesPage.Count() != 0)
+                {
+                    saveActivityStartCoordinates(activitiesPage, coordinates);
+                }
+            });
+
+            //Then sequentially request pages until returned page is empty
+            //This allows us to get the remaining actvities includes in the total (ski, yoga, workout, etc.)
+            while (true)
             {
-                coordinates.Add(
-                    new Coordinates(activity.UserId, activity.ActivityId, activity.Summary.Type.ToString(), activity.StartLat, activity.StartLong)
-                );
+                var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: numPages, perPage: perPage);
+                if (activitiesPage == null || activitiesPage.Count == 0)
+                {
+                    break;
+                }
+
+                saveActivityStartCoordinates(activitiesPage, coordinates);
+
+                numPages++;
             }
 
             return coordinates;
+        }
+
+        public IEnumerable<Coordinates> getUserCoordinatesByIdAfter(string accessToken, DateTime afterDate)
+        {
+            Configuration.Default.AccessToken = accessToken;
+            var coordinates = requestCoordinatesAfterAsync(accessToken, afterDate, perPage: 50).Result;
+
+            return coordinates.AsEnumerable();
+        }
+
+        private async Task<IEnumerable<Coordinates>> requestCoordinatesAfterAsync(string accessToken, DateTime afterDate, int perPage = 30)
+        {
+            try
+            {
+                var coordinates = new ConcurrentBag<Coordinates>();
+                var dto = new DateTimeOffset(afterDate);
+                var afterDateEpoch = (int)dto.ToUnixTimeSeconds();
+                int i = 1;
+
+                while (true)
+                {
+                    var activitiesPage = await _activitiesApi.GetLoggedInAthleteActivitiesAsync(page: i, after: afterDateEpoch, perPage: perPage);
+                    if (activitiesPage == null || activitiesPage.Count == 0)
+                    {
+                        break;
+                    }
+
+                    saveActivityStartCoordinates(activitiesPage, coordinates);
+
+                    i++;
+                }
+
+                return coordinates;
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ActivitiesApi.getLoggedInAthleteActivities: " + e.Message);
+            }
+            return null;
         }
 
         private void saveActivityStartCoordinates(IEnumerable<SummaryActivity> summaryActivities, ConcurrentBag<Coordinates> coordinates)

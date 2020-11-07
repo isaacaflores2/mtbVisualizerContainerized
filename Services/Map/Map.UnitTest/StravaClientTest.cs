@@ -171,13 +171,7 @@ namespace Map.UnitTest
         {
             StravaClient stravaClient = new StravaClient(activitiesApi, athleteApi);
             DateTime dateTime = DateTime.Now;
-            var user = new User()
-            {
-                StartCoordinates = TestData.CoordinatesList(),
-                UserId = 123,
-                LastDownload = dateTime
-            };
-         
+                
             var result = stravaClient.getUserCoordinatesByIdAfter("access_token", dateTime);
 
             Assert.AreEqual(9, result.Count());           
