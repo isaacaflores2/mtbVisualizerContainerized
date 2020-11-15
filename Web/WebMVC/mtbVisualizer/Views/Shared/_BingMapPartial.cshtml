@@ -11,9 +11,9 @@
         @foreach(ActivityCoordinates c in Model) {
             @: var location = new Microsoft.Maps.Location(@c.Latitude, @c.Longitude);
             @: var activityType = '@c.ActivityType';
-            @: saveLocationByType(location, activityType)
+            @: saveCoordinateToDict(locationsByType, location, activityType)
             @: var pin = new Microsoft.Maps.Pushpin(location, { icon: pinSvg.join(''),  text: '1' });
-            @: savePinByType(pin, activityType)
+            @: saveCoordinateToDict(pinsByType, pin, activityType)
         }
 
         renderMap(locationsByType["All"], pinsByType["All"]);
