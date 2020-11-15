@@ -21,6 +21,8 @@ namespace Map.UnitTest
         private int totalRides = 5;
         private int totalRuns = 5;
         private int totalSwims = 1;
+        private List<SummaryActivity> activities;
+        private List<SummaryActivity> activitiesAfter;
         private List<SummaryActivity> emptyActivities;
 
         [TestInitialize]
@@ -37,7 +39,7 @@ namespace Map.UnitTest
 
             activitiesApi = Substitute.For<IActivitiesApi>();
             
-            List<SummaryActivity> activities = new List<SummaryActivity>
+            activities = new List<SummaryActivity>
             {
                 TestData.SummaryActivity1(),
                 TestData.SummaryActivity2()
@@ -49,7 +51,7 @@ namespace Map.UnitTest
             activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 1, perPage: Arg.Any<int>()).Returns(Task.FromResult(activities));
             activitiesApi.GetLoggedInAthleteActivitiesAsync(page: 2, perPage: Arg.Any<int>()).Returns(Task.FromResult(emptyActivities));
 
-            List<SummaryActivity> activitiesAfter = new List<SummaryActivity>
+            activitiesAfter = new List<SummaryActivity>
             {
                 TestData.SummaryActivity3(),
                 TestData.SummaryActivity3(),
@@ -163,7 +165,9 @@ namespace Map.UnitTest
 
             Assert.AreEqual(2, result.Count());                   
             Assert.AreEqual(ActivityType.Crossfit.ToString(), result.Last().ActivityType);        
-            Assert.AreEqual(ActivityType.Ride.ToString(), result.First().ActivityType);        
+            Assert.AreEqual(ActivityType.Ride.ToString(), result.First().ActivityType);
+            Assert.AreEqual(activities.Last().StartLatlng[0], result.First().Latitude);
+            Assert.AreEqual(activities.Last().StartLatlng[1], result.First().Longitude);
         }
 
         [TestMethod]
@@ -174,7 +178,9 @@ namespace Map.UnitTest
                 
             var result = stravaClient.getUserCoordinatesByIdAfter("access_token", dateTime);
 
-            Assert.AreEqual(9, result.Count());           
+            Assert.AreEqual(9, result.Count());
+            Assert.AreEqual(activitiesAfter.First().StartLatlng[0], result.First().Latitude);
+            Assert.AreEqual(activitiesAfter.First().StartLatlng[1], result.First().Longitude);
         }
     }
 }

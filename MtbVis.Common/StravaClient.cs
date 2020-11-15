@@ -143,7 +143,8 @@ namespace MtbVis.Common
         
         public IEnumerable<Coordinates> getAllUserCoordinatesById(string accessToken, int id)
         {
-            return getAllUserCoordinatesByIdAsync(accessToken, id).Result;
+            var coordinates = getAllUserCoordinatesByIdAsync(accessToken, id).Result;
+            return coordinates;
         }
 
         private async Task<IEnumerable<Coordinates>> getAllUserCoordinatesByIdAsync(string accessToken, int id)
@@ -154,7 +155,8 @@ namespace MtbVis.Common
             {
                 var athleteStats = await _athletesApi.GetStatsAsync(id);
                 int totalActivites = calcTotalActivityCount(athleteStats);
-                return await requestCoordinatesAsync(totalActivites);
+                var coordinates = await requestCoordinatesAsync(totalActivites);
+                return coordinates;
             }
             catch (Exception e)
             {

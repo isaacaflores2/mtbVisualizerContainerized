@@ -37,7 +37,7 @@ namespace MtbVis.Common
             if (summaryActivity.StartLatlng != null)
             {
                 Latitude = summaryActivity.StartLatlng[0];
-                Latitude = summaryActivity.StartLatlng[1];
+                Longitude = summaryActivity.StartLatlng[1];
             }               
         }
     }
