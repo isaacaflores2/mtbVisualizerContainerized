@@ -113,7 +113,7 @@ namespace mtbVisualizer
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Map}/{action=Index}/{id?}");
             });
 
             migrateDatabase(app);
