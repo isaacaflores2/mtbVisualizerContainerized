@@ -26,8 +26,11 @@ namespace MtbVisualizer.Controllers
         }
 
         public IActionResult Index()
-        {            
-            return View("Index");                        
+        {
+            //return View("Index");   
+
+            //Always redirect to map page
+            return RedirectToAction("Index", "Map");
         }
 
         public async Task<PartialViewResult> LoadCalendarPartial(DateTime date)
