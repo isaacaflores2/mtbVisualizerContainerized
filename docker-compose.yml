@@ -8,7 +8,7 @@ services:
       dockerfile: Web/WebMVC/mtbVisualizer/Dockerfile
     depends_on:
       - map.api
-      - summary.api
+#      - summary.api
 
   map.api:
     image: ${DOCKER_REGISTRY-}mapapi
@@ -17,14 +17,14 @@ services:
       dockerfile: Services/Map/Map.API/Dockerfile
     depends_on:
       - sqldata
-
-  summary.api:
-    image: ${DOCKER_REGISTRY-}summaryapi
-    build:
-      context: .
-      dockerfile: Services/Summary/Summary.API/Dockerfile
-    depends_on:
-      - sqldata
+#Uncomment to enable summaryApi
+#  summary.api:
+#    image: ${DOCKER_REGISTRY-}summaryapi
+#    build:
+#      context: .
+#      dockerfile: Services/Summary/Summary.API/Dockerfile
+#    depends_on:
+#      - sqldata
 
   sqldata:
     image: mcr.microsoft.com/mssql/server  
