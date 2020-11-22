@@ -46,9 +46,11 @@ namespace MtbVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.Index() as ViewResult;
+            //var result = controller.Index() as ViewResult;
+            var result = controller.Index() as RedirectToActionResult;
 
-            Assert.AreEqual("Index", result.ViewName);
+            Assert.AreEqual("Index", result.ActionName);
+            Assert.AreEqual("Map", result.ControllerName);
         }
 
         [TestMethod]
@@ -64,9 +66,11 @@ namespace MtbVisualizerTest
                 HttpContext = new DefaultHttpContext() { User = user }
             };
 
-            var result = controller.Index() as ViewResult;
+            //var result = controller.Index() as ViewResult;
+            var result = controller.Index() as RedirectToActionResult;
 
-            Assert.AreEqual("Index", result.ViewName);
+            Assert.AreEqual("Index", result.ActionName);
+            Assert.AreEqual("Map", result.ControllerName);
         }
 
         [TestMethod]
