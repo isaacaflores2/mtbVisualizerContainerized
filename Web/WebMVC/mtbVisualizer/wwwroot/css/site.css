@@ -1,9 +1,32 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/*CSS Resets and Bootstrap overrides
+-------------------------------------------------- */
 :root {
     --light-grey: #d9d9d9;
+    --valid-contrast-blue: #006FE6
 }
 
+a {
+    color: var(--valid-contrast-blue);
+}
+
+.btn-primary {
+    background-color: var(--valid-contrast-blue);
+}
+
+.text-info {
+    color: var(--valid-contrast-blue) !important;
+}
+
+.btn-link {
+    color: var(--valid-contrast-blue);
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: var(--valid-contrast-blue);
+}
+/*Navbar
+-------------------------------------------------- */
 a.navbar-brand {
     white-space: normal;
     text-align: center;
